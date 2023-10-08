@@ -90,7 +90,7 @@ $idanolectivo=mysqli_escape_string($conexao, $idanolectivo);
         <div>
             <div>
                 <figure>
-                    <img src="img/logo.png"> 
+                    <img src="img/'.$dadosdainstituicao["caminhodologo"].'"> 
                 </figure>
             </div>
                 <p style="font-size: 20px; margin-left:70px">

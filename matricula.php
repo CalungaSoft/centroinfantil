@@ -21,7 +21,7 @@ $idaluno=isset($_GET['idaluno'])?$_GET['idaluno']:"";
 $idaluno=mysqli_escape_string($conexao, $idaluno); 
 
  
-if(!($painellogado=="administrador" || $painellogado=="areapedagogica")){ 
+if(!($painellogado=="administrador" || $painellogado=="areapedagogica" || $painellogado=="secretaria1" || $painellogado=="secretaria2"  )){ 
 
     header('Location: login.php');
 }

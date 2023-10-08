@@ -96,7 +96,7 @@ include("cabecalho.php") ; ?>
             
 
    <div class="row">
-   <?php if($_SESSION['painel']=="administrador"){?>
+  
         <div class="col-xl-6 col-lg-6"></div> 
           <div class="col-xl-5 col-lg-6">
             <div class="card shadow mb-4">
@@ -168,7 +168,7 @@ include("cabecalho.php") ; ?>
                     </div>
             </div>
           </div>
-          <?php } ?>
+      
 </div> 
 
 

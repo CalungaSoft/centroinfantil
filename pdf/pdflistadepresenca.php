@@ -65,7 +65,7 @@ $painellogado=$_SESSION['painel'];
         <div>
             <div>
                 <figure>
-                    <img src="img/logo.png"> 
+                    <img src="img/'.$dadosdainstituicao["caminhodologo"].'"> 
                 </figure> 
             </div>
                 <p style="font-size: 36px; margin-left:70px"> <span style="text-transform: uppercase;"> '.$dadosdainstituicao["nome"].' </span> <br> 

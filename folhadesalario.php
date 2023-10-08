@@ -13,7 +13,11 @@ $nome = $_SESSION['nomedofuncionariologado'];
 $idlogado = $_SESSION['funcionariologado'];
 $nomelogado = $_SESSION['nomedofuncionariologado'];
 $painellogado = $_SESSION['painel'];
+ 
 
+if(!(  $painellogado=="secretaria2"  || $painellogado=="administrador")){
+  header('Location: login.php');
+}
 
 $mesdesalario = isset($_GET['mesdesalario']) ? $_GET['mesdesalario'] : "";
 $anodesalario = isset($_GET['anodesalario']) ? $_GET['anodesalario'] : "";
@@ -217,15 +221,12 @@ include("cabecalho.php"); ?>
               <th>Nº</th>
               <th>Nome Completo</th>
               <th>Cargo</th>
+              <th>Conta Bancária</th>
               <th>Salario Base</th>
               <th title="Salário actual do funcionáio">Salário/H</th>
               <th>Faltas</th>
               <th title="Valor das faltas">V. Faltas</th>
-              <th>Salário do Mês</th>
-
-              <th title="Subsídio de Férias">Subsídio F.</th>
-              <th title="Subsídio de Natal">Subsídio N.</th>
-              <th title="Abono de Família">Abono de F.</th>
+              <th>Salário do Mês</th> 
 
               <th title="total de horas extras durante o mês">Horas Extras</th>
               <th title="total em salário de horas extras durante o mês">Total Extras</th>
@@ -299,8 +300,12 @@ include("cabecalho.php"); ?>
 
               if ($mesdesalario == 12) {
 
-                $subsidiodeferias = $exibir['salario'] * 0.5;
-                $subsidiodenatal = $exibir['salario'] * 0.5;
+                $subsidiodeferias = 0;
+                $subsidiodenatal = 0;
+
+                // $subsidiodeferias = $exibir['salario'] * 0.5;
+                // $subsidiodenatal = $exibir['salario'] * 0.5;
+
               } else {
                 $subsidiodeferias = 0;
                 $subsidiodenatal = 0;
@@ -400,6 +405,7 @@ include("cabecalho.php"); ?>
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $cont; ?></td>
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><a href="funcionario.php?idfuncionario=<?php echo $exibir['idfuncionario']; ?>"><?php echo $exibir['nomedofuncionario']; ?></a></td>
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['categoria']; ?></td>
+                <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['contabancaria']; ?></td>
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php $n = number_format($exibir['salario'], 2, ",", ".");
                                                                         echo $n; ?></td>
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['salarioporhora']; ?></td>
@@ -407,13 +413,7 @@ include("cabecalho.php"); ?>
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php $n = number_format($valorFaltas, 2, ",", ".");
                                                                         echo $n; ?></td>
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php $n = number_format($salarioDoMes, 2, ",", ".");
-                                                                        echo $n; ?></td>
-                <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php $n = number_format($subsidiodeferias, 2, ",", ".");
-                                                                        echo $n; ?></td>
-                <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php $n = number_format($subsidiodenatal, 2, ",", ".");
-                                                                        echo $n; ?></td>
-                <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php $n = number_format(00, 2, ",", ".");
-                                                                        echo $n; ?></td>
+                                                                        echo $n; ?></td> 
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $horasextras; ?></td>
                 <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php $n = number_format($salariopelahorasextras, 2, ",", ".");
                                                                         echo $n; ?></td>
@@ -468,14 +468,12 @@ include("cabecalho.php"); ?>
               <th>Total</th>
               <th></th>
               <th></th>
+              <th></th>
               <th><?php echo $totalsalariobase; ?></th>
               <th><?php echo $totalsalarioporhora; ?></th>
               <th></th>
               <th><?php echo $totalvalorpelasfaltas; ?></th>
-              <th><?php echo $totalsalariodomes; ?></th>
-              <th><?php echo $totalsubsidiodeferias; ?></th>
-              <th><?php echo $totalsubsidiodenatal; ?></th>
-              <th><?php echo $totalabonodefamilia; ?></th>
+              <th><?php echo $totalsalariodomes; ?></th> 
               <th></th>
               <th><?php echo $totalsalariopelahorasextras; ?></th>
               <th><?php echo $totalsubsideodealimentacao; ?></th>

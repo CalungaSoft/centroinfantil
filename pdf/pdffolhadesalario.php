@@ -1,18 +1,29 @@
  
     <?php
     include("../conexao.php");
-
+    
+    session_start();
+    
+    $idlogado = $_SESSION['funcionariologado'];
+    $nomelogado = $_SESSION['nomedofuncionariologado'];
+    $painellogado = $_SESSION['painel'];
+     
 
     $mesdesalario = isset($_GET['mesdesalario']) ? $_GET['mesdesalario'] : "";
     $mesdesalario = mysqli_escape_string($conexao, $mesdesalario);
     $anodesalario = isset($_GET['anodesalario']) ? $_GET['anodesalario'] : "";
     $anodesalario = mysqli_escape_string($conexao, $anodesalario);
 
-    session_start();
 
     if (!isset($_SESSION['logado'])) :
         header('Location: login.php');
     endif;
+
+    if(!($painellogado=="secretaria2"  || $painellogado=="administrador")){
+        header('Location: login.php');
+      }
+
+
     $idcaixa = isset($_SESSION['idcaixa']);
 
     $dia = date('d');
@@ -60,11 +71,12 @@
         <div>
             <div>
                 <figure>
-                    <img src="img/logo.png"> 
+                    <img src="img/'.$dadosdainstituicao["caminhodologo"].'"> 
                 </figure>
             </div> 
+                    <center>
                 <p style="font-size: 36px; margin-left:70px"> <span style="text-transform: uppercase;"> ' . $dadosdainstituicao["nome"] . ' </span> <br> 
-                <span style="font-size: 11px; font-family: forte"> ' . $dadosdainstituicao["servicos"] . '  </span></p> 
+                <span style="font-size: 11px; font-family: forte"> ' . $dadosdainstituicao["servicos"] . '  </span></p> </center>
                 <hr><hr>
                
                     <span style="font-size: 15px; margin-left:30px"> |FOLHA DE SALÁRIO : ';
@@ -86,16 +98,13 @@
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>Nº</th>
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>Nome Completo</th>
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>Cargo</th>
+                        <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>Conta Bancária</th>
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>Salario Base</th>
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center title="Salário atual do funcionário">Salário/H</th>
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>Faltas</th>
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center title="Valor das faltas">V. Faltas</th>
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>Salário do Mês</th>
-            
-                        <th width="auto" style="border: 1px solid; border-spacing:0px" align=center title="Subsídio de Férias">Subsídio F.</th>
-                        <th width="auto" style="border: 1px solid; border-spacing:0px" align=center title="Subsídio de Natal">Subsídio N.</th>
-                        <th width="auto" style="border: 1px solid; border-spacing:0px" align=center title="Abono de Família">Abono de F.</th>
-            
+             
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center title="total de horas extras durante o mês">Horas Extras</th>
                         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center title="total em salário de horas extras durante o mês">Total Extras</th>
             
@@ -160,8 +169,13 @@
         $salarioDoMes = $exibir['salario'] - $valorFaltas;
 
         if ($mesdesalario == 12) {
-            $subsidiodeferias = $exibir['salario'] * 0.5;
-            $subsidiodenatal = $exibir['salario'] * 0.5;
+            
+            $subsidiodeferias = 0;
+            $subsidiodenatal = 0;
+
+            // $subsidiodeferias = $exibir['salario'] * 0.5;
+            // $subsidiodenatal = $exibir['salario'] * 0.5;
+
         } else {
             $subsidiodeferias = 0;
             $subsidiodenatal = 0;
@@ -251,14 +265,12 @@
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $cont . '</td>
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $primeiroEUltimoNome . '</td>
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $exibir['categoria'] . '</td>
+            <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $exibir['contabancaria'] . '</td>
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format($exibir['salario'], 2, ",", ".") . '</td>
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $exibir['salarioporhora'] . '</td>
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $numerodefaltas . '</td>
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format($valorFaltas, 2, ",", ".") . '</td>
-            <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format($salarioDoMes, 2, ",", ".") . '</td>
-            <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format($subsidiodeferias, 2, ",", ".") . '</td>
-            <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format($subsidiodenatal, 2, ",", ".") . '</td>
-            <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format(00, 2, ",", ".") . '</td>
+            <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format($salarioDoMes, 2, ",", ".") . '</td> 
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $horasextras . '</td>
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format($salariopelahorasextras, 2, ",", ".") . '</td>
             <td width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . number_format($exibir['subsideodealimentacao'], 2, ",", ".") . '</td>
@@ -300,14 +312,12 @@
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>Total</th>
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center></th>
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center></th>
+         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center></th>
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalsalariobase . '</th>
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalsalarioporhora . '</th>
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center></th>
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalvalorpelasfaltas . '</th>
-         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalsalariodomes . '</th>
-         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalsubsidiodeferias . '</th>
-         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalsubsidiodenatal . '</th>
-         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalabonodefamilia . '</th>
+         <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalsalariodomes . '</th> 
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center></th>
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalsalariopelahorasextras . '</th>
          <th width="auto" style="border: 1px solid; border-spacing:0px" align=center>' . $totalsubsideodealimentacao . '</th>
@@ -341,7 +351,7 @@
     $gerador->render();
 
     $gerador->stream(
-        "relatorio.pdf",
+        "folhadesalario $mesdesalario de $anodesalario .pdf",
         array(
             "attachment" => true
         )

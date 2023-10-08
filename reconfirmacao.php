@@ -20,7 +20,7 @@ $erros=[];
 $idmatriculaeconfirmacao=isset($_GET['idmatriculaeconfirmacao'])?$_GET['idmatriculaeconfirmacao']:"";
 $idmatriculaeconfirmacao=mysqli_escape_string($conexao, $idmatriculaeconfirmacao); 
 
-if(!($painellogado=="administrador" || $painellogado=="areapedagogica")){ 
+if(!($painellogado=="administrador" || $painellogado=="areapedagogica" ||  $painellogado=="secretaria1" ||  $painellogado=="secretaria2")){ 
 
     header('Location: login.php');
 }

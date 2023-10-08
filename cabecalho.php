@@ -134,14 +134,12 @@
             </a>
             <div id="atendimento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Tipo de Atendimento:</h6>
-                 <?php if($painellogado=="administrador" || $painellogado=="areapedagogica"){ ?>
+                <h6 class="collapse-header">Tipo de Atendimento:</h6> 
                 <a class="collapse-item" href="cadastraraluno.php" title="Novos alunos com registro de finança">Matrícula</a>
                 <a class="collapse-item" href="escolheralunoatl.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula no ATL</a>  
                 <a class="collapse-item" href="escolheralunotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula no Transporte</a>  
                 <a class="collapse-item" href="escolheraluno.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="Alunos já cadastrados no sistema em anos lectivos passados">Confirmação</a>  
-                
-                 <?php } ?>
+                 
                   <?php if($painellogado!="areapedagogica"){ ?>
                 <a class="collapse-item" href="pagarpropina.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina</a> 
                 <a class="collapse-item" href="pagarpropinadoatl.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina ATL</a> 
