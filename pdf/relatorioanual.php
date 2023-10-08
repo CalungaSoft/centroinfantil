@@ -238,9 +238,9 @@ $datafim="$anofim-$mesfim-31";
                 <figure>
                     <img src="img/'.$dadosdainstituicao["caminhodologo"].'"> 
                 </figure>
-            </div>
+            </div><center>
                 <p style="font-size: 36px; margin-left:70px"> <span style="text-transform: uppercase;"> '.$dadosdainstituicao["nome"].' </span> <br> 
-                <span style="font-size: 18px; font-family: forte">'.$dadosdainstituicao["servicos"].'  </span></p> 
+                <span style="font-size: 18px; font-family: forte">'.$dadosdainstituicao["servicos"].'  </span></p> </center>
                 <hr><hr>
                
                     <span style="font-size: 15px; margin-left:30px"> |Fluxo de Caixa Anual: '.$anolectivo.'  </span>

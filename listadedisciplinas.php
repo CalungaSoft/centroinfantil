@@ -40,6 +40,8 @@ if(isset($_POST['cadastrar'])){
       $idturma2=mysqli_escape_string($conexao,$_POST['idturma2']);
       $idturma3=mysqli_escape_string($conexao,$_POST['idturma3']);
        
+      $salarioportempo = mysqli_escape_string($conexao, $_POST['salarioportempo']);
+      $salarioportempoauxiliar = mysqli_escape_string($conexao, $_POST['salarioportempoauxiliar']);
 
 
 
@@ -50,7 +52,7 @@ if(isset($_POST['cadastrar'])){
 
                 if($existe==0){
 
-                      $salvar= mysqli_query($conexao,"INSERT INTO `disciplinas` (`iddisciplina`, `idprofessor`, `idprofessorauxiliar`, `idtipodedisciplina`, `titulo`, `abreviatura`, `idturma`, `idanolectivo`, `tipodedisciplina`, `agrupamento`, `obs`) VALUES (NULL, '$idprofessor', '$idprofessorauxiliar', '$idtipodedisciplina', '$titulo', '$abreviatura', '$idturma', '$idanolectivo', '$tipodedisciplina', '$agrupamento', 'obs')");
+                      $salvar= mysqli_query($conexao,"INSERT INTO `disciplinas` (`iddisciplina`, `idprofessor`, `idprofessorauxiliar`, `idtipodedisciplina`, `titulo`, `abreviatura`, `idturma`, `idanolectivo`, `tipodedisciplina`, `agrupamento`, `obs`,`salarioportempo`,`salarioportempoauxiliar`) VALUES (NULL, '$idprofessor', '$idprofessorauxiliar', '$idtipodedisciplina', '$titulo', '$abreviatura', '$idturma', '$idanolectivo', '$tipodedisciplina', '$agrupamento', '$obs','$salarioportempo','$salarioportempoauxiliar')");
                        
                      if($salvar){
 
@@ -84,7 +86,7 @@ if(isset($_POST['cadastrar'])){
 
                         if($existe==0){
 
-                              $salvar= mysqli_query($conexao,"INSERT INTO `disciplinas` (`iddisciplina`, `idprofessor`, `idprofessorauxiliar`, `idtipodedisciplina`, `titulo`, `abreviatura`, `idturma`, `idanolectivo`, `tipodedisciplina`, `agrupamento`, `obs`) VALUES (NULL, '$idprofessor', '$idprofessorauxiliar', '$idtipodedisciplina', '$titulo', '$abreviatura', '$idturma2', '$idanolectivo', '$tipodedisciplina', '$agrupamento', 'obs')");
+                              $salvar= mysqli_query($conexao,"INSERT INTO `disciplinas` (`iddisciplina`, `idprofessor`, `idprofessorauxiliar`, `idtipodedisciplina`, `titulo`, `abreviatura`, `idturma`, `idanolectivo`, `tipodedisciplina`, `agrupamento`, `obs`,`salarioportempo`,`salarioportempoauxiliar`) VALUES (NULL, '$idprofessor', '$idprofessorauxiliar', '$idtipodedisciplina', '$titulo', '$abreviatura', '$idturma2', '$idanolectivo', '$tipodedisciplina', '$agrupamento', '$obs','$salarioportempo','$salarioportempoauxiliar')");
                                
                              if($salvar){
 
@@ -127,7 +129,7 @@ if(isset($_POST['cadastrar'])){
                     
                         if($existe==0){
 
-                              $salvar= mysqli_query($conexao,"INSERT INTO `disciplinas` (`iddisciplina`, `idprofessor`, `idprofessorauxiliar`, `idtipodedisciplina`, `titulo`, `abreviatura`, `idturma`, `idanolectivo`, `tipodedisciplina`, `agrupamento`, `obs`) VALUES (NULL, '$idprofessor', '$idprofessorauxiliar', '$idtipodedisciplina', '$titulo', '$abreviatura', '$idturma3', '$idanolectivo', '$tipodedisciplina', '$agrupamento', 'obs')");
+                              $salvar= mysqli_query($conexao,"INSERT INTO `disciplinas` (`iddisciplina`, `idprofessor`, `idprofessorauxiliar`, `idtipodedisciplina`, `titulo`, `abreviatura`, `idturma`, `idanolectivo`, `tipodedisciplina`, `agrupamento`, `obs`, salarioportempo,salarioportempoauxiliar) VALUES (NULL, '$idprofessor', '$idprofessorauxiliar', '$idtipodedisciplina', '$titulo', '$abreviatura', '$idturma3', '$idanolectivo', '$tipodedisciplina', '$agrupamento', '$obs','$salarioportempo','$salarioportempoauxiliar')");
                                
                              if($salvar){
 

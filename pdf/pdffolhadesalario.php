@@ -66,7 +66,7 @@
 
     $gerador = new DOMPDF();
     $htm = '  
-        <style>  #centro{text-align: center;} figure {margin-top:-45px; margin-left:-30px; float: left; position:relative} body {font-size: 12px; color:#000; font-family:Arial; font-family:Arial; }</style> 
+        <style>  #centro{text-align: center;} figure {margin-top:-45px; margin-left:-10px; float: left; position:relative} body {font-size: 12px; color:#000; font-family:Arial; font-family:Arial; }</style> 
       
         <div>
             <div>

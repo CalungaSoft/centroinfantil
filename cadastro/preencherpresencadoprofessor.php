@@ -24,7 +24,7 @@ $painellogado=$_SESSION['painel'];
     $dia=mysqli_escape_string($conexao,$_POST['dia']);
     $iddisciplina=mysqli_escape_string($conexao,$_POST['iddisciplina']);
     $tempos=mysqli_escape_string($conexao,$_POST['tempos']);  
-    $salario_portempo=mysqli_escape_string($conexao,$_POST['salario_portempo']); 
+    $salario_portempo=mysqli_fetch_array(mysqli_query($conexao,"SELECT salarioportempo FROM disciplinas where iddisciplina='$iddisciplina'"))[0];
     $auxiliar=mysqli_escape_string($conexao,$_POST['auxiliar']); 
 
 
@@ -35,7 +35,7 @@ $painellogado=$_SESSION['painel'];
     }else{
 
           $idfuncionario=mysqli_fetch_array(mysqli_query($conexao,"SELECT idprofessorauxiliar FROM disciplinas where iddisciplina='$iddisciplina'"))[0]; 
-         
+          $salario_portempo=mysqli_fetch_array(mysqli_query($conexao,"SELECT salarioportempoauxiliar FROM disciplinas where iddisciplina='$iddisciplina'"))[0];
     }
      
 

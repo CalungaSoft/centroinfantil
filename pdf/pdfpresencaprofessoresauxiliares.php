@@ -71,7 +71,7 @@ $dia=date('d');
                 <span style="font-size: 22px; font-family: forte"> '.$dadosdainstituicao["servicos"].'  </span></p> </center>
                 <hr><hr>
                
-                    <span style="font-size: 15px; margin-left:30px"> |Presença Mensal dos Professores: '.$mesdevenda.' / '.$anodevenda.'</span>
+                    <span style="font-size: 15px; margin-left:30px"> |Presença Mensal dos Professores Auxiliares: '.$mesdevenda.' / '.$anodevenda.'</span>
             <br> <br> <br> ';
          
 
@@ -103,11 +103,11 @@ $dia=date('d');
 
                   ';
 
-                  $listadefuncionários=mysqli_query($conexao,"SELECT disciplinas.idturma, disciplinas.salarioportempo, disciplinas.idprofessor, disciplinas.titulo, disciplinas.iddisciplina, funcionarios.nomedofuncionario FROM funcionarios, disciplinas where (funcionarios.idfuncionario=disciplinas.idprofessor) and idanolectivo='$idanolectivo' order by funcionarios.nomedofuncionario");
+                  $listadefuncionários=mysqli_query($conexao,"SELECT disciplinas.idturma, disciplinas.salarioportempoauxiliar, disciplinas.idprofessorauxiliar, disciplinas.titulo, disciplinas.iddisciplina, funcionarios.nomedofuncionario FROM funcionarios, disciplinas where (funcionarios.idfuncionario=disciplinas.idprofessorauxiliar) and idanolectivo='$idanolectivo' order by funcionarios.nomedofuncionario");
                   $salariodetodos=0; 
                    while($exibir = $listadefuncionários->fetch_array()){ 
 
-                     $idfuncionario=$exibir['idprofessor'];
+                     $idfuncionario=$exibir['idprofessorauxiliar'];
                      $iddisciplina=$exibir['iddisciplina'];
                      
                      $salariototal=0; 
@@ -123,7 +123,7 @@ $dia=date('d');
  
                       <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$turma.'</td> 
                       <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$exibir['titulo'].'</td> 
-                      <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$exibir['salarioportempo'].'</td>';
+                      <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$exibir['salarioportempoauxiliar'].'</td>';
 
                        for ($i=1; $i <=$totaldedias; $i++) { 
 
@@ -210,7 +210,7 @@ $dia=date('d');
         $gerador->render();
     
         $gerador->stream(
-            "Presenca de ".$mesdevenda." - ".$anodevenda." | CalungaSoft.pdf",
+            "Presenca de ".$mesdevenda." - ".$anodevenda." Professores Auxiliares | CalungaSoft.pdf",
             array(
                 "attachment" => true
             )

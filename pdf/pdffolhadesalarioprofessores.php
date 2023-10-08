@@ -59,16 +59,16 @@ $dia=date('d');
 
         $gerador=new DOMPDF(); 
         $htm=' 
-        <style>  #centro{text-align: center;} figure {margin-top:-45px; margin-left:-30px; float: left; position:relative} body {font-size: 12px; color:#000; font-family:Arial; font-family:Arial; }</style> 
+        <style>  #centro{text-align: center;} figure {margin-top:-45px; margin-left:-10px; float: left; position:relative} body {font-size: 12px; color:#000; font-family:Arial; font-family:Arial; }</style> 
       
         <div>
             <div>
                 <figure>
                     <img src="img/'.$dadosdainstituicao["caminhodologo"].'"> 
                 </figure>
-            </div>
+            </div><center>
                 <p style="font-size: 36px; margin-left:70px"> <span style="text-transform: uppercase;"> '.$dadosdainstituicao["nome"].' </span> <br> 
-                <span style="font-size: 22px; font-family: forte"> '.$dadosdainstituicao["servicos"].'  </span></p> 
+                <span style="font-size: 22px; font-family: forte"> '.$dadosdainstituicao["servicos"].'  </span></p> </center>
                 <hr><hr>
                
                     <span style="font-size: 15px; margin-left:30px"> |Presença Mensal dos Professores: '.$mesdevenda.' / '.$anodevenda.'</span>
@@ -153,7 +153,10 @@ $dia=date('d');
                       <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$salario_base_f.'</td>
                       <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$numero_de_dias.'</td>
                       <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$total_de_tempos.'</td>
-                      <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$salario_acumulado_F.'</td>';
+                      <td  width="auto" style="border: 1px solid; border-spacing:0px">'.$salario_acumulado_F.'</td>
+                      
+                      </tr>
+                      ';
 
 
  
@@ -161,9 +164,9 @@ $dia=date('d');
 
                      $htm.='
 
-                     </tr>
+                     
 
-                     </tbody>'; } 
+                     </tbody>';   
 
 
 

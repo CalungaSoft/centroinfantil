@@ -30,9 +30,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
   $datafim=mysqli_escape_string($conexao, $_POST['datafim']); 
   $datafimexame=mysqli_escape_string($conexao, $_POST['datafimexame']); 
   $diadamulta=mysqli_escape_string($conexao, $_POST['diadamulta']); 
-  $precodamulta=mysqli_escape_string($conexao, $_POST['precodamulta']);
-  $salarioportempo=mysqli_escape_string($conexao, $_POST['salarioportempo']);
-  $salarioportempoauxiliar=mysqli_escape_string($conexao, $_POST['salarioportempoauxiliar']);
+  $precodamulta=mysqli_escape_string($conexao, $_POST['precodamulta']); 
   
   if(mysqli_num_rows(mysqli_query($conexao," SELECT * FROM anoslectivos where titulo='$titulo' and idanolectivo!='$idanolectivo'"))==0){ 
  
@@ -43,7 +41,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
   
 
 
-    $salvar= mysqli_query($conexao,"UPDATE `anoslectivos` SET titulo='$titulo', vigor='$vigor', posicao='$posicao', precodafalta='$precodafalta', datainicio='$datainicio', datafim='$datafim', datafimexame='$datafimexame', diadamulta='$diadamulta', precodamulta='$precodamulta', salarioportempo='$salarioportempo', salarioportempoauxiliar='$salarioportempoauxiliar'  WHERE `anoslectivos`.`idanolectivo` = '$idanolectivo'");
+    $salvar= mysqli_query($conexao,"UPDATE `anoslectivos` SET titulo='$titulo', vigor='$vigor', posicao='$posicao', precodafalta='$precodafalta', datainicio='$datainicio', datafim='$datafim', datafimexame='$datafimexame', diadamulta='$diadamulta', precodamulta='$precodamulta'  WHERE `anoslectivos`.`idanolectivo` = '$idanolectivo'");
 
     
     if($salvar){
@@ -196,18 +194,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
                                                           <label>Preço da Multa</label>
                                                         <input type="number" name="precodamulta" min="0" max="500000" step="any" class="form-control"  value="<?php echo $dadosdoanolectivo["precodamulta"] ; ?>">
                                                       </div> 
-
-
-                                                       <div class="form-group">
-                                                          <label>Salário Por Tempo para Professores</label>
-                                                        <input type="number" min="0" max="500000" step="any" name="salarioportempo" class="form-control"  value="<?php echo $dadosdoanolectivo["salarioportempo"] ; ?>">
-                                                      </div> 
-
-
-                                                       <div class="form-group">
-                                                          <label>Salário Por Tempo para Professores Auxiliares</label>
-                                                        <input type="number" min="0" max="500000" step="any" name="salarioportempoauxiliar" class="form-control"  value="<?php echo $dadosdoanolectivo["salarioportempoauxiliar"] ; ?>">
-                                                      </div> 
+ 
 
 
                                                       <div class="form-group">
@@ -254,9 +241,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
                                                 Preço da Falta: <strong> <?php echo $dadosdoanolectivo["precodafalta"]; ?> </strong><br>
                                                    Dias para cobranças de Multa: <strong> <?php echo $dadosdoanolectivo["diadamulta"]; ?> </strong><br>
                                                    Preço da Multa: <strong> <?php echo $dadosdoanolectivo["precodamulta"]; ?> </strong><br>
-                                                   Salário/tempo professores: <strong> <?php echo $dadosdoanolectivo["salarioportempo"]; ?> </strong><br>
-                                                   Salário/tempo professores Auxiliares: <strong> <?php echo $dadosdoanolectivo["salarioportempoauxiliar"]; ?> </strong><br>
-
+                                           
                                                  <?php } ?>
 
 

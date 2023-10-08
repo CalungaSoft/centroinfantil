@@ -4,4 +4,6 @@ caminfodafoto - funcionarios
 
 ALTER TABLE `funcionarios` ADD `subsideodealimentacao` DOUBLE NULL DEFAULT '0' AFTER `caminhodafoto`, ADD `subsideodetransporte` DOUBLE NULL DEFAULT '0' AFTER `subsideodealimentacao`;
 ALTER TABLE `dadosdaempresa` ADD `caminhodologo` VARCHAR(222) NULL AFTER `nomedodireitor`;
-
+ALTER TABLE `disciplinas` ADD `salarioportempo` DOUBLE NOT NULL DEFAULT '700' AFTER `estatus`;
+ALTER TABLE `disciplinas` ADD `salarioportempoauxiliar` DOUBLE NOT NULL DEFAULT '500' AFTER `salarioportempo`;
+ALTER TABLE `anoslectivos` DROP `salarioportempo`, DROP `salarioportempoauxiliar`;

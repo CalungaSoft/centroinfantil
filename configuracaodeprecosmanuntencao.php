@@ -21,7 +21,7 @@ if (isset($_FILES['novo_logo'])) {
   $file_name = $_FILES['novo_logo']['name'];
   $file_temp = $_FILES['novo_logo']['tmp_name'];
   $file_size = $_FILES['novo_logo']['size'];
-  $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif'); // Extensões permitidas
+  $allowed_extensions = array('jpg', 'jpeg'); // Extensões permitidas
 
   // Verifique o tamanho máximo (por exemplo, 2MB)
   $max_size = 10 * 1024 * 1024; // 2MB em bytes
@@ -48,7 +48,7 @@ if (isset($_FILES['novo_logo'])) {
       $erros[] = "Erro ao fazer o upload do Logotipo.";
     }
   } else {
-    $erros[] = "O arquivo não é válido. Certifique-se de que seja uma imagem (jpg, jpeg, png ou gif) e não exceda 2MB de tamanho.";
+    $erros[] = "O arquivo não é válido. Certifique-se de que seja uma imagem (jpg, jpeg), não exceda 10MB de tamanho e as dimensões ideis são 130x100";
   }
 }
 
@@ -184,7 +184,7 @@ include("cabecalho.php"); ?>
         
         <br>
         <br>
-        
+
         <button id="myBtnfoto" class="btn btn-primary">Ver ou alterar logotipo</button>
 
 
