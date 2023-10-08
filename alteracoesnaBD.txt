@@ -1,0 +1,5 @@
+
+caminfodafoto - alunos
+caminfodafoto - funcionarios
+
+ALTER TABLE `funcionarios` ADD `subsideodealimentacao` DOUBLE NULL DEFAULT '0' AFTER `caminhodafoto`, ADD `subsideodetransporte` DOUBLE NULL DEFAULT '0' AFTER `subsideodealimentacao`;
