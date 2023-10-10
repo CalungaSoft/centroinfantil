@@ -23,12 +23,15 @@ if(isset($_POST["id"])){
 $idmatriculaeconfirmacao=isset($_POST['id'])?$_POST['id']:"";
 $idmatriculaeconfirmacao=mysqli_escape_string($conexao, $idmatriculaeconfirmacao); 
 
-   $dadoslectivos_confirmacao=mysqli_fetch_array(mysqli_query($conexao, "SELECT YEAR(matriculaseconfirmacoes.ultimomespago) as ano, MONTH(matriculaseconfirmacoes.ultimomespago) as mes, matriculaseconfirmacoes.* from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' limit 1"));
+   $dadoslectivos_confirmacao=mysqli_fetch_array(mysqli_query($conexao, "SELECT YEAR(matriculaseconfirmacoes.data) as anoEntrada, MONTH(matriculaseconfirmacoes.data) as mesEntrada, YEAR(matriculaseconfirmacoes.ultimomespago) as ano, MONTH(matriculaseconfirmacoes.ultimomespago) as mes, matriculaseconfirmacoes.* from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' limit 1"));
 
       $idaluno=$dadoslectivos_confirmacao['idaluno'];
       $idanolectivo=$dadoslectivos_confirmacao['idanolectivo'];
       $idturma=$dadoslectivos_confirmacao['idturma'];
       $descontoparapropinas=$dadoslectivos_confirmacao['descontoparapropinas'];
+
+      $anoEntrada=$dadoslectivos_confirmacao['anoEntrada'];
+      $mesEntrada=$dadoslectivos_confirmacao['mesEntrada'];
 
     $Dados_do_aluno=mysqli_fetch_array(mysqli_query($conexao, "select * from alunos where idaluno='$idaluno' order by idaluno desc limit 1"));
 
@@ -40,6 +43,21 @@ $dados_do_anolectivo=mysqli_fetch_array(mysqli_query($conexao, "select * from an
    $titulo_do_ano_lectivo=$dados_do_anolectivo["titulo"];
    $precodamulta=$dados_do_anolectivo["precodamulta"]; 
    $diadamulta=$dados_do_anolectivo["diadamulta"];
+  
+    // Função para verificar se o valor é percentual
+    // Função para calcular o novo valor da multa com base no valor percentual ou exato
+    function calcularMulta($valorPropina, $multa) {
+        if (strpos($multa, '%') !== false) {
+            return $valorPropina * floatval(str_replace('%', '', $multa)) / 100;
+        } else {
+            return floatval($multa);
+        }
+    }
+
+  
+   
+
+
  
    $anoactual=date('Y');
    $mesactual=date('m');
@@ -49,11 +67,6 @@ $numero_de_meses_pagos=mysqli_num_rows(mysqli_query($conexao, "select * from pro
     
     
 
- $datadecontagem=date('Y-m-d'); 
- $diassemmultas=date('Y-m-d', strtotime('+'.$diadamulta.' DAYS', strtotime($datadecontagem)));
-
- 
- $prazodepagamento=date('Y-m-d', strtotime('-'.$diadamulta.' DAYS', strtotime($datadecontagem)));
  
 $html="";
           
@@ -132,6 +145,33 @@ $html="";
                         }
                     } 
                     
+                    
+ $datadecontagem="$proximo_pagamento_ano-$proximo_pagamento_mes-00"; 
+ 
+ $diassemmultas=date('Y-m-d', strtotime('+'.$diadamulta.' DAYS', strtotime($datadecontagem)));
+
+ 
+ $prazodepagamento=date('Y-m-d', strtotime('-'.$diadamulta.' DAYS', strtotime($datadecontagem)));
+
+$dataDeHoje=date('Y-m-d');
+
+ 
+
+if ($dataDeHoje > $diassemmultas) {
+   
+    $multa = calcularMulta($preco_da_propina, $precodamulta);
+ 
+} else {
+
+    $multa = 0;
+}
+
+if ($numero_de_meses_pagos==0) {
+    $multa =0;
+} 
+ 
+
+$valorAPagarPropina=$preco_da_propina+$multa;
 
     $html.='
     
@@ -152,7 +192,7 @@ $html="";
            <input type="hidden" id="diassemmultas"  value="'.$diassemmultas.'">
            <input type="hidden" id="precodamulta"  value="'.$precodamulta.'">
 
-           <input type="hidden" id="prazodepagamento"  value="'.$prazodepagamento.'">
+           <input type="hidden" id="prazodepagamento"  value="'.$diassemmultas.'">
 
            </div>
 
@@ -166,7 +206,7 @@ $html="";
                     <div class="form-group row">
                         <div class="col-sm-6"> 
                          
-                         <input  type="hidden" id="mesescolhido" min="2010" max="2100" class="form-control"   placeholder="Ano" value="'.$proximo_pagamento_mes.'" name="mes">
+                         <input  type="hidden" id="mesescolhido" min="2018" max="2100" class="form-control"   placeholder="Ano" value="'.$proximo_pagamento_mes.'" name="mes">
 
                           <select  '; if($numero_de_meses_pagos!=0){ $html.='disabled'; }else { $html.=''; } $html.=' name="mes" class="form-control">
                           <option '; if($proximo_pagamento_mes==1) {  $html.=' selected="" '; } $html.=' value="01">Janeiro</option>
@@ -186,7 +226,7 @@ $html="";
                         </div>  
                         <div class="col-sm-6">  
 
-                             <input  type="hidden" id="anoescolhido" min="2010" max="2100" class="form-control"   placeholder="Ano" value="'.$proximo_pagamento_ano.'" name="ano" >
+                             <input  type="hidden" id="anoescolhido" min="2015" max="2100" class="form-control"   placeholder="Ano" value="'.$proximo_pagamento_ano.'" name="ano" >
 
                       <input type="number" '; if($numero_de_meses_pagos!=0){ $html.='disabled'; }else { $html.=''; } $html.='  name="ano" min="2010"  max="2100" class="form-control"   placeholder="Ano" value="'.$proximo_pagamento_ano.'" >
                               
@@ -202,8 +242,8 @@ $html="";
                                 <input type="number" min="0" step="any" name="preco" id="preco" class="form-control " value="'.$preco_da_propina.'" > 
                         </div>
                         <div class="col-sm-6"> 
-                        <span>Multa</span>
-                             <input type="number" min="0" step="any"  name="multa" id="multa" min="0"  class="form-control " value="0"> 
+                        <span>Multa '; if($numero_de_meses_pagos!=0){ $html.='(+'.$precodamulta.'  se passar a data '.$diassemmultas.')'; } $html.=' </span>
+                             <input type="text" min="0" step="any"  name="multa" id="multa" min="0"  class="form-control " value="'.$multa.'"> 
                         </div>  
                     </div>
 
@@ -211,32 +251,33 @@ $html="";
                         <div class="col-sm-6"> 
                         <span>Desconto</span>
                              <input type="number" min="0" step="any" name="desconto" id="desconto" min="0"  class="form-control " value="'.$descontoparapropinas.'"> 
-                             <span id="erro"></span>
+                           
                         </div> 
                         <div class="col-sm-6">  
 
                            <span>Valor Pago</span>
-                             <input type="number" min="0" step="any" name="valorpago" id="valorpago" min="0"  class="form-control " value="'.$preco_da_propina.'"> 
-                             <span id="erro"></span> 
+                             <input type="number" min="0" step="any" name="valorpago" id="valorpago" min="0"  class="form-control " value="'.$valorAPagarPropina.'"> 
+                             
                               
                       
                         </div> 
  
                     </div>
+                    
+                    <div class="alert alert-danger" id="erro" style="display: none;"></div>
+
 
                      <div class="form-group row">
                         <div class="col-sm-6"> 
                         <span>Referência de Pagamento</span>
                              <input type="text"  name="referencia"  class="form-control " placeholder="Insira o Código do Borderom"> 
-                             <span id="erro"></span>
+                             
                         </div> 
                         <div class="col-sm-6">  
 
                            <span>Data de Depósito</span>
                              <input type="text"  name="datadedeposito" class="form-control  js-datepicker" placeholder="Data de Depósito" > 
-                             <span id="erro"></span> 
-                              
-                      
+                           
                         </div> 
  
                     </div>
@@ -278,224 +319,79 @@ $html="";
 
 
 
+                     <script>
+                        var valorpago = document.getElementById("valorpago");
+                        var preco = document.getElementById("preco");
+                        var multa = document.getElementById("multa");
+                        var desconto = document.getElementById("desconto");
+                        var erro = document.getElementById("erro");
 
-                       <script>
+                        // Função para formatar números como "2.000,00"
+                        function formatarNumero(numero) {
+                            return numero.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+                        }
 
-                            var valorpago=document.getElementById("valorpago");
-                            var preco=document.getElementById("preco");
-                            var multa=document.getElementById("multa");
-                            var desconto=document.getElementById("desconto");
-                            var erro=document.getElementById("erro");
- 
-                              var preco1=parseFloat(preco.value);
-                              var multa1=parseFloat(multa.value);
-                              var desconto1=parseFloat(desconto.value);
+                        function calcularValorPago() {
+                            var preco1 = parseFloat(preco.value);
+                            var multaValue = multa.value.trim();
+                            var desconto1 = parseFloat(desconto.value) || 0;
+                            var preco_com_multa;
 
-                              var preco_com_multa=parseFloat(preco1+multa1);
-                              valorpago.value=parseFloat(preco_com_multa-desconto1);
-                                   
-                                   erro.innerHTML=""; 
+                            if (multaValue.endsWith("%")) {
+                            // Se o valor da multa termina com "%", considera como valor percentual
+                            var multaPercentual = parseFloat(multaValue) / 100;
+                            preco_com_multa = preco1 + (preco1 * multaPercentual);
+                            } else {
+                            // Caso contrário, considera como um valor exato
+                            var multa1 = parseFloat(multaValue);
+                            preco_com_multa = preco1 + multa1;
+                            }
 
-                           desconto.addEventListener("input", function(){
+                            valorpago.value = preco_com_multa - desconto1;
+                            
+                            erro.innerHTML = ""; // Limpar a mensagem de erro
+                            erro.style.display = "none"; // Ocultar a mensagem de erro
+                        }
 
-                              var preco1=parseFloat(preco.value);
-                              var multa1=parseFloat(multa.value);
-                              var desconto1=parseFloat(desconto.value);
+                        function verificarPagamento() {
+                            var valorPagoFloat = parseFloat(valorpago.value);
+                            var precoFloat = parseFloat(preco.value);
+                            var descontoFloat = parseFloat(desconto.value) || 0;
+                            
+                            var multaValue = multa.value.trim(); 
+                        
+                            if (multaValue.endsWith("%")) {
+                              // Se o valor da multa termina com "%", considera como valor percentual
+                              var multaPercentual = parseFloat(multaValue) / 100;
+                              precoComMultaFloat =precoFloat+ precoFloat * multaPercentual - descontoFloat;
+                            } else {
+                              // Caso contrário, considera como um valor exato
+                              var multa1 = parseFloat(multaValue);
+                              precoComMultaFloat = precoFloat+multa1 - descontoFloat;
+                            }
+                        
+                            if (valorPagoFloat === "" || isNaN(valorPagoFloat)) {
+                                erro.innerHTML = "Digite um valor válido no campo de pagamento.";
+                                erro.style.display = "block"; // Exibir a mensagem de erro
+                            } else if (valorPagoFloat < precoComMultaFloat) {
+                                erro.innerHTML = "O Estudante Ficou devendo " + formatarNumero(precoComMultaFloat - valorPagoFloat);
+                                erro.style.display = "block"; // Exibir a mensagem de erro
+                            } else if (valorPagoFloat > precoComMultaFloat) {
+                                erro.innerHTML = "O Estudante pagou a mais " + formatarNumero(valorPagoFloat - precoComMultaFloat);
+                                erro.style.display = "block"; // Exibir a mensagem de erro
+                            } else {
+                                erro.innerHTML = ""; // Limpar a mensagem de erro
+                                erro.style.display = "none"; // Ocultar a mensagem de erro
+                            }
+                        }
+                        
 
- 								              var preco_com_multa=parseFloat(preco1+multa1);
-                              valorpago.value=parseFloat(preco_com_multa-desconto1);
-                                   
-                                   erro.innerHTML="";  
-           
-                          })
-
-
-                           preco.addEventListener("input", function(){
-
-                                  var preco1=parseFloat(preco.value);
-                              var multa1=parseFloat(multa.value);
-                              var desconto1=parseFloat(desconto.value);
-
-                              var preco_com_multa=parseFloat(preco1+multa1);
-                              valorpago.value=parseFloat(preco_com_multa-desconto1);
-                                   
-                                   erro.innerHTML=""; 
-           
-                          })
-
-
-                           multa.addEventListener("input", function(){
-
-                                
-                                    var preco1=parseFloat(preco.value);
-                              var multa1=parseFloat(multa.value);
-                              var desconto1=parseFloat(desconto.value);
-
-                              var preco_com_multa=parseFloat(preco1+multa1);
-                              valorpago.value=parseFloat(preco_com_multa-desconto1);
-                                   
-                                   erro.innerHTML=""; 
-           
-                          })
-
-
-                           valorpago.addEventListener("input", function(){
-    
-                              var preco1=parseFloat(preco.value);
-                              var multa1=parseFloat(multa.value);
-                              var desconto1=parseFloat(desconto.value);
-                              var valorpago1=parseFloat(valorpago.value);
-
-                              var preco_com_multa=parseFloat(preco1+multa1); 
-                                   
-                                   erro.innerHTML=""; 
-                                     var divida=parseFloat(preco_com_multa-desconto1-valorpago1);
-
-                                      
-                                       if(divida<0){
-                                        divida=divida*(-1);
-
-                                        ';
-
-                                        $html.="
-
-                                        erro.innerHTML='<div class=alert alert-danger>O Aluno Pagou '+divida+' amais</div>' "; 
-                                        $html.="
-                                     }else if(divida>0){
-
-                                       erro.innerHTML='<div class=alert alert-danger>O Aluno Ficou devendo '+divida+' </div>' "; 
-                                    $html.="
-
-                                      }else {
-
-                                         erro.innerHTML='' ";
-
-                                     $html.=' }
-
-                                      
-
-                                   
-           
-                          })
-
-                     
-      
-                                    var prazodepagamento=document.getElementById("prazodepagamento");
-                                 var prazodepagamento=prazodepagamento.value;
-                                    var mesapagar=mesescolhido.options[mesescolhido.selectedIndex].value 
-                                    var anoapagar=anoescolhido.value;
-
-                                  
-                                    var datadehoje=new Date();
-                                    var diaactual=String(datadehoje.getDate()).padStart(2,"0");
- 
-                                     var mesdehoje=String(datadehoje.getMonth()+1).padStart(2,"0");
-                                     var anodehoje=datadehoje.getFullYear();
-
-                                     var datadapropina=anoapagar+"-"+mesapagar+"-"+"01";
-                                     var datadehoje=anodehoje+"-"+mesdehoje+"-"+diaactual;
-                                    
-                                     var datasemmulta=diassemmultas.value;
-                                     var valordamulta=precodamulta.value;
-
-                                    if(datadapropina<=prazodepagamento){ 
-
-                                     multa.value=parseFloat(valordamulta);
-
-                                    }else{
-                                      multa.value=parseFloat(0);
-                                    }
-       
-                            mesescolhido.addEventListener("change", function(){
- 
-                                 var prazodepagamento=document.getElementById("prazodepagamento");
-                                 var prazodepagamento=prazodepagamento.value;
-                                    var mesapagar=mesescolhido.options[mesescolhido.selectedIndex].value 
-                                    var anoapagar=anoescolhido.value;
-
-                                  
-                                    var datadehoje=new Date();
-                                    var diaactual=String(datadehoje.getDate()).padStart(2,"0");
- 
-                                     var mesdehoje=String(datadehoje.getMonth()+1).padStart(2,"0");
-                                     var anodehoje=datadehoje.getFullYear();
-
-                                     var datadapropina=anoapagar+"-"+mesapagar+"-"+"01";
-                                     var datadehoje=anodehoje+"-"+mesdehoje+"-"+diaactual;
-                                    
-                                     var datasemmulta=diassemmultas.value;
-                                     var valordamulta=precodamulta.value;
-
-                                    if(datadapropina<=prazodepagamento){ 
-
-                                     multa.value=parseFloat(valordamulta);
-
-                                    }else{
-                                      multa.value=parseFloat(0);
-                                    }
-
-
-                                     var preco1=parseFloat(preco.value);
-                              var multa1=parseFloat(multa.value);
-                              var desconto1=parseFloat(desconto.value);
-
-                              var preco_com_multa=parseFloat(preco1+multa1);
-                              valorpago.value=parseFloat(preco_com_multa-desconto1);
-                                   
-                                   erro.innerHTML=""; 
- 
-                          })
-
-
-
-
-
-                            anoescolhido.addEventListener("change", function(){
- 
-
-                                    var prazodepagamento=document.getElementById("prazodepagamento");
-                                 var prazodepagamento=prazodepagamento.value;
-                                    var mesapagar=mesescolhido.options[mesescolhido.selectedIndex].value 
-                                    var anoapagar=anoescolhido.value;
-
-                                  
-                                    var datadehoje=new Date();
-                                    var diaactual=String(datadehoje.getDate()).padStart(2,"0");
- 
-                                     var mesdehoje=String(datadehoje.getMonth()+1).padStart(2,"0");
-                                     var anodehoje=datadehoje.getFullYear();
-
-                                     var datadapropina=anoapagar+"-"+mesapagar+"-"+"01";
-                                     var datadehoje=anodehoje+"-"+mesdehoje+"-"+diaactual;
-                                    
-                                     var datasemmulta=diassemmultas.value;
-                                     var valordamulta=precodamulta.value;
-
-                                    if(datadapropina<=prazodepagamento){ 
-
-                                     multa.value=parseFloat(valordamulta);
-
-                                    }else{
-                                      multa.value=parseFloat(0);
-                                    }
-
-
-
-                                     var preco1=parseFloat(preco.value);
-                              var multa1=parseFloat(multa.value);
-                              var desconto1=parseFloat(desconto.value);
-
-                              var preco_com_multa=parseFloat(preco1+multa1);
-                              valorpago.value=parseFloat(preco_com_multa-desconto1);
-                                   
-                                   erro.innerHTML=""; 
-                                           
-                          })
-                  
-
-                  
-
+                        preco.addEventListener("input", calcularValorPago);
+                        multa.addEventListener("input", calcularValorPago);
+                        desconto.addEventListener("input", calcularValorPago);
+                        valorpago.addEventListener("input", verificarPagamento);
                         </script>
+
 
                          <!-- Jquery JS--> 
     <!-- Vendor JS-->
@@ -511,8 +407,3 @@ $html="";
 echo $html;
 
 }
-
-
-
-
-?>

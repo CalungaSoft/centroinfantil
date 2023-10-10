@@ -33,15 +33,29 @@ if(isset($_POST['cadastrar'])){
       $idmatriculaeconfirmacao=mysqli_escape_string($conexao,$_POST['idmatriculaeconfirmacao']); 
       $mes=mysqli_escape_string($conexao,$_POST['mes']); 
       $ano=mysqli_escape_string($conexao,$_POST['ano']); 
-      $preco=mysqli_escape_string($conexao,$_POST['preco']); 
-      $multa=mysqli_escape_string($conexao,$_POST['multa']); 
-      $desconto=mysqli_escape_string($conexao,$_POST['desconto']); 
-      $valorpago=mysqli_escape_string($conexao,$_POST['valorpago']);
+      
+      $preco = isset($_POST['preco']) ? mysqli_escape_string($conexao, $_POST['preco']) : 0;
+      $multa = isset($_POST['multa']) ? mysqli_escape_string($conexao, $_POST['multa']) : 0;
+      $desconto = isset($_POST['desconto']) ? mysqli_escape_string($conexao, $_POST['desconto']) : 0;
+      $valorpago = isset($_POST['valorpago']) ? mysqli_escape_string($conexao, $_POST['valorpago']) : 0;
+      
       $obs=mysqli_escape_string($conexao,$_POST['obs']); 
       $formadepagamento=mysqli_escape_string($conexao,$_POST['formadepagamento']);
 
       $referencia=mysqli_escape_string($conexao,trim($_POST['referencia']));
       $datadedeposito=mysqli_escape_string($conexao,$_POST['datadedeposito']);
+
+      function calcularMulta($valorPropina, $multa) {
+        if (strpos($multa, '%') !== false) {
+            return $valorPropina * floatval(str_replace('%', '', $multa)) / 100;
+        } else {
+            return floatval($multa);
+        }
+    }
+
+    // Verifique e atualize o valor de $precodamulta com base no seu tipo
+    $multa = calcularMulta($preco, $multa);
+
 
             $divida=round($preco+$multa-$desconto-$valorpago,2); 
             if($divida<0){$divida=0;}
@@ -63,9 +77,9 @@ if(isset($_POST['cadastrar'])){
 
         $existe=mysqli_num_rows(mysqli_query($conexao, "select idpropina from propinas where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and mespago='$mes_pago' limit 1"));
 
-      $jaExisteEsseCodigo=mysqli_fetch_array(mysqli_query($conexao, "select idpropina from propinas where  referencia='$referencia' and referencia!='' limit 1"))[0];
+      $jaExisteEsseCodigo=mysqli_num_rows(mysqli_query($conexao, "select idpropina from propinas where  referencia='$referencia' and referencia!='' limit 1"));
 
-        if($jaExisteEsseCodigo==''){
+        if($jaExisteEsseCodigo==0){
       
           if($existe==0){
 

@@ -192,7 +192,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
 
                                                       <div class="form-group">
                                                           <label>Preço da Multa</label>
-                                                        <input type="number" name="precodamulta" min="0" max="500000" step="any" class="form-control"  value="<?php echo $dadosdoanolectivo["precodamulta"] ; ?>">
+                                                        <input type="text" name="precodamulta"  step="any" class="form-control"  value="<?php echo $dadosdoanolectivo["precodamulta"] ; ?>">
                                                       </div> 
  
 

@@ -283,7 +283,7 @@ include("cabecalho.php") ; ?>
 
 
 
-                           $salario_acumulado=mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and presencaprofessores.idprofessor='$idfuncionario' and YEAR(diadapresenca)='$ano' and MONTH(diadapresenca)='$mes_escolhido'"))[0];
+                           $salario_acumulado=mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and presencaprofessores.idprofessor='$idfuncionario' and YEAR(diadapresenca)='$ano' and MONTH(diadapresenca)='$mes_escolhido'"))[0];
 
  
                               $total_geral_detempos+=$total_de_tempos;

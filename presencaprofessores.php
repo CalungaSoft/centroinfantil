@@ -236,9 +236,7 @@ include("cabecalho.php"); ?>
               <th>Salário/tempo</th>
               <?php
 
-              $salario_portempo = mysqli_fetch_array(mysqli_query($conexao, "SELECT salarioportempo FROM anoslectivos where idanolectivo='$idanolectivo'"))[0];
-
-
+             
 
 
               $totaldedias = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
