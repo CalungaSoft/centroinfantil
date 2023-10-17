@@ -83,6 +83,8 @@ $tamanho_da_pagina=800;
                 <hr size="3px"> <br>
                 Nome: 
                 <strong>'.$dadosdoaluno["nomecompleto"].'</strong><br> 
+                NIF do Encarregado: 
+                <strong>'.$dadosdoaluno["nifencarregado"].'</strong><br> 
 
                 Classe: '.$dados_da_matricula["classe"].'   ------------ | Período: '.$dados_da_matricula["periodo"].'  <br>
 

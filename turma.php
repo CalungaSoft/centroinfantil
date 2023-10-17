@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 include("conexao.php");
 
     
@@ -41,8 +41,12 @@ if(isset($_POST['editardadosdaturma'])){
 
       $idcoordenador=mysqli_escape_string($conexao,$_POST['idcoordenador']);
        
+
+      
+      $idanolectivo= mysqli_fetch_array(mysqli_query($conexao, "select idanolectivo from turmas where idturma='$idturma' limit 1"))[0]; 
+  
        
-  if(mysqli_num_rows(mysqli_query($conexao," SELECT * FROM turmas where titulo='$titulo' and idturma!='$idturma'"))==0){ 
+  if(mysqli_num_rows(mysqli_query($conexao," SELECT * FROM turmas where titulo='$titulo' and idturma!='$idturma' and idanolectivo='$idanolectivo'"))==0){ 
 
     $classificacoes=mysqli_fetch_array(mysqli_query($conexao," SELECT classificacaonegativa, classificacaopositiva FROM turmas where idturma='$idturma'"));
  

@@ -42,7 +42,7 @@ if(isset($_POST['cadastrar'])){
       $valorminimo=mysqli_escape_string($conexao,$_POST['valorminimo']);
       $valormaximo=mysqli_escape_string($conexao,$_POST['valormaximo']);
        
-        $existe=mysqli_num_rows(mysqli_query($conexao, "select idturma from turmas where titulo='$titulo' and idanolectivo='$idanolectivo' and idperiodo='$idperiodo' and idcurso='$idcurso' and idsala='$idsala' and idclasse='$idclasse'"));
+        $existe=mysqli_num_rows(mysqli_query($conexao, "select idturma from turmas where titulo='$titulo' and idanolectivo='$idanolectivo' "));
       
           if($existe==0){
  

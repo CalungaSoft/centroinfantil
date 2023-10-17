@@ -17,8 +17,9 @@ $painellogado=$_SESSION['painel'];
 
 $erros=[]; 
 
-$idmatriculaeconfirmacao=isset($_GET['idmatriculaeconfirmacao'])?$_GET['idmatriculaeconfirmacao']:"";
+$idmatriculaeconfirmacao=isset($_GET['idmatriculaeconfirmacao'])?$_GET['idmatriculaeconfirmacao']:"0";
 $idmatriculaeconfirmacao=mysqli_escape_string($conexao, $idmatriculaeconfirmacao); 
+
 
 if(!($painellogado=="administrador" || $painellogado=="areapedagogica" ||  $painellogado=="secretaria1" ||  $painellogado=="secretaria2")){ 
 
@@ -47,8 +48,13 @@ if($idmatriculaeconfirmacao==0){
     $Dados_do_aluno=mysqli_fetch_array(mysqli_query($conexao, "select * from alunos where idaluno='$idaluno' order by idaluno desc limit 1"));
  
 
-$titulo_do_ano_lectivo=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo' limit 1"))[0];
+    if(mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo' limit 1"))){
+
+      $titulo_do_ano_lectivo=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo' limit 1"))[0];
         
+    }else {
+      $titulo_do_ano_lectivo=0;
+    }
  
                       
 
@@ -130,7 +136,7 @@ if(isset($_POST['cadastrar'])){
 
 
 
-                                            $acerto[]="Confirmação Feita com Sucesso <br> <a class='btn btn-info' href='aluno.php?idaluno=".$idaluno."'> Click aqui para ver mais dados sobre esse aluno</a> | <a class='btn btn-success' href='pdf/recibopagamento.php?identrada=".$identrada."'> Imprimir Recibo </a>"; 
+                                            $acerto[]="Confirmação Feita com Sucesso <br> <a class='btn btn-info' href='aluno.php?idaluno=".$idaluno."'> Click aqui para ver mais dados sobre esse aluno</a> | <a class='btn btn-success' href='pdf/recibopagamento.php?identrada=".$identrada."'> Imprimir Recibo </a> | <a class='btn btn-success' href='pdf/fichadematricula.php?idmatriculaeconfirmacao=".$idmatriculaeconfirmacao."'> Imprimir Ficha de Matrícula </a>"; 
 
                                           }else{
 
@@ -173,18 +179,19 @@ include("cabecalho.php"); ?>
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Confirmação da Matrícula do Aluno | <a href="alunoanolectivo.php?idmatriculaeconfirmacao=<?php echo $idmatriculaeconfirmacao; ?>"> <?php echo $Dados_do_aluno['nomecompleto']; ?> </a></h1>
+          <h1 class="h3 mb-4 text-gray-800">Confirmação da Matrícula do Aluno | <a href="aluno.php?idaluno=<?php echo $idaluno; ?>"> <?php echo $Dados_do_aluno['nomecompleto']; ?> </a></h1>
           
            <div class="alert alert-info">
 
-             <h4> Matrícula a reconfirmar</h4> 
-             Ano Lectivo: <strong><?php echo "$titulo_do_ano_lectivo" ?></strong> | Turma: <strong><?php echo "$dadoslectivos_confirmacao[turma]" ?></strong> <br>
-             Classe: <strong><?php echo "$dadoslectivos_confirmacao[classe]" ?></strong>
-              | Curso: <strong><?php echo "$dadoslectivos_confirmacao[curso]" ?></strong> <br>
-             Período: <strong><?php echo "$dadoslectivos_confirmacao[periodo]" ?></strong>
-              | Sala: <strong><?php echo "$dadoslectivos_confirmacao[sala]" ?></strong>
-
-
+           <?php if ($idmatriculaeconfirmacao!=0) {?>
+           
+           <h4> Matrícula a reconfirmar</h4> 
+           Ano Lectivo: <strong><?php echo "$titulo_do_ano_lectivo" ?></strong> | Turma: <strong><?php echo "$dadoslectivos_confirmacao[turma]" ?></strong> <br>
+           Classe: <strong><?php echo "$dadoslectivos_confirmacao[classe]" ?></strong>
+            | Curso: <strong><?php echo "$dadoslectivos_confirmacao[curso]" ?></strong> <br>
+           Período: <strong><?php echo "$dadoslectivos_confirmacao[periodo]" ?></strong>
+            | Sala: <strong><?php echo "$dadoslectivos_confirmacao[sala]" ?></strong>
+      <?php } ?>
 
            </div>
 

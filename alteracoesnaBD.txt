@@ -1,9 +1,11 @@
 ALTER TABLE `alunos` ADD `caminhodafoto` VARCHAR(222) NULL;
 ALTER TABLE `funcionarios` ADD `caminhodafoto` VARCHAR(222) NULL;
-ALTER TABLE `funcionarios` ADD `subsideodealimentacao` DOUBLE NULL DEFAULT '0' AFTER `caminhodafoto`, ADD `subsideodetransporte` DOUBLE NULL DEFAULT '0' AFTER `subsideodealimentacao`;
+ALTER TABLE `funcionarios` ADD `subsideodealimentacao` DOUBLE NULL DEFAULT '0', ADD `subsideodetransporte` DOUBLE NULL DEFAULT '0' AFTER `subsideodealimentacao`;
 ALTER TABLE `dadosdaempresa` ADD `caminhodologo` VARCHAR(222) NULL AFTER `nomedodireitor`;
-ALTER TABLE `disciplinas` ADD `salarioportempo` DOUBLE NOT NULL DEFAULT '700' AFTER `estatus`;
-ALTER TABLE `disciplinas` ADD `salarioportempoauxiliar` DOUBLE NOT NULL DEFAULT '500' AFTER `salarioportempo`;
+ALTER TABLE `disciplinas` ADD `salarioportempo` DOUBLE NOT NULL DEFAULT '700';
+ALTER TABLE `disciplinas` ADD `salarioportempoauxiliar` DOUBLE NOT NULL DEFAULT '500';
 ALTER TABLE `anoslectivos` DROP `salarioportempo`, DROP `salarioportempoauxiliar`;
 ALTER TABLE `anoslectivos` CHANGE `precodamulta` `precodamulta` VARCHAR(50) NOT NULL DEFAULT '0';
 ALTER TABLE `propinas` CHANGE `datadedeposito` `datadedeposito` DATE NULL;
+ALTER TABLE `alunos` ADD `nifencarregado` VARCHAR(222) NULL DEFAULT NULL;
+ALTER TABLE `matriculaseconfirmacoes` ADD `reconfirmou` INT(2) NOT NULL DEFAULT '0';

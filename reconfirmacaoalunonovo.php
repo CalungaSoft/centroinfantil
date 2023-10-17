@@ -54,7 +54,8 @@ if(isset($_POST['cadastrar'])){
   $anodeentrada=mysqli_escape_string($conexao, trim($_POST['anodeentrada']));
 
 
-            
+  $nifencarregado=mysqli_escape_string($conexao, trim($_POST['nifencarregado'])); 
+
 
                
   $obs=mysqli_escape_string($conexao, trim($_POST['obs']));
@@ -66,7 +67,7 @@ if(isset($_POST['cadastrar'])){
 
  
 
-  $salvar=mysqli_query($conexao,"INSERT INTO `alunos` (`idaluno`, `nomecompleto`, `sexo`, `nomedopai`, `nomedamae`, `naturalidade`, `nacionalidade`, `provincia`, `numerodobioucedula`, `arquivodeidentificacao`, `deficiencia`, `escoladeorigem`, `telefone`, `telefoneincarregados`, `profissao`, `email`, `anodeentrada`, `datadenascimento`, `datadeexpiracaodobi`, `numerodeprocesso`,  `morada`, `religiao`, `nomedoencarregado`, `datadecadastro`, `estatus`, `obs`) VALUES (NULL, '$nomecompleto', '$sexo', '$nomedopai', '$nomedamae', '$naturalidade', '$nacionalidade', '$provincia', '$numerodobioucedula', '$arquivodeidentificacao', '$deficiencia', '$escoladeorigem', '$telefone', '$telefoneencarregado', '$profissao', '$email', '$anodeentrada', STR_TO_DATE('$datadenascimento', '%d/%m/%Y'),  STR_TO_DATE('$datadeexpiracao', '%d/%m/%Y'), 0, '$morada', '$religiao', '$encarregado', CURRENT_TIMESTAMP, 'activo', '$obs')");
+  $salvar=mysqli_query($conexao,"INSERT INTO `alunos` (`idaluno`, `nomecompleto`, `sexo`, `nomedopai`, `nomedamae`, `naturalidade`, `nacionalidade`, `provincia`, `numerodobioucedula`, `arquivodeidentificacao`, `deficiencia`, `escoladeorigem`, `telefone`, `telefoneincarregados`, `profissao`, `email`, `anodeentrada`, `datadenascimento`, `datadeexpiracaodobi`, `numerodeprocesso`,  `morada`, `religiao`, `nomedoencarregado`, `datadecadastro`, `estatus`, `obs`,nifencarregado) VALUES (NULL, '$nomecompleto', '$sexo', '$nomedopai', '$nomedamae', '$naturalidade', '$nacionalidade', '$provincia', '$numerodobioucedula', '$arquivodeidentificacao', '$deficiencia', '$escoladeorigem', '$telefone', '$telefoneencarregado', '$profissao', '$email', '$anodeentrada', STR_TO_DATE('$datadenascimento', '%d/%m/%Y'),  STR_TO_DATE('$datadeexpiracao', '%d/%m/%Y'), 0, '$morada', '$religiao', '$encarregado', CURRENT_TIMESTAMP, 'activo', '$obs','$nifencarregado')");
 
 
    
@@ -268,6 +269,9 @@ include("cabecalho.php"); ?>
                         </div> 
                     </div>
 
+                    <div class="form-group">
+                      <input type="text" name="nifencarregado" class="form-control"   placeholder="NIF do Encarregado">
+                    </div>
 
 
                     <div class="form-group">

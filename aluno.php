@@ -18,7 +18,7 @@ $painellogado = $_SESSION['painel'];
 
 
 $idaluno = isset($_GET['idaluno']) ? $_GET['idaluno'] : "";
-$idmatriculaeconfirmacao = isset($_GET['idmatriculaeconfirmacao']) ? $_GET['idmatriculaeconfirmacao'] : "";
+$idmatriculaeconfirmacao = isset($_GET['idmatriculaeconfirmacao']) ? $_GET['idmatriculaeconfirmacao'] : "0";
 
 
 if ($idmatriculaeconfirmacao == 0) {
@@ -121,6 +121,8 @@ if (isset($_POST['editardadosdoaluno'])) {
     $anodeentrada = mysqli_escape_string($conexao, trim($_POST['anodeentrada']));
 
 
+    $nifencarregado = mysqli_escape_string($conexao, trim($_POST['nifencarregado']));
+    
 
 
 
@@ -130,7 +132,7 @@ if (isset($_POST['editardadosdoaluno'])) {
 
     if ($existe == 0) {
 
-      $salvar = mysqli_query($conexao, "UPDATE `alunos` SET `nomecompleto` = '$nomecompleto', `sexo` = '$sexo', `nomedopai` = '$nomedopai', `nomedamae` = '$nomedamae', `naturalidade` = '$naturalidade', `nacionalidade` = '$nacionalidade', `provincia` = '$provincia', `numerodobioucedula` = '$numerodobioucedula', `arquivodeidentificacao` = '$arquivodeidentificacao', `deficiencia` = '$deficiencia', `escoladeorigem` = '$escoladeorigem', `telefone` = '$telefone', `telefoneincarregados` = '$telefoneencarregado', `profissao` = '$profissao', `email` = '$email', `anodeentrada` = '$anodeentrada', `datadenascimento` = '$datadenascimento', `datadeexpiracaodobi` = '$datadeexpiracao', `numerodeprocesso` = '$numerodeprocesso', `morada` = '$morada', `religiao` = '$religiao', `nomedoencarregado` = '$encarregado', `obs` = '$obs' WHERE `alunos`.`idaluno` = '$idaluno'");
+      $salvar = mysqli_query($conexao, "UPDATE `alunos` SET nifencarregado='$nifencarregado', `nomecompleto` = '$nomecompleto', `sexo` = '$sexo', `nomedopai` = '$nomedopai', `nomedamae` = '$nomedamae', `naturalidade` = '$naturalidade', `nacionalidade` = '$nacionalidade', `provincia` = '$provincia', `numerodobioucedula` = '$numerodobioucedula', `arquivodeidentificacao` = '$arquivodeidentificacao', `deficiencia` = '$deficiencia', `escoladeorigem` = '$escoladeorigem', `telefone` = '$telefone', `telefoneincarregados` = '$telefoneencarregado', `profissao` = '$profissao', `email` = '$email', `anodeentrada` = '$anodeentrada', `datadenascimento` = '$datadenascimento', `datadeexpiracaodobi` = '$datadeexpiracao', `numerodeprocesso` = '$numerodeprocesso', `morada` = '$morada', `religiao` = '$religiao', `nomedoencarregado` = '$encarregado', `obs` = '$obs' WHERE `alunos`.`idaluno` = '$idaluno'");
 
 
 
@@ -307,6 +309,7 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
     <button id="myBtn" class="btn btn-success"> <i class="fas fa-fw fa-plus"></i>Registrar Dívida do aluno</button>
 
     <a href="pdf/estratodoaluno.php?idmatriculaeconfirmacao=<?php echo $idmatriculaeconfirmacao_fora; ?>"> <button class="btn btn-primary">Imprimir Extrato do Aluno</button></a>
+    <a href="pdf/fichadematricula.php?idmatriculaeconfirmacao=<?php echo $idmatriculaeconfirmacao_fora; ?>"> <button class="btn btn-primary">Imprimir Ficha de Matrícula</button></a>
 
   <?php } else { ?>
 
@@ -527,6 +530,8 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
 
                          Religião: <strong> <?php echo $dadosdoaluno["religiao"]; ?> </strong> <br>
 
+                         NIF do Encarregado: <strong> <?php echo $dadosdoaluno["nifencarregado"]; ?> </strong> <br>
+
 
 
                         <br>
@@ -660,6 +665,11 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
                                 <div class="form-group">
                                   <span>Encarregado de Educação</span>
                                   <input type="text" value="<?php echo $dadosdoaluno["nomedoencarregado"]; ?>" name="encarregado" id="encarregado" class="form-control " title="Digite o nome completo do Encarregado de Educação" placeholder="Encarregado de Educação">
+                                </div>
+
+                                <div class="form-group">
+                                  <span>NIF do Encarregado de Educação</span>
+                                  <input type="text" value="<?php echo $dadosdoaluno["nifencarregado"]; ?>" name="nifencarregado" id="nifencarregado" class="form-control " title="Digite o NIF do Encarregado de Educação" placeholder="NIF do Encarregado de Educação">
                                 </div>
 
                                 <div class="form-group row">
@@ -1077,58 +1087,55 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
                                                                                                       echo $divida; ?>"><?php echo $exibir["divida"]; ?></td>
                     <td><?php echo $exibir["datadaentrada"]; ?></td>
                     <td>
-                      <?php
-                      if (($exibir["tipo"] == "Propina")) { ?>
-                        <a href="entradapropina.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php  }
-                      if ($exibir["tipo"] == "Matrícula" || $exibir["tipo"] == "Confirmação" || $exibir["tipo"] == "Rematrícula") { ?>
-                        <a href="entradamatricula.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
+                      <?php  
+                        if (($exibir["tipo"]=="Propina")) { ?>
+                          <a href="entradapropina.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php  }
+                        if ($exibir["tipo"]=="Matrícula" || $exibir["tipo"]=="Confirmação" || $exibir["tipo"]=="Rematrícula") { ?>
+                          <a href="entradamatricula.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
 
-                      if ($exibir["tipo"] == "Material Escolar") { ?>
-                        <a href="detalhesdacompra.php?idtipo=<?php echo $exibir["idtipo"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
-                      if ($exibir["tipo"] == "Justificação de Faltas") { ?>
-                        <a href="detalhesdafalta.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
+                        if ($exibir["tipo"]=="Material Escolar") { ?>
+                          <a href="detalhesdacompra.php?idtipo=<?php echo $exibir["idtipo"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
+                       if ($exibir["tipo"]=="Justificação de Faltas") { ?>
+                          <a href="detalhesdafalta.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
 
-                      if ($exibir["tipo"] == "Inserção no Sistema") { ?>
-                        <a href="insercao.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
+                       if ($exibir["tipo"]=="Inserção no Sistema") { ?>
+                          <a href="insercao.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
 
-                      if ($exibir["tipo"] == "Tratar Documento") { ?>
-                        <a href="detalhestratardocumentos.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
-
-
-                      if ($exibir["tipo"] == "Propina do ATL") { ?>
-                        <a href="entradapropinadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
-
-                      if ($exibir["tipo"] == "Matrícula ATL") { ?>
-                        <a href="entradadamatriculadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
-
-                      if ($exibir["tipo"] == "Mensalidade do transporte") { ?>
-                        <a href="entradapropinadotransporte.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
-
-                      if ($exibir["tipo"] == "Matrícula transporte") { ?>
-                        <a href="entradadamatriculadotransporte.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
+                        if ($exibir["tipo"]=="Tratar Documento") { ?>
+                          <a href="detalhestratardocumentos.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
 
 
-                      if ($exibir["tipo"] == "Outras") { ?>
-                        <a href="entradasoutras.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                      <?php }
-                      ?>
+                        if ($exibir["tipo"]=="Propina do ATL") { ?>
+                          <a href="entradapropinadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
+
+                        if ($exibir["tipo"]=="Matrícula ATL") { ?>
+                          <a href="entradadamatriculadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
+
+                          if ($exibir["tipo"]=="Mensalidade do transporte") { ?>
+                          <a href="entradapropinadotransporte.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
+
+                        if ($exibir["tipo"]=="Matrícula transporte") { ?>
+                          <a href="entradadamatriculadotransporte.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
 
 
-
-
-
-
-                    </td>
+                       if ($exibir["tipo"]=="Outras") { ?>
+                          <a href="entradasoutras.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                       <?php } 
+                        ?>
+                           
+                     
+                      
+                     </td>
                   </tr>
               <?php }
               }

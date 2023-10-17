@@ -102,7 +102,7 @@ if(isset($_POST['cadastrar'])){
                                            $salvar=mysqli_query($conexao,"UPDATE `matriculaseconfirmacoes` SET data='$datadehoje' WHERE data='0000-00-00'");
  
 
-                                            $acerto[]="Matrícula Feita com Sucesso <br> <a class='btn btn-info' href='aluno.php?idaluno=".$idaluno."'> Click aqui para ver mais dados sobre esse aluno</a> | <a class='btn btn-success' href='pdf/recibopagamento.php?identrada=".$identrada."'> Imprimir Recibo </a>"; 
+                                            $acerto[]="Matrícula Feita com Sucesso <br> <a class='btn btn-info' href='aluno.php?idaluno=".$idaluno."'> Click aqui para ver mais dados sobre esse aluno</a> | <a class='btn btn-success' href='pdf/recibopagamento.php?identrada=".$identrada."'> Imprimir Recibo </a>| <a class='btn btn-success' href='pdf/fichadematricula.php?idmatriculaeconfirmacao=".$idmatriculaeconfirmacao."'> Imprimir Ficha de Matrícula </a>"; 
 
                                           }else{
 
