@@ -32,7 +32,8 @@ if(isset($_GET['del'])){
 
  
     
-
+ini_set('display_errors',0); ini_set('display_startup_erros',0); error_reporting(E_ALL);//force php to show any error message
+    
 include("cabecalho.php") ; ?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -175,16 +176,37 @@ include("cabecalho.php") ; ?>
                      
                         $cor="red";
                         $imprimir="";
-                        $falta=mysqli_fetch_array(mysqli_query($conexao,"SELECT * FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1")); 
-                          $totaldehorassemextra=$totaldehorassemextra+mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(horastrabalhadas) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0];
-                          $totaldehorasextras=$totaldehorasextras+mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(horasextras) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0];
+                        $query=mysqli_query($conexao,"SELECT * FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"); 
+                         
+                   
 
-                          $totaldehoras=$totaldehorassemextra+$totaldehorasextras;
+                          if (mysqli_num_rows($query)==0) {
+                            $totaldevalorsemextra=0;
+                            $totaldevalorextras=0;
 
+                            $falta=[];
+                        
+                            $totaldehorassemextra=0;
+                              $totaldehorasextras=0;
+    
+                              $totaldehoras=$totaldehorassemextra+$totaldehorasextras;
 
-                          $totaldevalorsemextra=$totaldevalorsemextra+mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(salariopordia) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0];
-                          $totaldevalorextras=$totaldevalorextras+mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(salariopelahorasextras) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0];
- 
+                              
+                          }else{
+
+                            $totaldevalorsemextra=$totaldevalorsemextra+mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(salariopordia) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0]+0;
+                            $totaldevalorextras=$totaldevalorextras+mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(salariopelahorasextras) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0]+0;
+   
+                            $falta=mysqli_fetch_array($query);
+                        
+                            $totaldehorassemextra=$totaldehorassemextra+mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(horastrabalhadas) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0];
+                              $totaldehorasextras=$totaldehorasextras+mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(horasextras) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0];
+    
+                              $totaldehoras=$totaldehorassemextra+$totaldehorasextras;
+
+                              
+                          }
+                        
 
                           $salariototal=$salariototal+$falta["salariopordia"]+$falta["salariopelahorasextras"];
                           $imprimir="$falta[falta]";

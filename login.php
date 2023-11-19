@@ -65,7 +65,10 @@ if(isset($_POST['entrar'])){
                                    }  else if($_SESSION['painel']=='areapedagogica') {  
                                      header('Location: indexdireitor.php');
 
-                                   }  
+                                   }   else if($_SESSION['painel']=="RH" ) {  
+                                    header('Location: meuperfil.php');
+
+                                  }  
                                
 
                               }

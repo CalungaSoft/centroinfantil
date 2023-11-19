@@ -114,6 +114,10 @@ if (isset($_POST['editardadosdoaluno'])) {
     $religiao = mysqli_escape_string($conexao, trim($_POST['religiao']));
 
 
+    $contactopai = mysqli_escape_string($conexao, trim($_POST['contactopai']));
+    $contactomae = mysqli_escape_string($conexao, trim($_POST['contactomae']));
+
+
 
 
     $numerodeprocesso = mysqli_escape_string($conexao, trim($_POST['numerodeprocesso']));
@@ -132,7 +136,7 @@ if (isset($_POST['editardadosdoaluno'])) {
 
     if ($existe == 0) {
 
-      $salvar = mysqli_query($conexao, "UPDATE `alunos` SET nifencarregado='$nifencarregado', `nomecompleto` = '$nomecompleto', `sexo` = '$sexo', `nomedopai` = '$nomedopai', `nomedamae` = '$nomedamae', `naturalidade` = '$naturalidade', `nacionalidade` = '$nacionalidade', `provincia` = '$provincia', `numerodobioucedula` = '$numerodobioucedula', `arquivodeidentificacao` = '$arquivodeidentificacao', `deficiencia` = '$deficiencia', `escoladeorigem` = '$escoladeorigem', `telefone` = '$telefone', `telefoneincarregados` = '$telefoneencarregado', `profissao` = '$profissao', `email` = '$email', `anodeentrada` = '$anodeentrada', `datadenascimento` = '$datadenascimento', `datadeexpiracaodobi` = '$datadeexpiracao', `numerodeprocesso` = '$numerodeprocesso', `morada` = '$morada', `religiao` = '$religiao', `nomedoencarregado` = '$encarregado', `obs` = '$obs' WHERE `alunos`.`idaluno` = '$idaluno'");
+      $salvar = mysqli_query($conexao, "UPDATE `alunos` SET nifencarregado='$nifencarregado',contactopai='$contactopai',contactomae='$contactomae', `nomecompleto` = '$nomecompleto', `sexo` = '$sexo', `nomedopai` = '$nomedopai', `nomedamae` = '$nomedamae', `naturalidade` = '$naturalidade', `nacionalidade` = '$nacionalidade', `provincia` = '$provincia', `numerodobioucedula` = '$numerodobioucedula', `arquivodeidentificacao` = '$arquivodeidentificacao', `deficiencia` = '$deficiencia', `escoladeorigem` = '$escoladeorigem', `telefone` = '$telefone', `telefoneincarregados` = '$telefoneencarregado', `profissao` = '$profissao', `email` = '$email', `anodeentrada` = '$anodeentrada', `datadenascimento` = '$datadenascimento', `datadeexpiracaodobi` = '$datadeexpiracao', `numerodeprocesso` = '$numerodeprocesso', `morada` = '$morada', `religiao` = '$religiao', `nomedoencarregado` = '$encarregado', `obs` = '$obs' WHERE `alunos`.`idaluno` = '$idaluno'");
 
 
 
@@ -683,6 +687,16 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
                                   </div>
                                 </div>
 
+                                <div class="form-group row">
+                                  <div class="col-sm-6">
+                                    <span>Contacto do Pai</span>
+                                    <input type="text" value="<?php echo $dadosdoaluno["contactopai"]; ?>" name="contactopai" class="form-control " placeholder="Nº de telefone do Pai">
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <span>Contacto da Mãe</span>
+                                    <input type="text" value="<?php echo $dadosdoaluno["contactomae"]; ?>" name="contactomae" class="form-control " placeholder="Nº de telefone da Mãe">
+                                  </div>
+                                </div>
 
 
                                 <div class="form-group">

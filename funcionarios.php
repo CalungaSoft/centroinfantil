@@ -22,8 +22,7 @@ if(isset($_POST['cadastrar'])){
 
   if(!empty(trim($nomedofuncionario))){
 
-    
-      $proveniencia=mysqli_escape_string($conexao, $_POST['proveniencia']);
+     
       $categoria=mysqli_escape_string($conexao, $_POST['categoria']);
       $telefone=mysqli_escape_string($conexao, $_POST['telefone']);
       $localizacao=mysqli_escape_string($conexao, $_POST['localizacao']);
@@ -33,10 +32,11 @@ if(isset($_POST['cadastrar'])){
       $datadeentrada=mysqli_escape_string($conexao, $_POST['datadeentrada']);
  
       $salario=mysqli_escape_string($conexao, $_POST['salario']);
-      $numerodedias=mysqli_escape_string($conexao, $_POST['numerodedias']);
-      $numerodehoras=mysqli_escape_string($conexao, $_POST['numerodehoras']);
+      $numerodedias="22";
+      $numerodehoras="8";
 
- 
+      $subsideodealimentacao=mysqli_escape_string($conexao, $_POST['subsideodealimentacao']);
+      $subsideodetransporte=mysqli_escape_string($conexao, $_POST['subsideodetransporte']);
  
 
        
@@ -45,7 +45,7 @@ if(isset($_POST['cadastrar'])){
   
               if(mysqli_num_rows(mysqli_query($conexao," SELECT idfuncionario FROM funcionarios where nomedofuncionario='$nomedofuncionario'"))==0){ 
 
-                $guardar=mysqli_query($conexao,"INSERT INTO `funcionarios` (`idfuncionario`, `nomedofuncionario`, `categoria`, `telefone`, `localizacao`, `naturalidade`, `proveniencia`, `habilitacoesliterarias`, `contabancaria`, `datadeentrada`, `salario`, `datadeentradanosistema`, `salarioporhora`, `numerodedias`, `numerodehoras`, `estatus`) VALUES (NULL, '$nomedofuncionario', '$categoria', '$telefone', '$localizacao', '$naturalidade', '$proveniencia', '$habilitacoesliteraria', '$contabancaria', STR_TO_DATE('$datadeentrada', '%d/%m/%Y'), '$salario', CURRENT_TIMESTAMP, '$salarioporhora', '$numerodedias', '$numerodehoras', 'activo')");
+                $guardar=mysqli_query($conexao,"INSERT INTO `funcionarios` (`idfuncionario`, `nomedofuncionario`, `categoria`, `telefone`, `localizacao`, `naturalidade`,   `habilitacoesliterarias`, `contabancaria`, `datadeentrada`, `salario`, `datadeentradanosistema`, `salarioporhora`, `numerodedias`, `numerodehoras`, `estatus`,subsideodealimentacao,subsideodetransporte) VALUES (NULL, '$nomedofuncionario', '$categoria', '$telefone', '$localizacao', '$naturalidade',  '$habilitacoesliteraria', '$contabancaria', STR_TO_DATE('$datadeentrada', '%d/%m/%Y'), '$salario', CURRENT_TIMESTAMP, '$salarioporhora', '$numerodedias', '$numerodehoras', 'activo','$subsideodealimentacao','$subsideodetransporte')");
                 
                 if($guardar){
           
@@ -114,12 +114,10 @@ include("cabecalho.php") ; ?>
                                 <input type="text" name="nomedofuncionario"  required="" class="form-control" title="Digite o nome completo do Funcionário" placeholder="Nome Completo">
                               </div>
                   
-                              <div class="form-group">
-                                <input type="text" name="proveniencia" required="" class="form-control"  placeholder="Proveniência">
-                              </div> 
+                             
 
                               <div class="form-group">
-                                <input type="text" name="categoria" class="form-control" title="Digite a categoria do funcionário" placeholder="Categoria">
+                                <input type="text" name="categoria" class="form-control" title="Digite a categoria do funcionário" placeholder="Cargo">
                               </div> 
                               <div class="form-group">
                                 <input type="text" name="telefone" class="form-control" title="Digite o Número de telefone do Funcionário" placeholder="Número de telefone">
@@ -137,13 +135,21 @@ include("cabecalho.php") ; ?>
                                 <input type="text" name="contabancaria" class="form-control" title="Digite a  conta bancária do funcionário, pode ser também o IBAN, depois dê um espaço e ddigite o nome do Banco" placeholder="Conta Bancária">
                               </div> 
                               <div class="form-group">
-                                <input type="text" name="datadeentrada" class="form-control js-datepicker" title="Digite a data em que o funcionário entrou na instituição" placeholder="Data de entrada na instituição">
+                                <input type="text" name="datadeentrada" class="form-control js-datepicker" title="Digite a data em que o funcionário entrou na instituição" placeholder="Data de entrada na instituição" required="">
                               </div> 
                               
+
                               <div class="form-group"> 
                                   <span>Salario Mensal Base</span>
                                 <input type="number" id="salariobase" name="salario" required="" class="form-control" title="Digite o salário base que o funcionário receberá, digite apenas o valor numérico" placeholder="Salário Base - Mensal (Kz)">
                                  
+                              </div> 
+
+                              <div class="form-group">
+                                <input type="number"  min="0" name="subsideodealimentacao" class="form-control"  placeholder="Subsídeo de Alimentação">
+                              </div> 
+                              <div class="form-group">
+                                <input type="number"  min="0" name="subsideodetransporte" class="form-control"  placeholder="Subsídeo de Transporte">
                               </div> 
                               
                               <div class="form-group">

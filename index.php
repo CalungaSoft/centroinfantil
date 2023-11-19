@@ -24,7 +24,7 @@ $painellogado=$_SESSION['painel'];
 
 
 
-  if(!( $painellogado=="secretaria1" || $painellogado=="secretaria2"  || $painellogado=="administrador")){
+  if(!( $painellogado=="secretaria1" || $painellogado=="secretaria2"  || $painellogado=="administrador" || $painellogado=="RH")){
    header('Location: login.php');
 }
 
@@ -705,21 +705,16 @@ var myPieChart = new Chart(ctx, {
 <?php include("rodape.php");
 
 
-
-
-ini_set('display_errors',1); ini_set('display_startup_erros',1); error_reporting(E_ALL);//force php to show any error message
+ini_set('display_errors',0); ini_set('display_startup_erros',0); error_reporting(E_ALL);//force php to show any error message
+    
+backup_tables($hostname,$user,$password,$database);
+  
  
-$boncos=["escola"];
-foreach ($boncos as $key => $value) {
 
-    backup_tables('localhost','root','',$value);
-
-}
-
-function backup_tables($host,$user,$pass,$name)
+function backup_tables($hostname,$user,$password,$database)
 {
-    $link = mysqli_connect($host,$user,$pass);
-    mysqli_select_db($link, $name);
+    $link = mysqli_connect($hostname,$user,$password);
+    mysqli_select_db($link, $database);
         $tables = array();
         $result = mysqli_query($link, 'SHOW TABLES');
         $i=0;
@@ -753,7 +748,7 @@ function backup_tables($host,$user,$pass,$name)
         $return.="\n\n\n";
     }
     //save file
-    $handle = fopen('db_bkp/db-'.$name.'-'.date('Y-m-d').'.sql','w+');//Don' forget to create a folder to be saved, "db_bkp" in this case
+    $handle = fopen('db_bkp/db-'.$database.'-'.date('Y-m-d').'.sql','w+');//Don' forget to create a folder to be saved, "db_bkp" in this case
     fwrite($handle, $return);
     fclose($handle); 
 }?>

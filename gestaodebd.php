@@ -22,15 +22,10 @@ $acertos=[];
 if(isset($_POST['backup'])){
 
   $unidade=mysqli_escape_string($conexao, trim($_POST['unidade']));  
+  
+    backup_tables($hostname,$user,$password,$database,$unidade);
+  
  
-  ini_set('display_errors',1); ini_set('display_startup_erros',1); error_reporting(E_ALL);//force php to show any error message
-   
-  $boncos=["escola"];
-  foreach ($boncos as $key => $value) {
-  
-      backup_tables('localhost','root','',$value, $unidade);
-  
-  }
   
   
 }

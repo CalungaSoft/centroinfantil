@@ -172,6 +172,7 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Turma</th> 
+                      <th>Coordenador</th> 
                       <th>Período</th> 
                       <th>Curso</th> 
                       <th>Sala</th> 
@@ -202,10 +203,24 @@ include("cabecalho.php") ; ?>
  
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes where idturma='$idturma' and idanolectivo='$idanolectivo'"));
 
+                            $idcoordenador=$exibir["idcoordenador"];
+
+                            $buscaCordenador=mysqli_query($conexao,"SELECT nomedofuncionario from funcionarios where idfuncionario='$idcoordenador'");
+                           
+                            
+                            if (mysqli_num_rows($buscaCordenador)!=0) {
+                              $nomedocoordenador=mysqli_fetch_array($buscaCordenador)[0];
+ 
+                            }else {
+                              $nomedocoordenador='';
+                            }
+                          
+
+
                   ?>
                     <tr>  
                       <td> <a  href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
-
+                      <td> <a  href="funcionario.php?idfuncionario=<?php echo $exibir["idcoordenador"]; ?>"> <?php echo $nomedocoordenador ?> </a></td> 
                       <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td>
                       <td><a  href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $curso; ?></a></td>  
                       <td><a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"><?php echo $sala; ?></a></td> 
@@ -221,7 +236,13 @@ include("cabecalho.php") ; ?>
                           <?php if($funcao=='Ver Disciplinas'){?>
                                <a  href="turmapauta.php?idturma=<?php echo $exibir["idturma"]; ?>"> <button class="btn btn-success"> <?php echo "$funcao"; ?> </button> </a>
 
-                        <?php } ?>
+                        <?php }
+                         if ($funcao == 'Lançar Presença') { ?>
+                          <a href="presencaalunopordia.php?idturma=<?php echo $exibir["idturma"]; ?>"> <button class="btn btn-success">Lançar Presença </button> </a>
+    
+                      <?php }
+                        
+                        ?>
                       </td>
                     </tr> 
                     <?php } ?> 

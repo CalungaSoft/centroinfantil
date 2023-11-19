@@ -9,3 +9,30 @@ ALTER TABLE `anoslectivos` CHANGE `precodamulta` `precodamulta` VARCHAR(50) NOT 
 ALTER TABLE `propinas` CHANGE `datadedeposito` `datadedeposito` DATE NULL;
 ALTER TABLE `alunos` ADD `nifencarregado` VARCHAR(222) NULL DEFAULT NULL;
 ALTER TABLE `matriculaseconfirmacoes` ADD `reconfirmou` INT(2) NOT NULL DEFAULT '0';
+
+// multaincremental   valordamultaincremental   diasparamultaincremental
+ALTER TABLE `alunos` ADD `contactopai` VARCHAR(222) NULL , ADD `contactomae` VARCHAR(222) NULL AFTER `contactopai`;
+
+
+CREATE TABLE `presencaalunos` (
+  `id` int(11) NOT NULL,
+  `idmatricula` int(11) NOT NULL,
+  `dia` int(2) NOT NULL,
+  `mes` int(2) NOT NULL,
+  `ano` int(5) NOT NULL,
+  `presenca` varchar(5) NOT NULL DEFAULT 'P'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ 
+ALTER TABLE `presencaalunos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `presencaalunos`
+--
+ALTER TABLE `presencaalunos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;

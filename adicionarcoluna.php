@@ -1,7 +1,7 @@
 <?php
 
 // Conexão com o banco de dados local (onde as alterações foram feitas)
-$conn = new mysqli("localhost", "root", "", "escola");
+$conn = new mysqli("localhost:3333", "root", "", "escola");
 
 // Verificando se a conexão foi estabelecida com sucesso
 if ($conn->connect_error) {

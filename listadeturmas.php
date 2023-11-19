@@ -41,7 +41,11 @@ if(isset($_POST['cadastrar'])){
       $minimoparapositiva=mysqli_escape_string($conexao,$_POST['minimoparapositiva']);
       $valorminimo=mysqli_escape_string($conexao,$_POST['valorminimo']);
       $valormaximo=mysqli_escape_string($conexao,$_POST['valormaximo']);
+
+      $idcoordenador=mysqli_escape_string($conexao,$_POST['idcoordenador']);
        
+      
+
         $existe=mysqli_num_rows(mysqli_query($conexao, "select idturma from turmas where titulo='$titulo' and idanolectivo='$idanolectivo' "));
       
           if($existe==0){
@@ -52,7 +56,7 @@ if(isset($_POST['cadastrar'])){
                                                 
 
 
-                $salvar= mysqli_query($conexao,"INSERT INTO `turmas` (titulo, idanolectivo, idperiodo, idcurso, idsala, idclasse, matricula, reconfirmacao, propina, eclassedeexame, classificacaopositiva, classificacaonegativa, minimoparapositiva, valormaximo, valorminimo, idciclo) VALUES ('$titulo', '$idanolectivo', '$idperiodo', '$idcurso', '$idsala', '$idclasse', '$matricula', '$reconfirmacao', '$propina', '$eclassedeexame', '$classificacaopositiva', '$classificacaonegativa', '$minimoparapositiva', '$valormaximo', '$valorminimo', '$idciclo')");
+                $salvar= mysqli_query($conexao,"INSERT INTO `turmas` (titulo, idanolectivo, idperiodo, idcurso, idsala, idclasse, matricula, reconfirmacao, propina, eclassedeexame, classificacaopositiva, classificacaonegativa, minimoparapositiva, valormaximo, valorminimo, idciclo,idcoordenador) VALUES ('$titulo', '$idanolectivo', '$idperiodo', '$idcurso', '$idsala', '$idclasse', '$matricula', '$reconfirmacao', '$propina', '$eclassedeexame', '$classificacaopositiva', '$classificacaonegativa', '$minimoparapositiva', '$valormaximo', '$valorminimo', '$idciclo','$idcoordenador')");
                  
                if($salvar){
 
@@ -302,6 +306,17 @@ include("cabecalho.php") ; ?>
                         </div> 
                     </div>
 
+                    <div class="form-group">
+                         <span>Coordenador de Turma</span>
+                                  <select name="idcoordenador"    class="form-control"> 
+                                    <?php
+                                         $lista=mysqli_query($conexao,"SELECT * from funcionarios");
+                                        while($exibir = $lista->fetch_array()){ ?>
+                                        <option value="<?php echo $exibir["idfuncionario"]; ?>"><?php echo $exibir["nomedofuncionario"]; ?></option>
+                                      <?php } ?> 
+                                  </select> 
+                      </div>
+
                      
                     <br>
                        <input type="submit" name="cadastrar" value="Dar abertura a nova turma" class="btn btn-success" style="float: rigth;">
@@ -414,6 +429,7 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Turma</th> 
+                      <th>Coordenador</th>
                       <th>Período</th> 
                       <th>Curso</th> 
                       <th>Sala</th> 
@@ -433,7 +449,7 @@ include("cabecalho.php") ; ?>
                            $idcurso=$exibir["idcurso"];
                            $idsala=$exibir["idsala"];
                            $idclasse=$exibir["idclasse"];
-
+                         
                             $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
                             $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
@@ -442,12 +458,26 @@ include("cabecalho.php") ; ?>
 
                             $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
  
+                            $idcoordenador=$exibir["idcoordenador"];
+
+                            $buscaCordenador=mysqli_query($conexao,"SELECT nomedofuncionario from funcionarios where idfuncionario='$idcoordenador'");
+                           
+                      
+                            
+                            if (mysqli_num_rows($buscaCordenador)!=0) {
+                              $nomedocoordenador=mysqli_fetch_array($buscaCordenador)[0];
+ 
+                            }else {
+                              $nomedocoordenador='';
+                            }
+                          
+
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes where idturma='$idturma' and idanolectivo='$idanolectivo' and matriculaseconfirmacoes.estatus='activo'"));
 
                   ?>
                     <tr>  
                       <td> <a  href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
-
+                      <td> <a  href="funcionario.php?idfuncionario=<?php echo $exibir["idcoordenador"]; ?>"> <?php echo $nomedocoordenador ?> </a></td> 
                       <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td>
                       <td><a  href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $curso; ?></a></td>  
                       <td><a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"><?php echo $sala; ?></a></td> 

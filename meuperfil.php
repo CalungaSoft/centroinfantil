@@ -130,17 +130,17 @@ if($idfuncionario!=$idlogado){
             $ano_escolhido=date('Y');
             $mes_escolhido=date('m');
 
-            $dia1v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 6 DAY)"));
-            $dia2v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 5 DAY)"));
-            $dia3v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 4 DAY)"));
-            $dia4v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 3 DAY)"));
-            $dia5v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 2 DAY)"));
-            $dia6v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 1 DAY)"));
-            $dia7v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 0 DAY)"));
+            $dia1v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 6 DAY)"));
+            $dia2v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 5 DAY)"));
+            $dia3v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 4 DAY)"));
+            $dia4v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 3 DAY)"));
+            $dia5v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 2 DAY)"));
+            $dia6v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 1 DAY)"));
+            $dia7v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 0 DAY)"));
           
             
       
-             $salarionessemes = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado'"));
+             $salarionessemes = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado'"));
 
              $presencanessemes = mysqli_num_rows(mysqli_query($conexao,"SELECT idpresencaprofessor FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and totaldetempos!='0'"));
 
@@ -403,155 +403,15 @@ if($idfuncionario!=$idlogado){
                   </div>
  
               
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Histórico de Salário Relacionadas a esse funcionário</h6>
-            </div> 
-            <div class="card-body">
-
-
-
-
- 
-
-              <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                  <tr>  
-                      <th>Nome</th>
-                      <th>Cargo</th>
-                      <th>Salario Base</th>
-                      <th title="Salário actual do funcionáio">Salário/H</th>
-                      <th>Faltas</th>
-                      <th title="total de horas trabalhadas durante o mês">Total de Horas</th>
-                      <th title="total de horas extras durante o mês">Horas Extras</th>
-                      <th title="total em salário de horas extras durante o mês">Total Extras</th> 
-                      <th>Salário Bruto</th>
-                      <th title="Abono de Família">Abono de F.</th>
-                      <th title="Percentual do IRT">IRT</th> 
-                      <th title="Segurança Social">Seg. Social</th>
-                      <th title="Subsídio de Férias">Subsídio F.</th>
-                      <th title="Subsídio de Natal">Subsídio N.</th>
-                      <th title="Outros Descontos">O. Desc.</th>
-                      <th title="total em valor que o funcionário deve receber">Salário Líquido</th>
-                      
-                      <th title="total de valor que o funcionário recebeu">Valor Recebido</th>
-                      <th title="Total em valores que o funcionário falta receber">Em falta</th>
-                      <th>Forma de Pagamento</th> 
-                      <th>Data de Pagamento</th> 
-                      <th title="Observação">OBS</th> 
-                      <th>Opções</th> 
-                    </tr>
-                  </thead> 
-                  <tbody>
-                  <?php
-                
-                  $folhadesalario=mysqli_query($conexao, "select funcionarios.nomedofuncionario, funcionarios.categoria,  salario.* from funcionarios, salario where funcionarios.idfuncionario=salario.idfuncionario and salario.idfuncionario='$idfuncionario'"); 
-                    
-                  $totalsalarioporhora=0;
-                  $totalextra=0; 
-                  $totalirt=0; 
-                  $totalsalarioliquido=0;
-                  $totalrecebido=0;
-                  $totalsalariobase=0;
-                  $totalsubsidiodeferias=0;
-                  $totalsubsidionatal=0;
-                  $totalabonodefamilia=0; 
-                  $totalsegurancasocial=0;
-                  $totaloutrosdescontos=0;
-                  $totalemfalta=0;
-                  $totalsalariobruto=0;
-
-               while($exibir = $folhadesalario->fetch_array()){ 
-                 $salariobruto=$exibir['salariobruto']+$exibir['abonodefamilia'];
-                $irt=($salariobruto*($exibir['irt']/100)); 
-                $segurancasocial=(($salariobruto-$irt)*($exibir['segurancasocial']/100)); 
-                $subsidiodenatal=(($salariobruto-$irt-$segurancasocial)*($exibir['subsidiodenatal']/100)); 
-                $subsidiodeferias=(($salariobruto-$irt-$segurancasocial)*($exibir['subsidiodeferias']/100)); 
-
-                $falta=$exibir['valorporreceber']-$exibir['valorrecebido'];
-                 ?>
-                <tr>
-                 
-                  <td><a href="funcionario.php?idfuncionario=<?php echo $exibir['idfuncionario']; ?>"><?php echo $exibir['nomedofuncionario']; ?></a></td>
-                  <td><?php echo $exibir['categoria']; ?></td>
-                  <td><?php $totalsalariobase=$totalsalariobase+$exibir['salarioactualbase']; $n=number_format($exibir['salarioactualbase'],2,",", ".");   echo $n; ?></td> 
-                  <td><?php $totalsalarioporhora=$totalsalarioporhora+$exibir['salarioactualporhora']; $n=number_format($exibir['salarioactualporhora'],2,",", ".");   echo $n; ?></td> 
-                  <td><?php echo $exibir['faltas']; ?></td>
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['horastrabalhadas']; ?></td>
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['horasextras']; ?></td> 
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php  $totalextra=$totalextra+$exibir['valorextra'];  echo $exibir['valorextra']; ?></td>
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php  $totalsalariobruto=$totalsalariobruto+$exibir['salariobruto'];  echo $exibir['salariobruto']; ?></td>
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php  $totalabonodefamilia=$totalabonodefamilia+$exibir['abonodefamilia'];  echo $exibir['abonodefamilia']; ?></td>
-                  <td title="IRT:<?php echo $exibir["irt"]; ?>%"><?php   $totalirt=$totalirt+$irt;  $n=number_format($irt,2,",", "."); echo "$n"; ?></td> 
-                  <td title="Segurança Social:<?php echo $exibir["segurancasocial"]; ?>%"><?php   $totalsegurancasocial=$totalsegurancasocial+$segurancasocial;  $n=number_format($segurancasocial,2,",", "."); echo "$n"; ?></td> 
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php  $totalsubsidiodeferias=$totalsubsidiodeferias+$subsidiodeferias;  echo $subsidiodeferias; ?></td>
-                  <td title="Subsídio de Natal:<?php echo $exibir["subsidiodenatal"]; ?>%"><?php   $totalsubsidionatal=$totalsubsidionatal+$subsidiodenatal;  $n=number_format($subsidiodenatal,2,",", "."); echo "$n"; ?></td> 
-                  <td <?php $totaloutrosdescontos=$totaloutrosdescontos+$exibir["outrosdescontos"]; ?> title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['outrosdescontos']; ?></td>
-                  <td><?php   $totalsalarioliquido=$totalsalarioliquido+$exibir["valorporreceber"];  $n=number_format($exibir["valorporreceber"],2,",", "."); echo "$n"; ?></td> 
-                  <td><?php   $totalrecebido=$totalrecebido+$exibir["valorrecebido"];  $n=number_format($exibir["valorrecebido"],2,",", "."); echo "$n"; ?></td> 
-                  <td><?php   $totalemfalta=$totalemfalta+$falta;  $n=number_format($falta,2,",", "."); echo "$n"; ?></td>  
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['formapagamento']; ?></td>
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['datadepagamento']; ?></td>
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>"><?php echo $exibir['obs']; ?></td>
-                  <td title="<?php echo $exibir["nomedofuncionario"]; ?>">
-                      <a href="" class="delete" id="<?php echo $exibir["idsalario"]; ?>"><i  style="color:red;" title="Eliminar Registro" class="fas fa-trash"></i></a> 
-                      <a href="pdf/pdfcomprovativo.php?idsalario=<?php echo $exibir["idsalario"]; ?>&idfuncionario=<?php echo $exibir["idfuncionario"]; ?>" title="Imprimir comprovativo de pagamento"> <i style="color:green;"  class="fas fa-print"></i></a> 
-                 </td>
-                  </tr> 
-               <?php } ?>
-               
-              </tbody>
-              <tfoot>
-               <?php
-                        $totalsalarioporhora=number_format($totalsalarioporhora,2,",", ".");
-                        $totalextra=number_format($totalextra,2,",", "."); 
-                        $totalirt=number_format($totalirt,2,",", "."); 
-                        $totalsalarioliquido=number_format($totalsalarioliquido,2,",", ".");
-                        $totalrecebido=number_format($totalrecebido,2,",", ".");
-                        $totalsalariobase=number_format($totalsalariobase,2,",", ".");
-                        $totalabonodefamilia=number_format($totalabonodefamilia,2,",", "."); 
-                        $totalsubsidiodeferias=number_format($totalsubsidiodeferias,2,",", "."); 
-                        $totalsubsidionatal=number_format($totalsubsidionatal,2,",", ".");
-                        $totalsegurancasocial=number_format($totalsegurancasocial,2,",", ".");
-                        $totalemfalta=number_format($totalemfalta,2,",", ".");
-                        $totalsalariobruto=number_format($totalsalariobruto,2,",", ".");
-                        $totaloutrosdescontos=number_format($totaloutrosdescontos,2,",", ".");
-               ?>
-               <tr> 
-                  <th><strong>Total</strong></th>
-                  <th></th> 
-                  <th><?php echo $totalsalariobase; ?></th> 
-                  <th><?php echo $totalsalarioporhora; ?></th> 
-                  <th></th>
-                  <th></th>
-                  <th> </th>
-                  <th><?php echo $totalextra; ?></th> 
-                  <th><?php echo $totalsalariobruto; ?></th> 
-                  <th><?php echo $totalabonodefamilia; ?></th>
-                  <th ><?php echo $totalirt; ?></th>    
-                  <th><?php echo $totalsegurancasocial; ?></th> 
-                  <th><?php echo $totalsubsidiodeferias; ?></th> 
-                  <th><?php echo $totalsubsidionatal; ?></th>  
-                  <th><?php echo $totaloutrosdescontos; ?></th>   
-                  <th><?php echo $totalsalarioliquido; ?></th>
-                  <th><?php echo $totalrecebido; ?></th>
-                  <th><?php echo $totalemfalta; ?></th> 
-                  <th></th> 
-                  <th></th> 
-                  <th></th> 
-                  <th></th> 
-                </tr>
-                </tfoot>
-                </table> 
-              </div>
-            </div>
-          </div>
-
+       
          
   <!-- DataTales Example -->  
         </div>
+      
+       <!-- DataTales Example -->  
+       </div>
+        <!-- /.container-fluid -->
+
         <!-- /.container-fluid -->
 
       </div>

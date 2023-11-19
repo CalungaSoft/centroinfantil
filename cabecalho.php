@@ -307,7 +307,7 @@
 
 <?php } ?>
 
-  <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2" || $painellogado=="areapedagogica"){ ?>
+  <?php if($painellogado=="administrador" || $painellogado=="secretaria1"  || $painellogado=="RH" || $painellogado=="secretaria2" || $painellogado=="areapedagogica"){ ?>
 
 <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -319,10 +319,10 @@
             <h6 class="collapse-header">Funcionários</h6>
 
             <a class="collapse-item" href="funcionarios.php">Lista / cadastrar </a>
-          <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2" ){ ?>
+          <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2" || $painellogado=="RH" ){ ?>
             <a class="collapse-item" href="presenca.php?anodesalario=<?php echo $anodehoje_cabecalho; ?>&mesdesalario=<?php echo $mesdehoje_cabecalho; ?>">Folha de Presença</a>
             <?php } ?>
-              <?php if($painellogado=="administrador"  || $painellogado=="secretaria2"){ ?>
+              <?php if($painellogado=="administrador"  || $painellogado=="secretaria2" || $painellogado=="RH"){ ?>
 
             <a class="collapse-item" href="folhadesalario.php?anodesalario=<?php echo $anodehoje_cabecalho; ?>&mesdesalario=<?php echo $mesdehoje_cabecalho; ?>">Folha de Salário</a> 
             <?php } ?>
@@ -330,7 +330,7 @@
 
             <a class="collapse-item" href="professores.php">Lista</a>
             <a class="collapse-item" href="presencaprofessores.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Presença</a>
-              <?php if($painellogado=="administrador"  || $painellogado=="secretaria2" || $painellogado=="areapedagogica"){ ?>
+              <?php if($painellogado=="administrador"  || $painellogado=="secretaria2" || $painellogado=="RH" || $painellogado=="areapedagogica"){ ?>
 
             <a class="collapse-item" href="professoresfolhadesalario.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Folha de Salário</a>
             <?php } ?>
@@ -341,6 +341,7 @@
 
       <?php } ?>
       
+      <?php if($painellogado!="RH"){ ?>
 <!-- Nav Item - Utilities Collapse Menu -->
 <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#alunoscar" aria-expanded="true" aria-controls="alunoscar">
@@ -365,7 +366,7 @@
           </div>
         </div>
       </li>
-      
+      <?php } ?>
       <?php 
 
        $totaldeaniversariantes=mysqli_num_rows(mysqli_query($conexao, "select idaluno FROM alunos where MONTH(datadenascimento)=MONTH(curdate())"));
@@ -384,9 +385,11 @@
         </a>
         <div id="calendaria" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded"> 
+          <?php if($painellogado!="RH"){ ?>
             <a class="collapse-item" href="aniversariantes.php">Aniversariantes <sup><?php echo "$totaldeaniversariantes"; ?></sup> </a>
+            <?php } ?> 
             <a class="collapse-item" href="agenda.php">Actividades <sup><?php echo "$totaldeActividades"; ?></sup></a> 
-              <?php if($painellogado=="administrador"  || $painellogado=="secretaria1" || $painellogado=="secretaria2"){ ?>
+              <?php if($painellogado=="administrador"  || $painellogado=="secretaria1" || $painellogado=="secretaria2" || $painellogado=="RH"){ ?>
             <a class="collapse-item" href="lembretes.php">Lembretes <sup><?php echo "$totaldelembretes"; ?></sup></a>
             <?php } ?> 
           </div>
@@ -404,14 +407,20 @@
         </a>
         <div id="calendaria2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="listadeturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Turmas</a>  
+          <?php if( $painellogado!="professor"){ ?>
+
+            <a class="collapse-item" href="listadeturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Turmas</a>  
             <a class="collapse-item" href="listadedisciplinas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Disciplinas</a> 
             <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Notas">Lançar Notas</a>
             <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Faltas">Lançar Faltas</a> 
+            <a class="collapse-item" href="turmasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Presença">Mapa de Presença (x Dia)</a> 
+            
             <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Minipauta">Minipauta</a> 
-             <a class="collapse-item" href="avaliacoescontinuas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Avaliações Contínuas</a> 
+            <a class="collapse-item" href="avaliacoescontinuas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Avaliações Contínuas</a> 
             <a class="collapse-item" href="turmasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Ver Pauta">Pautas</a>
-              <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Ver Faltas">Faltas</a> 
+            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Ver Faltas">Faltas</a> 
+
+              <?php } ?>
               <a class="collapse-item" href="relatoriodiariogeral.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&anodevenda=<?php echo $anodehoje_cabecalho; ?>&mesdevenda=<?php echo $mesdehoje_cabecalho; ?>">Relatório Diário</a> 
 
 
@@ -502,6 +511,7 @@
 
       <?php } ?>
       
+      <?php if( $painellogado!="professor" && $painellogado!="RH"){ ?>
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#calendaria3" aria-expanded="true" aria-controls="calendaria3">
@@ -520,8 +530,8 @@
           </div>
         </div>
       </li>
-      
-  <?php if($painellogado=="administrador"    || $painellogado=="areapedagogica"  || $painellogado=="professor"){ ?>
+      <?php } ?>
+  <?php if($painellogado=="administrador"    || $painellogado=="areapedagogica" ){ ?>
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="listadedisciplinas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">
@@ -562,13 +572,16 @@
       
 <?php } ?>
  
+<?php if( $painellogado!="RH"){ ?>
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="compararturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">
           <i class="fas fa-fw fa-weight"></i>
           <span>Comparar Turmas</span></a>
       </li> 
-
+      
+      <?php } ?>
+ 
 <?php if($painellogado=="administrador"  ||  $painellogado=="secretaria2" ){ ?>
        <!-- Nav Item - Tables -->
       <li class="nav-item">
@@ -577,7 +590,11 @@
           <span>Metas</span></a>
       </li>
 <?php } ?>
-
+<!-- <li class="nav-item">
+        <a class="nav-link" href="sicronizacaopage.php">
+          <i class="fas fa-fw fa-refresh"></i>
+          <span>Sicronização</span></a>
+      </li> -->
 <!-- <li class="nav-item">
         <a class="nav-link" href="listadesicronizacao.php">
           <i class="fas fa-fw fa-business-time"></i>

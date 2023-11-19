@@ -43,17 +43,7 @@ $dados_do_anolectivo=mysqli_fetch_array(mysqli_query($conexao, "select * from an
    $titulo_do_ano_lectivo=$dados_do_anolectivo["titulo"];
    $precodamulta=$dados_do_anolectivo["precodamulta"]; 
    $diadamulta=$dados_do_anolectivo["diadamulta"];
-  
-    // Função para verificar se o valor é percentual
-    // Função para calcular o novo valor da multa com base no valor percentual ou exato
-    function calcularMulta($valorPropina, $multa) {
-        if (strpos($multa, '%') !== false) {
-            return $valorPropina * floatval(str_replace('%', '', $multa)) / 100;
-        } else {
-            return floatval($multa);
-        }
-    }
-
+ 
   
    
 
@@ -145,13 +135,31 @@ $html="";
                         }
                     } 
                     
+                     
+   
+   $diasparamultaincremental=$dados_do_anolectivo["diasparamultaincremental"]; 
+   $valordamultaincremental=$dados_do_anolectivo["valordamultaincremental"]; 
+
+
+    // Função para verificar se o valor é percentual
+    // Função para calcular o novo valor da multa com base no valor percentual ou exato
+    function calcularMulta($valorPropina, $multa) {
+        if (strpos($multa, '%') !== false) {
+            return $valorPropina * floatval(str_replace('%', '', $multa)) / 100;
+        } else {
+            return floatval($multa);
+        }
+    }
+
+
                     
  $datadecontagem="$proximo_pagamento_ano-$proximo_pagamento_mes-00"; 
  
  $diassemmultas=date('Y-m-d', strtotime('+'.$diadamulta.' DAYS', strtotime($datadecontagem)));
 
+  $diassemmultasIncremental=date('Y-m-d', strtotime('+'.$diasparamultaincremental.' DAYS', strtotime($datadecontagem)));
+
  
- $prazodepagamento=date('Y-m-d', strtotime('-'.$diadamulta.' DAYS', strtotime($datadecontagem)));
 
 $dataDeHoje=date('Y-m-d');
 

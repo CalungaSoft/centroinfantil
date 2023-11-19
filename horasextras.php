@@ -32,6 +32,9 @@ if(isset($_GET['del'])){
 }
 
 
+ini_set('display_errors',0); ini_set('display_startup_erros',0); error_reporting(E_ALL);//force php to show any error message
+    
+
 include("cabecalho.php") ; ?>
         <!-- Begin Page Content -->
         <div class="container-fluid">

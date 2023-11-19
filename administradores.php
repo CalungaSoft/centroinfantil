@@ -18,7 +18,7 @@ $painellogado=$_SESSION['painel'];
  
 if(isset($_POST['cadastrar'])){
   
-  
+   
       $idfuncionario=mysqli_escape_string($conexao, $_POST['idfuncionario']);
       $nomedeusuario=mysqli_escape_string($conexao, $_POST['nomedeusuario']);
       $senha=mysqli_escape_string($conexao, $_POST['senha']);
@@ -196,6 +196,7 @@ include("cabecalho.php") ; ?>
                                         <option value="secretaria1">Secretaria nivel 1</option>
                                         <option value="secretaria2">Secretaria nivel 2</option>
                                         <option value="areapedagogica">Área Pedagógica</option>
+                                        <option value="RH">Recursos Humanos</option>
                                         <option value="administrador">Administrador</option> 
                                 </select> 
                                 <br>

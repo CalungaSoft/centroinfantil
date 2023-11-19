@@ -691,28 +691,6 @@ echo '
      <script>
 
 
-                                  $(document).on("blur", ".update", function(){
-
-                                        var idmatriculaeconfirmacao=$(this).data("id");
-                                        var idnotadoano=$(this).data("column");
-                                        var valordanota=$(this).text();
-
-                                        var iddisciplina=<?php echo $iddisciplina; ?>; 
-                                         
-                                        
-                                        $.ajax({
-                                              url:'cadastro/lancarnota.php',
-                                              method:'POST',
-
-                                              data:{idmatriculaeconfirmacao, idnotadoano, valordanota, iddisciplina},
-
-                                              success: function(data){
-                                                  $("#mensagemdealerta").html(data); 
-                                              }
-
-                                          })
-
-                                    })
        
 
      </script>
