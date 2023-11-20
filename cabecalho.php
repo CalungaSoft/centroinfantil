@@ -319,23 +319,46 @@
             <h6 class="collapse-header">Funcionários</h6>
 
             <a class="collapse-item" href="funcionarios.php">Lista / cadastrar </a>
-          <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2" || $painellogado=="RH" ){ ?>
-            <a class="collapse-item" href="presenca.php?anodesalario=<?php echo $anodehoje_cabecalho; ?>&mesdesalario=<?php echo $mesdehoje_cabecalho; ?>">Folha de Presença</a>
-            <?php } ?>
-              <?php if($painellogado=="administrador"  || $painellogado=="secretaria2" || $painellogado=="RH"){ ?>
-
-            <a class="collapse-item" href="folhadesalario.php?anodesalario=<?php echo $anodehoje_cabecalho; ?>&mesdesalario=<?php echo $mesdehoje_cabecalho; ?>">Folha de Salário</a> 
-            <?php } ?>
-               <h6 class="collapse-header">Professores</h6>
-
-            <a class="collapse-item" href="professores.php">Lista</a>
-            <a class="collapse-item" href="presencaprofessores.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Presença</a>
-              <?php if($painellogado=="administrador"  || $painellogado=="secretaria2" || $painellogado=="RH" || $painellogado=="areapedagogica"){ ?>
-
-            <a class="collapse-item" href="professoresfolhadesalario.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Folha de Salário</a>
-            <?php } ?>
+            <a class="collapse-item" href="funcionarios.php">Contratos </a>
+         
+              
 
           </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4" aria-expanded="true" aria-controls="collapseUtilities4">
+          <i class="fas fa-fw fa-money"></i>
+          <span>Salário</span>
+        </a>
+        <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+           
+
+          <a class="collapse-item" href="funcionarios.php">Folha de Salário</a> 
+          <a class="collapse-item" href="presenca.php?anodesalario=<?php echo $anodehoje_cabecalho; ?>&mesdesalario=<?php echo $mesdehoje_cabecalho; ?>">Processar salário</a>
+            <a class="collapse-item" href="funcionarios.php">Histórico de Pagamento</a>  
+              </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities11" aria-expanded="true" aria-controls="collapseUtilities11">
+          <i class="fas fa-fw fa-calendar"></i>
+          <span>Calendário RH</span>
+        </a>
+        <div id="collapseUtilities11" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          <a class="collapse-item" href="funcionarios.php">Horário</a>  
+          <a class="collapse-item" href="funcionarios.php">Marcar Presença/Falta</a>  
+          <a class="collapse-item" href="funcionarios.php">Ausências e Licenças</a>  
+          <a class="collapse-item" href="funcionarios.php">Plano de Férias</a>  
+          <a class="collapse-item" href="funcionarios.php">Feriados</a>  
+          <a class="collapse-item" href="funcionarios.php">Indicação de tarefas</a>   
+          <a class="collapse-item" href="funcionarios.php">Aniversários</a>   
+
+              </div>
         </div>
       </li>
 
@@ -409,25 +432,18 @@
           <div class="bg-white py-2 collapse-inner rounded">
           <?php if( $painellogado!="professor"){ ?>
 
-            <a class="collapse-item" href="listadeturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Turmas</a>  
-            <a class="collapse-item" href="listadedisciplinas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Disciplinas</a> 
-            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Notas">Lançar Notas</a>
-            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Faltas">Lançar Faltas</a> 
-            <a class="collapse-item" href="turmasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Presença">Mapa de Presença (x Dia)</a> 
-            
-            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Minipauta">Minipauta</a> 
-            <a class="collapse-item" href="avaliacoescontinuas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Avaliações Contínuas</a> 
-            <a class="collapse-item" href="turmasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Ver Pauta">Pautas</a>
-            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Ver Faltas">Faltas</a> 
+            <a class="collapse-item" href="listadeturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Turmas</a>   
+            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Faltas">Plano Diário</a> 
+            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Notas">Plano Mensal</a>
+            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Faltas">Plano Anual</a> 
+            <a class="collapse-item" href="turmasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Presença">Mapa de Presença</a> 
+             
+            <a class="collapse-item" href="avaliacoescontinuas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Avaliações</a>  
 
               <?php } ?>
-              <a class="collapse-item" href="relatoriodiariogeral.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&anodevenda=<?php echo $anodehoje_cabecalho; ?>&mesdevenda=<?php echo $mesdehoje_cabecalho; ?>">Relatório Diário</a> 
+              <a class="collapse-item" href="relatoriodiariogeral.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&anodevenda=<?php echo $anodehoje_cabecalho; ?>&mesdevenda=<?php echo $mesdehoje_cabecalho; ?>">Relatório de Ocorrencia</a> 
 
-
-            <a class="collapse-item" href="alunoscadeirantes.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Disciplina em Atrasos</a> 
-            <a class="collapse-item" href="quadrodehonra.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Quadro de Honra</a> 
-
-            <a class="collapse-item" href="mapadeaproveitamento.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Mapa de Aproveitamento</a> 
+ 
  
           </div>
         </div>
@@ -462,6 +478,9 @@
  
 
                 <a class="collapse-item" href="listadeestudantesbolseiro.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Isentos de Propinas</a> 
+                <a class="collapse-item" href="listadeestudantesbolseiro.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Bolseiros</a>
+            <a class="collapse-item" href="listadeestudantescomdesconto.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Com Desconto</a>
+
 
 
           </div>
@@ -507,7 +526,22 @@
         </div>
       </li>
 
-      
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#extra" aria-expanded="true" aria-controls="extra">
+          <i class="fas fa-fw fa-book"></i>
+          <span>A. Extra curriculares</span>
+        </a>
+        <div id="extra" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          <a class="collapse-item" href="listadetransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Cadastro/Lista</a>
+            <a class="collapse-item" href="listadeestudantesdotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Lista de Alunos</a>
+            <a class="collapse-item" href="pagarpropinadotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="Pagar Mensalidade dos alunos de transporte">Pagar Mensalidade</a> 
+            <a class="collapse-item" href="relatoriodepropinastransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Ver Relatórios</a> 
+          
+          </div>
+        </div>
+      </li>
 
       <?php } ?>
       
@@ -522,9 +556,7 @@
           <div class="bg-white py-2 collapse-inner rounded"> 
             <a class="collapse-item" href="listadeanolectivos.php">Ano Lectivo</a>
                 <a class="collapse-item" href="listadeperiodos.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Períodos</a> 
-              <a class="collapse-item" href="listadeciclos.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Ciclos</a> 
-                 <a class="collapse-item" href="listadecursos.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Cursos</a>
-                <a class="collapse-item" href="listadeclasses.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Classes</a> 
+              <a class="collapse-item" href="listadeciclos.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Níveis</a>  
                  <a class="collapse-item" href="listadesalas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Salas</a> 
                 <a class="collapse-item" href="listadeturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Turmas</a> 
           </div>
@@ -535,8 +567,8 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="listadedisciplinas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">
-          <i class="fas fa-fw fa-pencil-square-o"></i>
-          <span>Disciplinas</span></a>
+          <i class="fas fa-fw fa-bars"></i>
+          <span>Ementa Mensal</span></a>
       </li>
 
 <?php } ?>

@@ -229,9 +229,7 @@ include("cabecalho.php") ; ?>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>  
-                      <th>Período</th>
-                      <th>Nº de Cursos</th>
-                      <th>Nº de Classes</th>
+                      <th>Período</th> 
                       <th>Nº de Turmas</th>
                       <th>Nº de Alunos</th> 
                       <th>Ver Mais</th>
@@ -245,10 +243,7 @@ include("cabecalho.php") ; ?>
                            $idperiodo=$exibir["idperiodo"];
                               
 
-                            $cursos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idcurso) from turmas where idperiodo='$idperiodo' and idanolectivo='$idanolectivo'"));
-
-                            $classes=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idclasse) from turmas where idperiodo='$idperiodo' and idanolectivo='$idanolectivo'"));
-
+                          
                             $turmas=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idturma) from turmas where idperiodo='$idperiodo' and idanolectivo='$idanolectivo'"));
 
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and turmas.idperiodo='$idperiodo' and matriculaseconfirmacoes.idanolectivo='$idanolectivo' and matriculaseconfirmacoes.estatus='activo'"));
@@ -256,8 +251,6 @@ include("cabecalho.php") ; ?>
                   ?>
                     <tr>  
                         <td> <a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
-                      <td><?php echo $cursos; ?></td>
-                      <td><?php echo $classes; ?></td>  
                       <td><?php echo $turmas; ?></td>  
                       <td><?php echo $alunos; ?></td>  
                       <td align="center" title="Veja mais opções sobre esse período">

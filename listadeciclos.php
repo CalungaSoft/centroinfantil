@@ -63,8 +63,8 @@ include("cabecalho.php") ; ?>
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Lista de Ciclos no ano lectivo (<?php echo $anolectivo_escolhido; ?>)</h1>
-          <p class="mb-4">A seguir vai a lista de Ciclos disponíveis na instituição</p>
+          <h1 class="h3 mb-2 text-gray-800">Lista de Níveis no ano lectivo (<?php echo $anolectivo_escolhido; ?>)</h1>
+          <p class="mb-4">A seguir vai a lista de Níveis disponíveis na instituição</p>
      
       <?php 
             if(!empty($erros)):
@@ -228,9 +228,7 @@ include("cabecalho.php") ; ?>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>  
-                      <th>Ciclo</th>
-                      <th>Nº de Cursos</th>
-                      <th>Nº de Classes</th>
+                      <th>Níveis</th> 
                       <th>Nº de Turmas</th>
                       <th>Nº de Alunos</th> 
                       <th>Ver Mais</th>
@@ -244,10 +242,7 @@ include("cabecalho.php") ; ?>
                            $idciclo=$exibir["idciclo"];
                               
 
-                            $cursos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idcurso) from turmas where idciclo='$idciclo' and idanolectivo='$idanolectivo'"));
-
-                            $classes=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idclasse) from turmas where idciclo='$idciclo' and idanolectivo='$idanolectivo'"));
-
+                          
                             $turmas=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idturma) from turmas where idciclo='$idciclo' and idanolectivo='$idanolectivo'"));
 
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and turmas.idciclo='$idciclo' and matriculaseconfirmacoes.idanolectivo='$idanolectivo' and matriculaseconfirmacoes.estatus='Activo'"));
@@ -255,12 +250,10 @@ include("cabecalho.php") ; ?>
                   ?>
                     <tr>  
                         <td> <a  href="ciclo.php?idciclo=<?php echo $exibir["idciclo"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
-                      <td><?php echo $cursos; ?></td>
-                      <td><?php echo $classes; ?></td>  
-                      <td><?php echo $turmas; ?></td>  
+                     <td><?php echo $turmas; ?></td>  
                       <td><?php echo $alunos; ?></td>  
                       <td align="center" title="Veja mais opções sobre esse Ciclo">
-                         <a  href="ciclo.php?idciclo=<?php echo $exibir["idciclo"]; ?>" <?php echo $exibir["idciclo"]; ?>><i  class="fas fa-eye" ></i> </a>
+                         <a  href="ciclo.php?idciclo=<?php echo $exibir["idciclo"]; ?>"><i  class="fas fa-eye" ></i> </a>
                       </td>
                     </tr> 
                     <?php } ?> 

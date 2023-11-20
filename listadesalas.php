@@ -227,10 +227,7 @@ include("cabecalho.php") ; ?>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>  
-                      <th>Sala</th>
-                      <th>Nº de Classes</th>
-                      <th>Nº de Períodos</th>
-                      <th>Nº de Cursos</th>
+                      <th>Sala</th> 
                       <th>Nº de Turmas</th>
                       <th>Nº de Alunos</th> 
                       <th>Ver Mais</th>
@@ -243,12 +240,7 @@ include("cabecalho.php") ; ?>
 
                            $idsala=$exibir["idsala"];
                               
-                           $classes=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idclasse) from turmas where idsala='$idsala' and idanolectivo='$idanolectivo'"));
-
-                            $periodos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idperiodo) from turmas where idsala='$idsala' and idanolectivo='$idanolectivo'"));
-
-                            $cursos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idcurso) from turmas where idsala='$idsala' and idanolectivo='$idanolectivo'"));
-
+                          
                             $turmas=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idturma) from turmas where idsala='$idsala' and idanolectivo='$idanolectivo'"));
 
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and turmas.idsala='$idsala' and matriculaseconfirmacoes.idanolectivo='$idanolectivo' and matriculaseconfirmacoes.estatus='activo'"));
@@ -256,11 +248,7 @@ include("cabecalho.php") ; ?>
                   ?>
                     <tr>  
                       <td> <a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
-
-                      <td><?php echo $classes; ?></td>
-                      <td><?php echo $periodos; ?></td>
-                      <td><?php echo $cursos; ?></td>  
-                      <td><?php echo $turmas; ?></td>  
+ <td><?php echo $turmas; ?></td>  
                       <td><?php echo $alunos; ?></td>  
                       <td align="center" title="Veja mais opções sobre esse sala">
                          <a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>" <?php echo $exibir["idsala"]; ?>><i  class="fas fa-eye" ></i> </a>

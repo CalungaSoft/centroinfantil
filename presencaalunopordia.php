@@ -157,7 +157,8 @@ include("cabecalho.php"); ?>
               for ($i = 1; $i <= $totaldedias; $i++) {  ?>
                 <th><?php echo  $i; ?></th>
               <?php } ?>
-              <th>Total(Dias)</th>
+              <th>Presenças</th>
+              <th>Faltas</th>
             </tr>
           </thead>
           <tbody>
@@ -165,20 +166,16 @@ include("cabecalho.php"); ?>
 
             $lista = mysqli_query($conexao, "select   TIMESTAMPDIFF(YEAR,datadenascimento,CURDATE()) as idade, alunos.* , matriculaseconfirmacoes.* from matriculaseconfirmacoes, alunos where matriculaseconfirmacoes.idaluno=alunos.idaluno and matriculaseconfirmacoes.idturma='$idturma'");
 
-            $salariodetodos = 0;
+          
             while ($exibir = $lista->fetch_array()) {
-              $idmatricula = $exibir['idmatricula'];
+
+              $idmatricula = $exibir['idmatriculaeconfirmacao'];
               $idaluno = $exibir['idaluno'];
-              $totaldehoras = 0;
-              $salariototal = 0;
-              $totaldehorassemextra = 0;
-              $totaldehorasextras = 0;
+           
+              $total_presenca = 0;
+            $total_falta = 0;
 
-              $totaldevalorsemextra = 0;
-              $totaldevalorextras = 0;
-
-              $salariopordia = $exibir['salarioporhora'] * $exibir['numerodehoras'];
-
+ 
             ?>
               <tr>
                 <td><a href="aluno.php?idaluno=<?php echo $idaluno; ?>"><?php echo $exibir['nomecompleto']; ?></a></td>
@@ -191,36 +188,37 @@ include("cabecalho.php"); ?>
 
                   $cor = "red";
                   $imprimir = "";
-                  $query = mysqli_query($conexao, "SELECT * FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1");
+                  $query = mysqli_query($conexao, "SELECT * FROM presencaalunos where idmatricula='$idmatricula' and ano='$ano' and dia='$i' and mes='$mes' limit 1");
 
 
 
                   if (mysqli_num_rows($query) == 0) {
-                    $totaldevalorsemextra = 0;
-                    $totaldevalorextras = 0;
+                    
 
                     $falta = [];
 
-                    $totaldehorassemextra = 0;
-                    $totaldehorasextras = 0;
-
-                    $totaldehoras = $totaldehorassemextra + $totaldehorasextras;
+ 
                   } else {
 
-                    $totaldevalorsemextra = $totaldevalorsemextra + mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(salariopordia) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0] + 0;
-                    $totaldevalorextras = $totaldevalorextras + mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(salariopelahorasextras) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0] + 0;
-
+                    
                     $falta = mysqli_fetch_array($query);
 
-                    $totaldehorassemextra = $totaldehorassemextra + mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(horastrabalhadas) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0];
-                    $totaldehorasextras = $totaldehorasextras + mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(horasextras) FROM presenca where idfuncionario='$idfuncionario' and ano='$ano' and dia='$i' and mes='$mes' limit 1"))[0];
+                    if ($falta["presenca"]=='P'|| $falta["presenca"]=='p') {
+                      $total_presenca++;
+                    }else {
 
-                    $totaldehoras = $totaldehorassemextra + $totaldehorasextras;
+                      $total_falta++;
+
+                    }
+                  
+                    
+ 
                   }
 
 
-                  $salariototal = $salariototal + $falta["salariopordia"] + $falta["salariopelahorasextras"];
-                  $imprimir = "$falta[falta]";
+                  
+                  $imprimir = "$falta[presenca]";
+
                   if (date('N', strtotime($data)) == 6) {
                     $cor = "yellow";
                   } else if (date('N', strtotime($data)) == 7) {
@@ -232,26 +230,16 @@ include("cabecalho.php"); ?>
 
 
                 ?>
-                  <td <?php if ($falta["horasextras"] != 0) { ?> title="+<?php echo $falta["horasextras"]; ?> Horas extras | funcionário: <?php echo $exibir['nomedofuncionario']; ?>" <?php } else { ?> title="<?php echo $exibir['nomedofuncionario']; ?>" <?php } ?> class="update" data-id="<?php echo $idfuncionario; ?>" data-column="<?php echo $i; ?>" style="background-color: <?php echo $cor; ?>;" contenteditable><strong><?php echo $imprimir; ?></strong></td>
+                  <td title="Estudante: <?php echo $exibir['nomecompleto']; ?>"  class="update" data-id="<?php echo $idmatricula; ?>" data-column="<?php echo $i; ?>" style="background-color: <?php echo $cor; ?>;" contenteditable><strong><?php echo $imprimir; ?></strong></td>
                 <?php } ?>
-                <td title="Horas Normais de trabalho: <?php echo $totaldehorassemextra; ?>H | Horas Extras: <?php echo $totaldehorasextras; ?>H"><?php echo $totaldehoras; ?></td>
+                <td><?php echo $total_presenca; ?></td>
+                <td><?php echo $total_falta; ?></td>
                                                                                                                                                
               </tr>
             <?php } ?>
 
           </tbody>
-          <tfoot>
-            <tr>
-              <td><strong>Total</strong></td>
-              <td></td>
-              <?php for ($i = 1; $i <= $totaldedias; $i++) { ?>
-                <td></td>
-              <?php } ?>
-              <td></td>
-              <td><strong><?php $n = number_format($salariodetodos, 2, ",", ".");
-                          echo $n; ?> Kz</strong></td>
-            </tr>
-          </tfoot>
+          
         </table>
       </div>
     </div>
@@ -268,22 +256,22 @@ include("cabecalho.php"); ?>
 
 
 <script>
-  $(document).on("blur", ".update", function() {
-    var idfuncionario = $(this).data("id");
+  $(document).on("input", ".update", function() {
+    var idmatricula = $(this).data("id");
     var dia = $(this).data("column");
-    var falta = $(this).text();
+    var presenca = $(this).text();
 
     var ano = <?php echo $ano; ?>;
     var mes = <?php echo $mes; ?>;
 
     $.ajax({
-      url: 'cadastro/preencherfalta.php',
+      url: 'cadastro/preencherfaltaaluno.php',
       method: 'POST',
 
       data: {
-        idfuncionario,
+        idmatricula,
         dia,
-        falta,
+        presenca,
         ano,
         mes
       },
@@ -301,7 +289,7 @@ include("cabecalho.php"); ?>
 <footer class="sticky-footer bg-white">
   <div class="container my-auto">
     <div class="copyright text-center my-auto">
-      <span>Copyright &copy; CalungaSOFT 2021</span>
+      <span>Copyright &copy; CalungaSOFT 2023</span>
     </div>
   </div>
 </footer>

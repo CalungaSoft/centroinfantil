@@ -142,10 +142,7 @@ include("cabecalho.php"); ?>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Ano Lectivo</th>
-              <th>Nº de Períodos</th>
-              <th>Nº de Cursos</th>
-              <th>Nº de Classes</th>
+              <th>Ano Lectivo</th>  
               <th>Nº de Turmas</th>
               <th>Nº de Alunos</th>
               <th>Em Vigor?</th>
@@ -159,23 +156,14 @@ include("cabecalho.php"); ?>
 
               $idanolectivo = $exibir["idanolectivo"];
 
-
-              $periodos = mysqli_num_rows(mysqli_query($conexao, "SELECT distinct(idperiodo) from turmas where idanolectivo='$idanolectivo'"));
-
-              $cursos = mysqli_num_rows(mysqli_query($conexao, "SELECT distinct(idcurso) from turmas where idanolectivo='$idanolectivo'"));
-
-              $classes = mysqli_num_rows(mysqli_query($conexao, "SELECT distinct(idclasse) from turmas where idanolectivo='$idanolectivo'"));
-
+ 
               $turmas = mysqli_num_rows(mysqli_query($conexao, "SELECT distinct(idturma) from turmas where idanolectivo='$idanolectivo'"));
 
               $alunos = mysqli_num_rows(mysqli_query($conexao, "SELECT idaluno from matriculaseconfirmacoes where idanolectivo='$idanolectivo'"));
 
             ?>
               <tr>
-                <td> <a href="anolectivo.php?idanolectivo=<?php echo $exibir["idanolectivo"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td>
-                <td><?php echo $periodos; ?></td>
-                <td><?php echo $cursos; ?></td>
-                <td><?php echo $classes; ?></td>
+                <td> <a href="anolectivo.php?idanolectivo=<?php echo $exibir["idanolectivo"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td>  
                 <td><?php echo $turmas; ?></td>
                 <td><?php echo $alunos; ?></td>
                 <td><?php echo $exibir['vigor']; ?></td>
