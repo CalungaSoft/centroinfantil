@@ -138,11 +138,13 @@
                 <a class="collapse-item" href="cadastraraluno.php" title="Novos alunos com registro de finança">Matrícula</a>
                 <a class="collapse-item" href="escolheralunoatl.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula no ATL</a>  
                 <a class="collapse-item" href="escolheralunotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula no Transporte</a>  
+                <a class="collapse-item" href="escolheralunotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula Activ. Extr. Cur.</a>  
                 <a class="collapse-item" href="escolheraluno.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="Alunos já cadastrados no sistema em anos lectivos passados">Confirmação</a>  
                  
                   <?php if($painellogado!="areapedagogica"){ ?>
                 <a class="collapse-item" href="pagarpropina.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina</a> 
                 <a class="collapse-item" href="pagarpropinadoatl.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina ATL</a> 
+                <a class="collapse-item" href="pagarpropinadoatl.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina Activ. Ext.</a> 
                 <a class="collapse-item" href="pagarpropinadotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="Pagar Mensalidade dos alunos de transporte">Pagar Propina Transp.</a> 
                 <?php } ?>
                 <a class="collapse-item" href="vender.php">Comprar Material</a>
@@ -534,10 +536,10 @@
         </a>
         <div id="extra" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="listadetransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Cadastro/Lista</a>
-            <a class="collapse-item" href="listadeestudantesdotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Lista de Alunos</a>
-            <a class="collapse-item" href="pagarpropinadotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="Pagar Mensalidade dos alunos de transporte">Pagar Mensalidade</a> 
-            <a class="collapse-item" href="relatoriodepropinastransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Ver Relatórios</a> 
+          <a class="collapse-item" href="listadeactividade.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Cadastro/Lista</a>
+            <a class="collapse-item" href="listadeestudantesdactividade.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Lista de Alunos</a>
+            <a class="collapse-item" href="pagarpropinadactividade.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Pagar Mensalidade</a> 
+            <a class="collapse-item" href="relatoriodepropinasactividade.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Ver Relatórios</a> 
           
           </div>
         </div>
