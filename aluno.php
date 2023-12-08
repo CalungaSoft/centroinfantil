@@ -23,7 +23,15 @@ $idmatriculaeconfirmacao = isset($_GET['idmatriculaeconfirmacao']) ? $_GET['idma
 
 if ($idmatriculaeconfirmacao == 0) {
 
-  $idmatriculaeconfirmacao_fora = mysqli_fetch_array(mysqli_query($conexao, "select idmatriculaeconfirmacao from matriculaseconfirmacoes where idaluno='$idaluno' order by idmatriculaeconfirmacao desc limit 1"))[0];
+  $sql=mysqli_query($conexao, "select idmatriculaeconfirmacao from matriculaseconfirmacoes where idaluno='$idaluno' order by idmatriculaeconfirmacao desc limit 1");
+ 
+  if (mysqli_num_rows($sql)>0) {
+    $idmatriculaeconfirmacao_fora = mysqli_fetch_array($sql)[0];
+  }else{
+    $idmatriculaeconfirmacao_fora=null;
+  }
+   
+
 } else {
 
   $dados_da_matriculaeconfirmacao = mysqli_fetch_array(mysqli_query($conexao, "select * from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' limit 1"));
@@ -41,10 +49,12 @@ if ($idmatriculaeconfirmacao == 0) {
 
 if (!isset($_GET["idmatriculaeconfirmacao"])) {
 
-  $idmatriculaeconfirmacao = mysqli_fetch_array(mysqli_query($conexao, "select idmatriculaeconfirmacao from matriculaseconfirmacoes where idaluno='$idaluno' order by idmatriculaeconfirmacao desc limit 1"))[0];
+  $sql=mysqli_query($conexao, "select idmatriculaeconfirmacao from matriculaseconfirmacoes where idaluno='$idaluno' order by idmatriculaeconfirmacao desc limit 1");
+ 
+  if (mysqli_num_rows($sql)>0) {
+    $idmatriculaeconfirmacao = mysqli_fetch_array($sql)[0];
 
-
-
+    
   $dados_da_matriculaeconfirmacao = mysqli_fetch_array(mysqli_query($conexao, "select * from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' limit 1"));
 
   $idaluno = $dados_da_matriculaeconfirmacao["idaluno"];
@@ -56,6 +66,14 @@ if (!isset($_GET["idmatriculaeconfirmacao"])) {
   $anolectivo_selecionado = $dadosdoanolectivo["titulo"];
 
   $idmatriculaeconfirmacao_fora = $idmatriculaeconfirmacao;
+
+  }else{
+    $idmatriculaeconfirmacao=null;
+  }
+   
+ 
+
+
 }
 
 
@@ -1748,7 +1766,14 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
 
 <?php
 
-$idturma = mysqli_fetch_array(mysqli_query($conexao, "select idturma from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' order by idmatriculaeconfirmacao desc limit 1"))[0];
+$sql=mysqli_query($conexao, "select idturma from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' order by idmatriculaeconfirmacao desc limit 1");
+
+if (mysqli_num_rows($sql)!=0) {
+ 
+$idturma = mysqli_fetch_array($sql)[0];
+}else{
+  $idturma=0;
+}
 
 $idtrimestre_padrao = mysqli_fetch_array(mysqli_query($conexao, "select idtrimestre from trimestres where idanolectivo='$idanolectivo' order by titulo desc"))[0];
 

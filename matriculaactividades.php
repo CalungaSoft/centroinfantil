@@ -44,9 +44,16 @@ if($idmatriculaeconfirmacao==0){
     $Dados_do_aluno=mysqli_fetch_array(mysqli_query($conexao, "select * from alunos where idaluno='$idaluno' order by idaluno desc limit 1"));
  
 
-$titulo_do_ano_lectivo=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo' limit 1"))[0];
+    if ($idanolectivo!=Null) {
+      $titulo_do_ano_lectivo=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo' limit 1"))[0];
         
  
+    }else{
+      $titulo_do_ano_lectivo="";
+        
+ 
+    }
+
                       
 
 if(isset($_POST['cadastrar'])){
@@ -55,7 +62,7 @@ if(isset($_POST['cadastrar'])){
     
  
       $datadamatricula=mysqli_escape_string($conexao, trim($_POST['datadamatricula'])); 
-      $idatl=mysqli_escape_string($conexao, trim($_POST['idatl'])); 
+      $idactividade=mysqli_escape_string($conexao, trim($_POST['idactividade'])); 
       $obamatricula=mysqli_escape_string($conexao, trim($_POST['obsmatricula']));  
       $formadepagamento=mysqli_escape_string($conexao, trim($_POST['formadepagamento']));
        $descontoparapropinas=mysqli_escape_string($conexao, trim($_POST['descontoparapropinas']));
@@ -64,9 +71,9 @@ if(isset($_POST['cadastrar'])){
  
 
 
-                  $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from atl where idatl='$idatl' limit 1")); 
+                  $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from actividades where idactividade='$idactividade' limit 1")); 
 
-                           $atl=$dadoslectivos["titulo"];  
+                           $actividade=$dadoslectivos["titulo"];  
                            $idanolectivo=$dadoslectivos["idanolectivo"];
 
                            
@@ -79,31 +86,28 @@ if(isset($_POST['cadastrar'])){
                             if($divida<0){$divida=0;}
 
  
-                   $existe=mysqli_num_rows(mysqli_query($conexao, "select idaluno from matriculaatl where idaluno='$idaluno' and idatl='$idatl'"));
+                   $existe=mysqli_num_rows(mysqli_query($conexao, "select idaluno from matriculaactividades where idaluno='$idaluno' and idactividade='$idactividade'"));
   
                          if($existe==0){
 
 
                           
 
-                           $salvar=mysqli_query($conexao,"INSERT INTO `matriculaatl` (`idmatriculaatl`, `idaluno`, `idanolectivo`, `idatl`,   `preco`, `desconto`, `valorpago`, `atl`, data,obs, tipodealuno, descontoparapropinas) VALUES (NULL, '$idaluno', '$idanolectivo', '$idatl',   '$preco', '$desconto', '$valorpago', '$atl',   STR_TO_DATE('$datadamatricula', '%d/%m/%Y'), '$obamatricula', '$tipodealuno', '$descontoparapropinas')");
+                           $salvar=mysqli_query($conexao,"INSERT INTO `matriculaactividades` (`idmatriculaactividade`, `idaluno`, `idanolectivo`, `idactividade`,   `preco`, `desconto`, `valorpago`, `actividade`, data,obs, tipodealuno, descontoparapropinas) VALUES (NULL, '$idaluno', '$idanolectivo', '$idactividade',   '$preco', '$desconto', '$valorpago', '$actividade',   STR_TO_DATE('$datadamatricula', '%d/%m/%Y'), '$obamatricula', '$tipodealuno', '$descontoparapropinas')");
                           
                      $datadehoje=Date("Y-m-d");
 
-                                           $salvar=mysqli_query($conexao,"UPDATE `matriculaatl` SET data='$datadehoje' WHERE data='0000-00-00'");
+                                           $salvar=mysqli_query($conexao,"UPDATE `matriculaactividades` SET data='$datadehoje' WHERE data='0000-00-00'");
 
                           if($salvar){
 
  
-                                         $numero_de_processo=mysqli_fetch_array(mysqli_query($conexao, "select numerodeprocesso from alunos order by numerodeprocesso desc limit 1"))[0]+1;
-          
-                                         $alterando_numero_de_processo=mysqli_query($conexao, "UPDATE `alunos` SET `numerodeprocesso` = '$numero_de_processo' WHERE `alunos`.`idaluno` = '$idaluno' and numerodeprocesso=0");
+                                     
 
-
-                                 $idmatriculaatl=mysqli_fetch_array(mysqli_query($conexao, "select idmatriculaatl from matriculaatl where idaluno='$idaluno' order by idmatriculaatl desc limit 1"))[0];
+                                 $idmatriculaactividade=mysqli_fetch_array(mysqli_query($conexao, "select idmatriculaactividade from matriculaactividades where idaluno='$idaluno' order by idmatriculaactividade desc limit 1"))[0];
                       
-                                 $descricao="Registro de Matrículo no ATL";
-                                $salvar_financas=mysqli_query($conexao,"INSERT INTO `entradas` (`identrada`, `idfuncionario`, `descricao`, `tipo`, `idtipo`, `valor`, `divida`, `idaluno`, `idturma`, `datadaentrada`, formadepagamento, idanolectivo) VALUES (NULL, '$idlogado', '$descricao', 'Matrícula ATL', '$idmatriculaatl', '$valorpago', '$divida', '$idaluno', '0', STR_TO_DATE('$datadamatricula', '%d/%m/%Y'), '$formadepagamento', '$idanolectivo')");
+                                 $descricao="Registro de Matrículo nas actividades Extras Curriculares";
+                                $salvar_financas=mysqli_query($conexao,"INSERT INTO `entradas` (`identrada`, `idfuncionario`, `descricao`, `tipo`, `idtipo`, `valor`, `divida`, `idaluno`, `idturma`, `datadaentrada`, formadepagamento, idanolectivo) VALUES (NULL, '$idlogado', '$descricao', 'Matrícula Actividade extras curriculares', '$idmatriculaactividade', '$valorpago', '$divida', '$idaluno', '0', STR_TO_DATE('$datadamatricula', '%d/%m/%Y'), '$formadepagamento', '$idanolectivo')");
 
                                       $identrada=mysqli_fetch_array(mysqli_query($conexao, "SELECT identrada from  entradas where idaluno='$idaluno' order by identrada desc limit 1"))[0]; 
                           
@@ -129,7 +133,7 @@ if(isset($_POST['cadastrar'])){
                                 }
                         }else{
 
-                                     $erros[]="Já existe uma Matrícula desse aluno nesse ATL";
+                                     $erros[]="Já existe uma Matrícula desse aluno nesse actividade";
                                 }
    
    
@@ -156,7 +160,7 @@ include("cabecalho.php"); ?>
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Matricula aluno no ATL ( <a href="aluno.php?idaluno=<?php echo $idaluno; ?>"> <?php echo $Dados_do_aluno['nomecompleto']; ?> </a>)</h1>
+          <h1 class="h3 mb-4 text-gray-800">Matricula aluno nas Actividades Extras curriculares ( <a href="aluno.php?idaluno=<?php echo $idaluno; ?>"> <?php echo $Dados_do_aluno['nomecompleto']; ?> </a>)</h1>
        
 
 
@@ -287,15 +291,15 @@ include("cabecalho.php"); ?>
       
 ?>
 
-                <span id="atldinamicas">
-                    <span>ATL</span>
+                <span id="actividadedinamicas">
+                    <span>Actividade Extra curriculares</span>
                     <div class="form-group">
-                    <select name="atl" id='escolheatl' required  class="form-control">
-                        <option value="0">Escolha o ATL</option> 
+                    <select name="actividade" id='escolheactividade' required  class="form-control">
+                        <option value="0">Escolha a actividade</option> 
                       <?php
-                           $lista=mysqli_query($conexao,"SELECT * from atl where idanolectivo='$anolectivo' order by titulo desc");
+                           $lista=mysqli_query($conexao,"SELECT * from actividades where idanolectivo='$anolectivo' order by titulo desc");
                           while($exibir = $lista->fetch_array()){ ?>
-                          <option value="<?php echo $exibir["idatl"]; ?>"><?php echo $exibir["titulo"]; ?></option>
+                          <option value="<?php echo $exibir["idactividade"]; ?>"><?php echo $exibir["titulo"]; ?></option>
                         <?php } ?> 
                     </select> 
                     </div>
@@ -336,15 +340,15 @@ include("cabecalho.php"); ?>
             <script>
               
               var anolectivo=document.getElementById("anolectivo");
-              var escolheatl=document.getElementById("escolheatl"); 
+              var escolheactividade=document.getElementById("escolheactividade"); 
 
 
             
-              escolheatl.addEventListener("change", function(){
+              escolheactividade.addEventListener("change", function(){
     
-                    var idatl=this.value;
+                    var idactividade=this.value;
  
-                      if(idatl=='0'){
+                      if(idactividade=='0'){
 
                          
                           var dadoslectivos=document.getElementById('dadoslectivos');
@@ -354,9 +358,9 @@ include("cabecalho.php"); ?>
 
 
                          $.ajax({
-                          url:"cadastro/pesquisaratl.php",
+                          url:"cadastro/pesquisaractividade.php",
                           method:"POST",
-                          data:{idatl},
+                          data:{idactividade},
                           success:function(data){
 
                           $("#dadoslectivos").html(data)
@@ -384,7 +388,7 @@ include("cabecalho.php"); ?>
                           data:{idanolectivo},
                           success:function(data){
 
-                          $("#atldinamicas").html(data)
+                          $("#actividadedinamicas").html(data)
                           var dadoslectivos=document.getElementById('dadoslectivos');
                             dadoslectivos.innerHTML='';
 

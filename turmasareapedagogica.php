@@ -174,9 +174,7 @@ include("cabecalho.php") ; ?>
                       <th>Turma</th> 
                       <th>Coordenador</th> 
                       <th>Período</th> 
-                      <th>Curso</th> 
-                      <th>Sala</th> 
-                      <th>Classe</th> 
+                      <th>Sala</th>  
                       <th>Nº de Alunos</th> 
                       <th>Opção</th>
                     </tr>
@@ -189,18 +187,13 @@ include("cabecalho.php") ; ?>
                            $idturma=$exibir["idturma"];
 
                            $idperiodo=$exibir["idperiodo"];
-                           $idcurso=$exibir["idcurso"];
-                           $idsala=$exibir["idsala"];
-                           $idclasse=$exibir["idclasse"];
-
+                         $idsala=$exibir["idsala"];
+                          
                             $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
+                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
-
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
- 
+                           
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes where idturma='$idturma' and idanolectivo='$idanolectivo'"));
 
                             $idcoordenador=$exibir["idcoordenador"];
@@ -221,10 +214,8 @@ include("cabecalho.php") ; ?>
                     <tr>  
                       <td> <a  href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
                       <td> <a  href="funcionario.php?idfuncionario=<?php echo $exibir["idcoordenador"]; ?>"> <?php echo $nomedocoordenador ?> </a></td> 
-                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td>
-                      <td><a  href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $curso; ?></a></td>  
-                      <td><a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"><?php echo $sala; ?></a></td> 
-                      <td><a  href="classe.php?idclasse=<?php echo $exibir["idclasse"]; ?>"><?php echo $classe; ?></a></td>  
+                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td> 
+                      <td><a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"><?php echo $sala; ?></a></td>   
                       <td><?php echo $alunos; ?></td>  
                       <td align="center" >
                            

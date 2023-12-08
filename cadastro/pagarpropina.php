@@ -190,9 +190,7 @@ $valorAPagarPropina=$preco_da_propina+$multa;
        <div class="alert alert-info">
 
              <h4> Pagando Propina de:</h4> 
-             Ano Lectivo: <strong>'.$titulo_do_ano_lectivo.'</strong> | Turma: <strong>'.$dadoslectivos_confirmacao["turma"].'  </strong> <br>
-             Classe: <strong>'.$dadoslectivos_confirmacao["classe"].'</strong>
-              | Curso: <strong>'.$dadoslectivos_confirmacao["curso"].'</strong> <br>
+             Ano Lectivo: <strong>'.$titulo_do_ano_lectivo.'</strong> | Turma: <strong>'.$dadoslectivos_confirmacao["turma"].'  </strong> <br> 
              Período: <strong>'.$dadoslectivos_confirmacao["periodo"].'</strong>
               | Sala: <strong>'.$dadoslectivos_confirmacao["sala"].'</strong>
 

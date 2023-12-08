@@ -20,40 +20,7 @@ $painellogado=$_SESSION['painel'];
 $idanolectivo=mysqli_escape_string($conexao, $idanolectivo); 
 
    $anolectivo_escolhido=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];
-
-if(isset($_POST['cadastrar'])){
-  
-  if(!empty(trim($_POST['titulo']))){ 
-   
-      $titulo=mysqli_escape_string($conexao,$_POST['titulo']); 
-
-        $existe=mysqli_num_rows(mysqli_query($conexao, "select idcurso from cursos where titulo='$titulo'"));
-      
-          if($existe==0){
-
-                $salvar= mysqli_query($conexao,"INSERT INTO `cursos` (titulo) VALUES ('$titulo')");
-                 
-               if($salvar){
-
-                $acerto[]="$titulo foi Cadastrado com sucesso";
-
-            }else{
-
-              $erros[]="Ocorreu um erro Ao Cadastrar o curso";
-
-            } 
-          }else{
-
-        $erros[]="Já existe um curso com esse título";
-      }
-
-    }  else{
-    $erros[]=" O campo título não pode ir vazio";
-  }
-   
-
-}
-
+ 
 
  
  
@@ -63,7 +30,7 @@ include("cabecalho.php") ; ?>
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Lista de Alunos Matriculados No ATL (<?php echo $anolectivo_escolhido; ?>)</h1> <br>
+          <h1 class="h3 mb-2 text-gray-800">Lista de Alunos Matriculados Nas Actividades Extras Curriculares (<?php echo $anolectivo_escolhido; ?>)</h1> <br>
      
       <?php 
             if(!empty($erros)):
@@ -89,8 +56,8 @@ include("cabecalho.php") ; ?>
 
     
 
-  <a href="escolheralunoatl.php" class="d-sm-inline-block btn btn-sm btn-info shadow-sm"><i class="fas fa-user fa-sm text-white-50"></i> Inserir um novo aluno no ATL</a>
-  <a href="pdf/pdflistadoatl.php?idanolectivo=<?php echo $idanolectivo; ?>" class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i> Imprimir Lista</a>
+  <a href="escolheralunoactividades.php?idanolectivo=<?php echo $idanolectivo; ?>" class="d-sm-inline-block btn btn-sm btn-info shadow-sm"><i class="fas fa-user fa-sm text-white-50"></i> Inserir um novo aluno no actividade</a>
+  <a href="pdf/pdflistadoactividade.php?idanolectivo=<?php echo $idanolectivo; ?>" class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i> Imprimir Lista</a>
 
 
     <div id="myModalreclamacoes" class="modal"  >
@@ -172,27 +139,27 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Nome Completo</th>
-                      <th>ATL</th> 
+                      <th>actividade</th> 
                       <th>Status</th>
                       <th>Data</th>   
                     </tr>
                   </thead>
                   <tbody>
                   <?php
-                        $lista=mysqli_query($conexao, "select alunos.nomecompleto, matriculaatl.* from matriculaatl, alunos where matriculaatl.idaluno=alunos.idaluno and matriculaatl.idanolectivo='$idanolectivo'"); 
+                        $lista=mysqli_query($conexao, "select alunos.nomecompleto, matriculaactividades.* from matriculaactividades, alunos where matriculaactividades.idaluno=alunos.idaluno and matriculaactividades.idanolectivo='$idanolectivo'"); 
 
                          while($exibir = $lista->fetch_array()){
 
-                            $idatl=$exibir["idatl"]; 
+                            $idactividade=$exibir["idactividade"]; 
 
                             
-                            $atl=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from atl where idatl='$idatl'"))[0];
+                            $actividade=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from actividades where idactividade='$idactividade'"))[0];
 
 
                   ?>
                     <tr>  
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $exibir['nomecompleto']; ?> </a></td> 
-                      <td> <a  href="atl.php?idatl=<?php echo $exibir["idatl"]; ?>"> <?php echo $atl; ?> </a></td> 
+                      <td> <a  href="actividade.php?idactividade=<?php echo $exibir["idactividade"]; ?>"> <?php echo $actividade; ?> </a></td> 
  
                       <td><?php echo $exibir['estatus']; ?></td>
                       <td><?php echo $exibir['data']; ?></td> 

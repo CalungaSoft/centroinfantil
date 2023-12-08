@@ -138,13 +138,13 @@
                 <a class="collapse-item" href="cadastraraluno.php" title="Novos alunos com registro de finança">Matrícula</a>
                 <a class="collapse-item" href="escolheralunoatl.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula no ATL</a>  
                 <a class="collapse-item" href="escolheralunotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula no Transporte</a>  
-                <a class="collapse-item" href="escolheralunotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula Activ. Extr. Cur.</a>  
+                <a class="collapse-item" href="escolheralunoactividades.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="">Matrícula Activ. Extr. Cur.</a>  
                 <a class="collapse-item" href="escolheraluno.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="Alunos já cadastrados no sistema em anos lectivos passados">Confirmação</a>  
                  
                   <?php if($painellogado!="areapedagogica"){ ?>
                 <a class="collapse-item" href="pagarpropina.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina</a> 
                 <a class="collapse-item" href="pagarpropinadoatl.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina ATL</a> 
-                <a class="collapse-item" href="pagarpropinadoatl.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina Activ. Ext.</a> 
+                <a class="collapse-item" href="pagarpropinaactividades.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Pagar Propina Activ. Ext.</a> 
                 <a class="collapse-item" href="pagarpropinadotransporte.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" title="Pagar Mensalidade dos alunos de transporte">Pagar Propina Transp.</a> 
                 <?php } ?>
                 <a class="collapse-item" href="vender.php">Comprar Material</a>
@@ -568,7 +568,7 @@
   <?php if($painellogado=="administrador"    || $painellogado=="areapedagogica" ){ ?>
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="listadedisciplinas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">
+        <a class="nav-link" href="ementamensal.php?anodevenda=<?php echo $anodehoje_cabecalho; ?>&mesdevenda=<?php echo $mesdehoje_cabecalho; ?>">
           <i class="fas fa-fw fa-bars"></i>
           <span>Ementa Mensal</span></a>
       </li>

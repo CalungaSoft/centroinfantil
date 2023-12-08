@@ -36,3 +36,82 @@ ALTER TABLE `presencaalunos`
 ALTER TABLE `presencaalunos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+
+__________________________________
+
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3333
+-- Tempo de geração: 08/12/2023 às 14:14
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Banco de dados: `centroinfantil`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `propinasactividades`
+--
+
+CREATE TABLE `propinasactividades` (
+  `idpropina` int(11) NOT NULL,
+  `idaluno` int(11) NOT NULL,
+  `idmatriculaactividade` int(11) NOT NULL,
+  `idanolectivo` int(11) NOT NULL,
+  `preco` double NOT NULL DEFAULT 0,
+  `multa` double NOT NULL DEFAULT 0,
+  `valorpago` double NOT NULL DEFAULT 0,
+  `desconto` double NOT NULL DEFAULT 0,
+  `mespago` date NOT NULL,
+  `datadopagamento` timestamp NOT NULL DEFAULT current_timestamp(),
+  `obs` varchar(220) NOT NULL,
+  `codigodepropina` varchar(200) NOT NULL,
+  `referencia` varchar(50) NOT NULL,
+  `datadedeposito` date DEFAULT NULL,
+  `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `propinasactividades`
+--
+ 
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `propinasactividades`
+--
+ALTER TABLE `propinasactividades`
+  ADD PRIMARY KEY (`idpropina`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `propinasactividades`
+--
+ALTER TABLE `propinasactividades`
+  MODIFY `idpropina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

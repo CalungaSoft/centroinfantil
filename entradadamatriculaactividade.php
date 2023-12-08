@@ -71,7 +71,7 @@ if(isset($_POST['cadastrar'])){
 
                           $totalpago=$dados_do_pagamento['totalpago'];
                         
-                          $actualizandopagamentos=mysqli_query($conexao,"UPDATE `matriculaatl` SET `valorpago` = '$totalpago' WHERE `matriculaatl`.`idmatriculaatl` = '$idtipo'");
+                          $actualizandopagamentos=mysqli_query($conexao,"UPDATE `matriculaactividades` SET `valorpago` = '$totalpago' WHERE `matriculaactividades`.`idmatriculaactividade` = '$idtipo'");
 
                           if($actualizandopagamentos){
 
@@ -130,7 +130,7 @@ if(isset($_POST['editaralteracoes'])){
 
                      
                 $antigo="($descricao_antigo) | Pago: $valorpago_antigo | F. Pag: $formadepagamento_antigo | $datadaentrada_antigo";
-                $novo="($descricao) | Pago: $valor  | F. Pag: $formadepagamento | $datadaentrada <a href=entradamatriculadoatl.php?identrada=$identrada>Clique para ver</a>";
+                $novo="($descricao) | Pago: $valor  | F. Pag: $formadepagamento | $datadaentrada <a href=entradadamatriculaactividade.php?identrada=$identrada>Clique para ver</a>";
                 
                 $guardar2=mysqli_query($conexao,"INSERT INTO `historico` (`idhistorico`, `idfuncionario`, `descricao`, `antigo`, `novo`, `data`) VALUES (NULL, '$idlogado', 'Edição', '$antigo', '$novo', CURRENT_TIMESTAMP)");
             
@@ -140,7 +140,7 @@ if(isset($_POST['editaralteracoes'])){
         
                   $zerando_dividas=mysqli_query($conexao,"UPDATE `entradas` SET  `divida` ='0' WHERE tipo='$tipo' and idtipo='$idtipo'");
                   
-                   $preco=mysqli_fetch_array(mysqli_query($conexao," SELECT sum(preco-desconto) as preco FROM matriculaatl where idmatriculaatl='$idtipo' "))['preco'];
+                   $preco=mysqli_fetch_array(mysqli_query($conexao," SELECT sum(preco-desconto) as preco FROM matriculaactividades where idmatriculaactividade='$idtipo' "))['preco'];
 
                    $valorpago=mysqli_fetch_array(mysqli_query($conexao," SELECT sum(valor) as valorpago FROM entradas where  tipo='$tipo' and idtipo='$idtipo' "))['valorpago'];
 
@@ -148,7 +148,7 @@ if(isset($_POST['editaralteracoes'])){
 
                    $insirindo_dividas=mysqli_query($conexao,"UPDATE `entradas` SET  `divida` ='$divida_nova' WHERE tipo='$tipo' and idtipo='$idtipo' order by identrada desc limit 1");
 
-                   $actualizando_nasmatriculas=mysqli_query($conexao,"UPDATE `matriculaatl` SET  `valorpago` ='$valorpago' WHERE   idmatriculaatl='$idtipo' limit 1");
+                   $actualizando_nasmatriculas=mysqli_query($conexao,"UPDATE `matriculaactividades` SET  `valorpago` ='$valorpago' WHERE   idmatriculaactividade='$idtipo' limit 1");
 
  
                 if($actualizando_nasmatriculas){
@@ -202,7 +202,7 @@ if(isset($_POST['editarpreco'])){
                           if($insirindo_dividas){
 
 
-                                $actualizandopagamentos=mysqli_query($conexao,"UPDATE `matriculaatl` SET `preco` = '$preco', `desconto` = '$desconto' WHERE `matriculaatl`.`idmatriculaatl` = '$idtipo'");
+                                $actualizandopagamentos=mysqli_query($conexao,"UPDATE `matriculaactividades` SET `preco` = '$preco', `desconto` = '$desconto' WHERE `matriculaactividades`.`idmatriculaactividade` = '$idtipo'");
 
 
                                     if ($actualizandopagamentos) {
@@ -248,7 +248,7 @@ $divida_total=mysqli_fetch_array(mysqli_query($conexao," SELECT sum(divida) as d
 
 if(isset($_POST['editardadoslectivos'])){
 
-    $atlnovo=mysqli_escape_string($conexao, trim($_POST['atlnovo']));  
+    $actividadenovo=mysqli_escape_string($conexao, trim($_POST['actividadenovo']));  
     $tipodealuno=mysqli_escape_string($conexao, trim($_POST['tipodealuno']));   
     $datadamatricula=mysqli_escape_string($conexao, trim($_POST['datadamatricula']));   
     $descontoparapropinas=mysqli_escape_string($conexao, trim($_POST['descontoparapropinas']));
@@ -256,21 +256,21 @@ if(isset($_POST['editardadoslectivos'])){
      
 
 
-       $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from atl where idatl='$atlnovo' limit 1")); 
+       $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from actividades where idactividade='$actividadenovo' limit 1")); 
 
-                           $atl=$dadoslectivos["titulo"];  
+                           $actividade=$dadoslectivos["titulo"];  
                            $idanolectivo=$dadoslectivos["idanolectivo"];
 
                           
 
 
-                   $existe=mysqli_num_rows(mysqli_query($conexao, "select idaluno from matriculaatl where idaluno='$idaluno' and idatl='$atlnovo'"));
+                   $existe=mysqli_num_rows(mysqli_query($conexao, "select idaluno from matriculaactividades where idaluno='$idaluno' and idactividade='$actividadenovo'"));
   
                 
                   if($existe==0){
 
  
-                           $salvar=mysqli_query($conexao,"UPDATE matriculaatl set idatl='$atlnovo', tipodealuno='$tipodealuno', data='$datadamatricula', descontoparapropinas='$descontoparapropinas', obs='$obsmatricula', atl='$atl'  where idmatriculaatl='$idtipo'");
+                           $salvar=mysqli_query($conexao,"UPDATE matriculaactividades set idactividade='$actividadenovo', tipodealuno='$tipodealuno', data='$datadamatricula', descontoparapropinas='$descontoparapropinas', obs='$obsmatricula', actividade='$actividade'  where idmatriculaactividade='$idtipo'");
                           
 
                                if($salvar){
@@ -286,7 +286,7 @@ if(isset($_POST['editardadoslectivos'])){
 
                                      $erros[]="Já existe uma $tipo desse aluno nessa turma";
 
-                                      $salvar=mysqli_query($conexao,"UPDATE matriculaatl set  tipodealuno='$tipodealuno', data='$datadamatricula', descontoparapropinas='$descontoparapropinas', obs='$obsmatricula' where idmatriculaatl='$idtipo'");
+                                      $salvar=mysqli_query($conexao,"UPDATE matriculaactividades set  tipodealuno='$tipodealuno', data='$datadamatricula', descontoparapropinas='$descontoparapropinas', obs='$obsmatricula' where idmatriculaactividade='$idtipo'");
                           
 
                                if($salvar){
@@ -312,7 +312,7 @@ if(isset($_POST['editardadoslectivos'])){
 
 
 
-                                                 $dadosdamatricula=mysqli_fetch_array(mysqli_query($conexao," SELECT * FROM matriculaatl where idmatriculaatl='$idtipo' "));
+                                                 $dadosdamatricula=mysqli_fetch_array(mysqli_query($conexao," SELECT * FROM matriculaactividades where idmatriculaactividade='$idtipo' "));
 
 
         include("cabecalho.php") ; ?>
@@ -434,12 +434,12 @@ if(isset($_POST['editardadoslectivos'])){
 
                                           
 
-                                              $matriculasdesseano= mysqli_query($conexao, "select * from matriculaatl where idmatriculaatl='$idtipo'");
+                                              $matriculasdesseano= mysqli_query($conexao, "select * from matriculaactividades where idmatriculaactividade='$idtipo'");
 
                                               while($exibir = $matriculasdesseano->fetch_array()){
 
-                                                    $atl=$exibir["atl"];
-                                                    $idatl=$exibir["idatl"];
+                                                    $actividade=$exibir["actividade"];
+                                                    $idactividade=$exibir["idactividade"];
                                                     $data_da_matricula=$exibir["data"];
                                                     $tipo_de_aluno=$exibir["tipodealuno"];
 
@@ -447,7 +447,7 @@ if(isset($_POST['editardadoslectivos'])){
                                                     $obs_matricula=$exibir["obs"];
 
 
-                                           $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from atl where idatl='$idatl' limit 1")); 
+                                           $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from actividades where idactividade='$idactividade' limit 1")); 
 
                                                $turma=$dadosdaturma["titulo"];  
                                                $descricao=$dadosdaturma["descricao"];
@@ -466,7 +466,7 @@ if(isset($_POST['editardadoslectivos'])){
  
                                                 ?>
                                                   <hr> <hr>
-                                                  ATL: <a href="atl.php?idatl=<?php echo $idatl; ?>"> <?php echo $atl; ?> </a> 
+                                                  actividade: <a href="actividade.php?idactividade=<?php echo $idactividade; ?>"> <?php echo $actividade; ?> </a> 
 
                                                    <br> <br>
                                          <!-- Collapsable Card Example -->
@@ -480,14 +480,14 @@ if(isset($_POST['editardadoslectivos'])){
                                                 <div class="card-body">
                                                 <form action="" method="post">
 
-                                                 <span>ATL</span>
+                                                 <span>actividade</span>
                                                       <div class="form-group">
-                                                      <select name="atlnovo"   required  class="form-control">
-                                                          <option value="0">Escolha a ATL</option> 
+                                                      <select name="actividadenovo"   required  class="form-control">
+                                                          <option value="0">Escolha a actividade</option> 
                                                         <?php
-                                                             $lista=mysqli_query($conexao,"SELECT atl.titulo as atl, atl.idatl, anoslectivos.titulo  as anolectivo from atl, anoslectivos where atl.idanolectivo=anoslectivos.idanolectivo  order by atl.titulo desc");
+                                                             $lista=mysqli_query($conexao,"SELECT actividades.titulo as actividade, actividades.idactividade, anoslectivos.titulo  as anolectivo from actividades, anoslectivos where actividades.idanolectivo=anoslectivos.idanolectivo  order by actividades.titulo desc");
                                                             while($exibir = $lista->fetch_array()){ ?>
-                                                            <option <?php if($exibir["idatl"]==$idatl){?> selected="" <?php } ?> value="<?php echo $exibir["idatl"]; ?>"><?php echo $exibir["atl"]; ?> | (<?php echo $exibir["anolectivo"]; ?>)</option>
+                                                            <option <?php if($exibir["idactividade"]==$idactividade){?> selected="" <?php } ?> value="<?php echo $exibir["idactividade"]; ?>"><?php echo $exibir["actividade"]; ?> | (<?php echo $exibir["anolectivo"]; ?>)</option>
                                                           <?php } ?> 
                                                       </select> 
                                                       </div>
@@ -530,10 +530,7 @@ if(isset($_POST['editardadoslectivos'])){
                                             <br> <br>
 
 
-                                                       <?php if ($exibir["tipodealuno"]=="Bolseiro") {
-                                                          echo "  <strong>Aluno Bolseiro</strong>";
-                                                       } ?> 
-
+                                                    
                                                         <span id="mensagemdealerta"></span>
  
 
@@ -565,7 +562,7 @@ if(isset($_POST['editardadoslectivos'])){
 
                                                 <?php 
 
-                                                 $dadosdamatricula=mysqli_fetch_array(mysqli_query($conexao," SELECT * FROM matriculaatl where idmatriculaatl='$idtipo' "));
+                                                 $dadosdamatricula=mysqli_fetch_array(mysqli_query($conexao," SELECT * FROM matriculaactividades where idmatriculaactividade='$idtipo' "));
 
                                                   $preco=$dadosdamatricula['preco'];
                                                   $desconto=$dadosdamatricula['desconto'];
@@ -885,7 +882,7 @@ if(isset($_POST['editardadoslectivos'])){
                                                                 if(confirm("Tens certeza que queres eliminar esse registro? Serão eliminados todos os dados financeiros relacionados com esse registro!")){
                                                                     $(this).closest('tr').remove(); 
                                                                     $.ajax({
-                                                                    url:'cadastro/deletevendamatriculaatl.php',
+                                                                    url:'cadastro/deletevendamatriculaactividade.php',
                                                                     method:'POST',
                                                                     data:{
                                                                         id:id
@@ -913,7 +910,7 @@ if(isset($_POST['editardadoslectivos'])){
                                 if(confirm("Tens certeza que queres eliminar esse registro? Isso não apagará a dívida, pelo contrário só a acrescentará, isso em detrimento do valor pago apagado!")){
                                     $(this).closest('tr').remove(); 
                                     $.ajax({
-                                    url:'cadastro/deleteentradamatriculaatl.php',
+                                    url:'cadastro/deleteentradamatriculaactividade.php',
                                     method:'POST',
                                     data:{
                                         id
@@ -938,7 +935,7 @@ if(isset($_POST['editardadoslectivos'])){
        <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; CalungaSOFT 2022</span>
+            <span>Copyright &copy; CalungaSOFT 2023</span>
           </div>
         </div>
       </footer>

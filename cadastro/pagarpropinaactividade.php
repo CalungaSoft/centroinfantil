@@ -20,14 +20,14 @@ $painellogado=$_SESSION['painel'];
 
 if(isset($_POST["id"])){ 
 
-$idmatriculaeconfirmacao=isset($_POST['id'])?$_POST['id']:"";
-$idmatriculaeconfirmacao=mysqli_escape_string($conexao, $idmatriculaeconfirmacao); 
+$idmatriculaactividade=isset($_POST['id'])?$_POST['id']:"";
+$idmatriculaactividade=mysqli_escape_string($conexao, $idmatriculaactividade); 
 
-   $dadoslectivos_confirmacao=mysqli_fetch_array(mysqli_query($conexao, "SELECT YEAR(matriculaseconfirmacoes.data) as anoEntrada, MONTH(matriculaseconfirmacoes.data) as mesEntrada, YEAR(matriculaseconfirmacoes.ultimomespago) as ano, MONTH(matriculaseconfirmacoes.ultimomespago) as mes, matriculaseconfirmacoes.* from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' limit 1"));
+   $dadoslectivos_confirmacao=mysqli_fetch_array(mysqli_query($conexao, "SELECT YEAR(matriculaactividades.data) as anoEntrada, MONTH(matriculaactividades.data) as mesEntrada, YEAR(matriculaactividades.ultimomespago) as ano, MONTH(matriculaactividades.ultimomespago) as mes, matriculaactividades.* from matriculaactividades where idmatriculaactividade='$idmatriculaactividade' limit 1"));
 
       $idaluno=$dadoslectivos_confirmacao['idaluno'];
       $idanolectivo=$dadoslectivos_confirmacao['idanolectivo'];
-      $idturma=$dadoslectivos_confirmacao['idturma'];
+      $idactividade=$dadoslectivos_confirmacao['idactividade'];
       $descontoparapropinas=$dadoslectivos_confirmacao['descontoparapropinas'];
 
       $anoEntrada=$dadoslectivos_confirmacao['anoEntrada'];
@@ -35,7 +35,7 @@ $idmatriculaeconfirmacao=mysqli_escape_string($conexao, $idmatriculaeconfirmacao
 
     $Dados_do_aluno=mysqli_fetch_array(mysqli_query($conexao, "select * from alunos where idaluno='$idaluno' order by idaluno desc limit 1"));
 
-       $preco_da_propina=mysqli_fetch_array(mysqli_query($conexao, "select propina from turmas where idturma='$idturma' limit 1"))[0];
+       $preco_da_propina=mysqli_fetch_array(mysqli_query($conexao, "select propina from actividades where idactividade='$idactividade' limit 1"))[0];
  
 
 $dados_do_anolectivo=mysqli_fetch_array(mysqli_query($conexao, "select * from anoslectivos where idanolectivo='$idanolectivo' limit 1"));
@@ -43,17 +43,7 @@ $dados_do_anolectivo=mysqli_fetch_array(mysqli_query($conexao, "select * from an
    $titulo_do_ano_lectivo=$dados_do_anolectivo["titulo"];
    $precodamulta=$dados_do_anolectivo["precodamulta"]; 
    $diadamulta=$dados_do_anolectivo["diadamulta"];
-  
-    // Função para verificar se o valor é percentual
-    // Função para calcular o novo valor da multa com base no valor percentual ou exato
-    function calcularMulta($valorPropina, $multa) {
-        if (strpos($multa, '%') !== false) {
-            return $valorPropina * floatval(str_replace('%', '', $multa)) / 100;
-        } else {
-            return floatval($multa);
-        }
-    }
-
+ 
   
    
 
@@ -63,7 +53,7 @@ $dados_do_anolectivo=mysqli_fetch_array(mysqli_query($conexao, "select * from an
    $mesactual=date('m');
    $diaactual=date('d');
 
-$numero_de_meses_pagos=mysqli_num_rows(mysqli_query($conexao, "select * from propinas where idmatriculaeconfirmacao='$idmatriculaeconfirmacao'"));
+$numero_de_meses_pagos=mysqli_num_rows(mysqli_query($conexao, "select * from propinasactividades where idmatriculaactividade='$idmatriculaactividade'"));
     
     
 
@@ -145,13 +135,31 @@ $html="";
                         }
                     } 
                     
+                     
+   
+   $diasparamultaincremental=$dados_do_anolectivo["diasparamultaincremental"]; 
+   $valordamultaincremental=$dados_do_anolectivo["valordamultaincremental"]; 
+
+
+    // Função para verificar se o valor é percentual
+    // Função para calcular o novo valor da multa com base no valor percentual ou exato
+    function calcularMulta($valorPropina, $multa) {
+        if (strpos($multa, '%') !== false) {
+            return $valorPropina * floatval(str_replace('%', '', $multa)) / 100;
+        } else {
+            return floatval($multa);
+        }
+    }
+
+
                     
  $datadecontagem="$proximo_pagamento_ano-$proximo_pagamento_mes-00"; 
  
  $diassemmultas=date('Y-m-d', strtotime('+'.$diadamulta.' DAYS', strtotime($datadecontagem)));
 
+  $diassemmultasIncremental=date('Y-m-d', strtotime('+'.$diasparamultaincremental.' DAYS', strtotime($datadecontagem)));
+
  
- $prazodepagamento=date('Y-m-d', strtotime('-'.$diadamulta.' DAYS', strtotime($datadecontagem)));
 
 $dataDeHoje=date('Y-m-d');
 
@@ -182,11 +190,8 @@ $valorAPagarPropina=$preco_da_propina+$multa;
        <div class="alert alert-info">
 
              <h4> Pagando Propina de:</h4> 
-             Ano Lectivo: <strong>'.$titulo_do_ano_lectivo.'</strong> | Turma: <strong>'.$dadoslectivos_confirmacao["turma"].'  </strong> <br>
-             Classe: <strong>'.$dadoslectivos_confirmacao["classe"].'</strong>
-              | Curso: <strong>'.$dadoslectivos_confirmacao["curso"].'</strong> <br>
-             Período: <strong>'.$dadoslectivos_confirmacao["periodo"].'</strong>
-              | Sala: <strong>'.$dadoslectivos_confirmacao["sala"].'</strong>
+             Ano Lectivo: <strong>'.$titulo_do_ano_lectivo.'</strong> | Turma: <strong>'.$dadoslectivos_confirmacao["actividade"].'  </strong> <br> 
+            
 
 
            <input type="hidden" id="diassemmultas"  value="'.$diassemmultas.'">
@@ -306,7 +311,7 @@ $valorAPagarPropina=$preco_da_propina+$multa;
                          <span>Observações sobre o pagamento dessa propina</span>
                         <textarea name="obs" rows="2" class="form-control " title="Alguma observação?" ></textarea>
                     </div>
-                     <input type="hidden" name="idmatriculaeconfirmacao"    value='.$idmatriculaeconfirmacao.'>
+                     <input type="hidden" name="idmatriculaactividade"    value='.$idmatriculaactividade.'>
           
 
    <br>
