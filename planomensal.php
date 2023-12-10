@@ -14,9 +14,19 @@ $idlogado = $_SESSION['funcionariologado'];
 $nomelogado = $_SESSION['nomedofuncionariologado'];
 $painellogado = $_SESSION['painel'];
 
-
+ 
 $idanolectivo = isset($_GET['idanolectivo']) ? $_GET['idanolectivo'] : "";
 $idanolectivo = mysqli_escape_string($conexao, $idanolectivo);
+
+$idciclo = isset($_GET['idciclo']) ? $_GET['idciclo'] : "";
+$idciclo = mysqli_escape_string($conexao, $idciclo);
+
+$ano = isset($_GET['ano']) ? $_GET['ano'] : "";
+$ano = mysqli_escape_string($conexao, $ano);
+
+$mes = isset($_GET['mes']) ? $_GET['mes'] : "";
+$mes = mysqli_escape_string($conexao, $mes);
+
 
 
 if (!($painellogado == "administrador" || $painellogado == "secretaria1" || $painellogado == "secretaria2")) {
@@ -31,28 +41,34 @@ if (isset($_POST['cadastrar'])) {
     $mes = mysqli_escape_string($conexao,  $_POST['mes']);
     $ano = mysqli_escape_string($conexao,  $_POST['ano']);
     $idanolectivo = mysqli_escape_string($conexao,  $_POST['idanolectivo']);
-    $semanas = mysqli_escape_string($conexao,  $_POST['semanas']);
-    $descricao = mysqli_escape_string($conexao,  $_POST['descricao']);
-    $actividades = mysqli_escape_string($conexao,  $_POST['actividades']);
-    $objectivo = mysqli_escape_string($conexao,  $_POST['objectivo']);
-    $participantes = mysqli_escape_string($conexao,  $_POST['participantes']);
-    $temas = mysqli_escape_string($conexao,  $_POST['temas']);
-    $materiais = mysqli_escape_string($conexao,  $_POST['materiais']);
+    $idciclo = mysqli_escape_string($conexao,  $_POST['idciclo']);
    
-  
-  
+    $tema = mysqli_escape_string($conexao,  $_POST['tema']);
+    $dominio = mysqli_escape_string($conexao,  $_POST['dominio']);
+    $objectivogeral = mysqli_escape_string($conexao,  $_POST['objectivogeral']);
+    $areacurricular = mysqli_escape_string($conexao,  $_POST['areacurricular']);
+    $subtema = mysqli_escape_string($conexao,  $_POST['subtema']);
+    $conteudo = mysqli_escape_string($conexao,  $_POST['conteudo']);
 
-    $planoanual = mysqli_num_rows(mysqli_query($conexao, "SELECT id FROM planoanual where descricao='$descricao' and mes='$mes' and ano='$ano' and idanolectivo='$idanolectivo'"));
+    $objectivosespecificos	 = mysqli_escape_string($conexao,  $_POST['objectivosespecificos']);
+    $actividade = mysqli_escape_string($conexao,  $_POST['actividade']);
+    $meiosdeensino = mysqli_escape_string($conexao,  $_POST['meiosdeensino']);
 
-    if ($planoanual == 0) {
- 
-        $salvar = mysqli_query($conexao, "INSERT INTO `planoanual` (`id`, `ano`, `mes`, `idanolectivo`, `descricao`, `semanas`, `temas`, `actividades`, `objectivo`, `participantes`, `materiais`) VALUES (NULL, '$ano', '$mes', '$idanolectivo', '$descricao', '$semanas', '$temas', '$actividades', '$objectivo', '$participantes', '$materiais')");
 
-        
+
+
+
+    $planomensal = mysqli_num_rows(mysqli_query($conexao, "SELECT id FROM planomensal where  objectivogeral='$objectivogeral'  and dominio='$dominio'  and tema='$tema' and idciclo='$idciclo' and idanolectivo='$idanolectivo' and mes='$mes' and ano='$ano' and idanolectivo='$idanolectivo'"));
+
+    if ($planomensal == 0) {
+
+      $salvar = mysqli_query($conexao, "INSERT INTO `planomensal` (`id`, `idanolectivo`, `idciclo`, `tema`, `ano`, `mes`, `objectivogeral`, `dominio`, `areacurricular`, `subtema`, `conteudo`, `objectivosespecificos`, `actividade`, `meiosdeensino`) VALUES (NULL, '$idanolectivo', '$idciclo', '$tema', '$ano', '$mes', '$objectivogeral', '$dominio', '$areacurricular', '$subtema', '$conteudo', '$objectivosespecificos', '$actividade', '$meiosdeensino')");
+
+
 
       if ($salvar) {
 
-        $acerto[] = "Plano anual para $mes/$ano Criado com sucesso";
+        $acerto[] = "Plano Mensal para $mes/$ano Criado com sucesso";
       } else {
         $erros[] = "Ocorreu um erro Ao cadastrar o  plano, tente novamente";
       }
@@ -78,14 +94,51 @@ include("cabecalho.php"); ?>
 
   <?php
 
-$anolectivo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo' limit 1"))[0]; 
  
+
+  $anolectivo = mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo' limit 1"))[0];
+
+   
+  if ($idciclo=='') {
+    $ciclo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from ciclos  order by idciclo desc limit 1"))[0]; 
+
+  }else{
+    $ciclo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from ciclos where idciclo='$idciclo' limit 1"))[0]; 
+
+  }
+
+
+  if ($mes == 1) {
+    $mes_literal = "Janeiro";
+  } else if ($mes == 2) {
+    $mes_literal = "Fevereiro";
+  } else if ($mes == 3) {
+    $mes_literal = "Março";
+  } else if ($mes == 4) {
+    $mes_literal = "Abril";
+  } else if ($mes == 5) {
+    $mes_literal = "Maio";
+  } else if ($mes == 6) {
+    $mes_literal = "Junho";
+  } else if ($mes == 7) {
+    $mes_literal = "Julho";
+  } else if ($mes == 8) {
+    $mes_literal = "Agosto";
+  } else if ($mes == 9) {
+    $mes_literal = "Setembro";
+  } else if ($mes == 10) {
+    $mes_literal = "Outubro";
+  } else if ($mes == 11) {
+    $mes_literal = "Novembro";
+  } else if ($mes == 12) {
+    $mes_literal = "Dezembro";
+  }
 
   ?>
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Plano Mensal <a href="anolectivo.php?idanolectivo=<?php   echo "$idanolectivo"; ?>"><?php   echo "$anolectivo"; ?> </a> </h1> <br>
- 
- <?php
+  <h1 class="h3 mb-2 text-gray-800">Plano Mensal <a href="anolectivo.php?idanolectivo=<?php echo "$idanolectivo"; ?>"><?php echo "$anolectivo"; ?>  </a>  (<?php echo "$mes_literal / $ano"; ?>) -  <a href="ciclo.php?idciclo=<?php echo "$idciclo"; ?>"><?php echo "$ciclo"; ?></a></h1> <br>
+
+  <?php
   if (!empty($erros)) :
     foreach ($erros as $erros) :
       echo '<div class="alert alert-danger">' . $erros . '</div>';
@@ -101,33 +154,87 @@ $anolectivo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from anosl
   ?>
 
   <?php include("estilocarde.php"); ?>
-  <button id="myBtn" class="btn btn-primary">Escolher outro ano lectivo</button>
+  <button id="myBtn" class="btn btn-primary">Escolher outro mês ou nível</button>
 
-  
-    <button id="myBtnreclamacoes" class="btn btn-info">Cadastrar Plano Anual</button>
- 
+
+  <button id="myBtnreclamacoes" class="btn btn-info">Cadastrar Plano Mensal</button>
+
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span id="close">&times;</span>
       <form action="" method="get">
-                      <br>
-                     
-                    <span>Escolha outro Ano Lectivo</span>
-                    <div class="form-group">
-                    <select name="idanolectivo" required  class="form-control"> 
-                      <?php
-                           $lista=mysqli_query($conexao,"SELECT * from anoslectivos order by titulo desc");
-                          while($exibir = $lista->fetch_array()){ ?>
-                          <option value="<?php echo $exibir["idanolectivo"]; ?>"><?php echo $exibir["titulo"]; ?></option>
-                        <?php } ?> 
-                    </select> 
-                    </div> 
+        <br>
 
-                          <br>
-                            <input type="submit" value="Ver" name="mudaranolectivo" class="btn btn-success" style="float: rigth;">
-            
+       
+        <div class="form-group row">
+          <div class="col-sm-6">
+          <span>Ano Lectivo</span>
+          <select name="idanolectivo" required class="form-control">
+            <?php
+            $lista = mysqli_query($conexao, "SELECT * from anoslectivos order by titulo desc");
+            while ($exibir = $lista->fetch_array()) { ?>
+              <option value="<?php echo $exibir["idanolectivo"]; ?>"><?php echo $exibir["titulo"]; ?></option>
+            <?php } ?>
+          </select>
+        </div> 
+          <div class="col-sm-6"> 
+          <span>Nível</span>
+          <select name="idciclo" required class="form-control">
+            <?php
+            $lista = mysqli_query($conexao, "SELECT * from ciclos order by titulo desc");
+            while ($exibir = $lista->fetch_array()) { ?>
+              <option value="<?php echo $exibir["idciclo"]; ?>"><?php echo $exibir["titulo"]; ?></option>
+            <?php } ?>
+          </select>
+        </div>
 
-          </form>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <span>Ano</span>
+            <select name="ano" required class="form-control">
+              <?php
+
+              $ano = date('Y');
+              $lista = mysqli_query($conexao, "SELECT DISTINCT(YEAR(datadaentrada)) as ano from entradas order by YEAR(datadaentrada) desc");
+
+              while ($exibir = $lista->fetch_array()) {
+
+                $ano = $exibir["ano"];
+              ?>
+                <option <?php if (date('Y') == $exibir["ano"]) { ?> selected="" <?php } ?> value="<?php echo $exibir["ano"]; ?>"><?php echo $exibir["ano"]; ?></option>
+              <?php } ?>
+              <option <?php if (date('Y') == $ano + 1) { ?> selected="" <?php } ?> value="<?php echo $ano + 1; ?>"><?php echo $ano + 1; ?></option>
+            </select>
+          </div>
+          <div class="col-sm-6">
+            <span>Mês</span>
+            <select name="mes" class="form-control">
+              <option <?php $mesactual = date('m');
+                      if ($mesactual == 1) { ?> selected="" <?php } ?> value="01">Janeiro</option>
+              <option <?php if ($mesactual == 2) { ?> selected="" <?php } ?> value="02">Fevereiro</option>
+              <option <?php if ($mesactual == 3) { ?> selected="" <?php } ?> value="03">Marco</option>
+              <option <?php if ($mesactual == 4) { ?> selected="" <?php } ?> value="04">Abril</option>
+              <option <?php if ($mesactual == 5) { ?> selected="" <?php } ?> value="05">Maio</option>
+              <option <?php if ($mesactual == 6) { ?> selected="" <?php } ?> value="06">Junho</option>
+              <option <?php if ($mesactual == 7) { ?> selected="" <?php } ?> value="07">Julho</option>
+              <option <?php if ($mesactual == 8) { ?> selected="" <?php } ?> value="08">Agosto</option>
+              <option <?php if ($mesactual == 9) { ?> selected="" <?php } ?> value="09">Setembro</option>
+              <option <?php if ($mesactual == 10) { ?> selected="" <?php } ?> value="10">Outubro</option>
+              <option <?php if ($mesactual == 11) { ?> selected="" <?php } ?> value="11">Novembro</option>
+              <option <?php if ($mesactual == 12) { ?> selected="" <?php } ?> value="12">Dezembro</option>
+            </select>
+
+          </div>
+          
+        </div>
+
+        <br>
+        <input type="submit" value="Ver" name="mudaranolectivo" class="btn btn-success" style="float: rigth;">
+
+
+      </form>
     </div>
   </div>
 
@@ -137,112 +244,127 @@ $anolectivo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from anosl
     <div class="modal-content">
       <span id="closereclamacoes"> &times;</span>
       <form class="user" method="post" action="">
-        <h2>Cadastrar plano anual mês por mês</h2>
+        <h2>Cadastrar plano mensal</h2>
         <span style="font-size: 11px"> </span>
 
-        <br> 
+        <br>
+
+        <div class="form-group row">
+          <div class="col-sm-6">
+          <span>Ano Lectivo</span>
+          <select name="idanolectivo" required class="form-control">
+            <?php
+            $lista = mysqli_query($conexao, "SELECT * from anoslectivos order by titulo desc");
+            while ($exibir = $lista->fetch_array()) { ?>
+              <option value="<?php echo $exibir["idanolectivo"]; ?>"><?php echo $exibir["titulo"]; ?></option>
+            <?php } ?>
+          </select>
+        </div> 
+          <div class="col-sm-6"> 
+          <span>Nível</span>
+          <select name="idciclo" required class="form-control">
+            <?php
+            $lista = mysqli_query($conexao, "SELECT * from ciclos order by titulo desc");
+            while ($exibir = $lista->fetch_array()) { ?>
+              <option value="<?php echo $exibir["idciclo"]; ?>"><?php echo $exibir["titulo"]; ?></option>
+            <?php } ?>
+          </select>
+        </div>
+
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <span>Ano</span>
+            <select name="ano" required class="form-control">
+              <?php
+
+              $ano = date('Y');
+              $lista = mysqli_query($conexao, "SELECT DISTINCT(YEAR(datadaentrada)) as ano from entradas order by YEAR(datadaentrada) desc");
+
+              while ($exibir = $lista->fetch_array()) {
+
+                $ano = $exibir["ano"];
+              ?>
+                <option <?php if (date('Y') == $exibir["ano"]) { ?> selected="" <?php } ?> value="<?php echo $exibir["ano"]; ?>"><?php echo $exibir["ano"]; ?></option>
+              <?php } ?>
+              <option <?php if (date('Y') == $ano + 1) { ?> selected="" <?php } ?> value="<?php echo $ano + 1; ?>"><?php echo $ano + 1; ?></option>
+            </select>
+          </div>
+          <div class="col-sm-6">
+            <span>Mês</span>
+            <select name="mes" class="form-control">
+              <option <?php $mesactual = date('m');
+                      if ($mesactual == 1) { ?> selected="" <?php } ?> value="01">Janeiro</option>
+              <option <?php if ($mesactual == 2) { ?> selected="" <?php } ?> value="02">Fevereiro</option>
+              <option <?php if ($mesactual == 3) { ?> selected="" <?php } ?> value="03">Marco</option>
+              <option <?php if ($mesactual == 4) { ?> selected="" <?php } ?> value="04">Abril</option>
+              <option <?php if ($mesactual == 5) { ?> selected="" <?php } ?> value="05">Maio</option>
+              <option <?php if ($mesactual == 6) { ?> selected="" <?php } ?> value="06">Junho</option>
+              <option <?php if ($mesactual == 7) { ?> selected="" <?php } ?> value="07">Julho</option>
+              <option <?php if ($mesactual == 8) { ?> selected="" <?php } ?> value="08">Agosto</option>
+              <option <?php if ($mesactual == 9) { ?> selected="" <?php } ?> value="09">Setembro</option>
+              <option <?php if ($mesactual == 10) { ?> selected="" <?php } ?> value="10">Outubro</option>
+              <option <?php if ($mesactual == 11) { ?> selected="" <?php } ?> value="11">Novembro</option>
+              <option <?php if ($mesactual == 12) { ?> selected="" <?php } ?> value="12">Dezembro</option>
+            </select>
+
+          </div>
+          
+        </div>
+
+
 
         <div class="form-group">
-            <span>Ano Lectivo</span>
-                    <select name="idanolectivo" required  class="form-control"> 
-                      <?php
-                           $lista=mysqli_query($conexao,"SELECT * from anoslectivos order by titulo desc");
-                          while($exibir = $lista->fetch_array()){ ?>
-                          <option value="<?php echo $exibir["idanolectivo"]; ?>"><?php echo $exibir["titulo"]; ?></option>
-                        <?php } ?> 
-                    </select> 
-                    </div> 
+          <span>Tema</span>
+          <textarea name="tema" id="" cols="30" rows="4" class="form-control"></textarea>
+        </div>
 
-                    <div class="form-group row">
-                        <div class="col-sm-5">
-                        <span>Ano</span>
-                            <select name="ano" required class="form-control">
-                            <?php
-
-                            $ano = date('Y');
-                            $lista = mysqli_query($conexao, "SELECT DISTINCT(YEAR(datadaentrada)) as ano from entradas order by YEAR(datadaentrada) desc");
-
-                            while ($exibir = $lista->fetch_array()) {
-
-                                $ano = $exibir["ano"];
-                            ?>
-                                <option <?php if (date('Y') == $exibir["ano"]) { ?> selected="" <?php } ?> value="<?php echo $exibir["ano"]; ?>"><?php echo $exibir["ano"]; ?></option>
-                            <?php } ?>
-                            <option <?php if (date('Y') == $ano + 1) { ?> selected="" <?php } ?> value="<?php echo $ano + 1; ?>"><?php echo $ano + 1; ?></option>
-                            </select>
-                        </div>
-                        <div class="col-sm-5">
-                                 <span>Mês</span>
-                                <select name="mes" class="form-control">
-                                <option <?php $mesactual = date('m');
-                                        if ($mesactual == 1) { ?> selected="" <?php } ?> value="01">Janeiro</option>
-                                <option <?php if ($mesactual == 2) { ?> selected="" <?php } ?> value="02">Fevereiro</option>
-                                <option <?php if ($mesactual == 3) { ?> selected="" <?php } ?> value="03">Marco</option>
-                                <option <?php if ($mesactual == 4) { ?> selected="" <?php } ?> value="04">Abril</option>
-                                <option <?php if ($mesactual == 5) { ?> selected="" <?php } ?> value="05">Maio</option>
-                                <option <?php if ($mesactual == 6) { ?> selected="" <?php } ?> value="06">Junho</option>
-                                <option <?php if ($mesactual == 7) { ?> selected="" <?php } ?> value="07">Julho</option>
-                                <option <?php if ($mesactual == 8) { ?> selected="" <?php } ?> value="08">Agosto</option>
-                                <option <?php if ($mesactual == 9) { ?> selected="" <?php } ?> value="09">Setembro</option>
-                                <option <?php if ($mesactual == 10) { ?> selected="" <?php } ?> value="10">Outubro</option>
-                                <option <?php if ($mesactual == 11) { ?> selected="" <?php } ?> value="11">Novembro</option>
-                                <option <?php if ($mesactual == 12) { ?> selected="" <?php } ?> value="12">Dezembro</option>
-                                </select>
-                            
-                        </div> 
-                        <div class="col-sm-2">
-                        <span>Semanas</span>
-                             <select name="semanas" class="form-control"> 
-                                <option   value="01">1</option>
-                                <option  value="02">2</option>
-                                <option  value="03">3</option>
-                                <option selected=""    value="04">4</option>
-                                <option  value="05">5</option> 
-                            </select>
-                        </div>
-                    </div>
-
-  
-
-                    <div class="form-group">
-                    <span>Descrição Geral</span>
-                      <textarea name="descricao" id="" cols="30" rows="4" class="form-control" ></textarea>
-                    </div> 
-
-                    <div class="form-group">
-                    <span>Temas</span>
-                      <textarea name="temas" id="" cols="30" rows="4" class="form-control" ></textarea>
-                    </div> 
+        <div class="form-group">
+          <span>Objectivo Geral</span>
+          <textarea name="objectivogeral" id="" cols="30" rows="4" class="form-control"></textarea>
+        </div>
 
 
-                    <div class="form-group">
-                    <span>Actividades</span>
-                      <textarea name="actividades" id="" cols="30" rows="4" class="form-control" ></textarea>
-                    </div> 
+        <div class="form-group">
+          <span>Domínio</span>
+          <textarea name="dominio" id="" cols="30" rows="4" class="form-control"></textarea>
+        </div>
 
 
-                    <div class="form-group">
-                    <span>Objectivos</span>
-                      <textarea name="objectivo" id="" cols="30" rows="4" class="form-control" ></textarea>
-                    </div> 
+        <div class="form-group">
+          <span>Área Curricular</span>
+          <textarea name="areacurricular" id="" cols="30" rows="4" class="form-control" ></textarea>
+        </div>
 
-                    <div class="form-group">
-                    <span>Participantes</span>
-                      <textarea name="participantes" id="" cols="30" rows="4" class="form-control" ></textarea>
-                    </div> 
+        <div class="form-group">
+          <span>Subtemas</span>
+          <textarea name="subtema" id="" cols="30" rows="4" class="form-control"></textarea>
+        </div>
 
-                    <div class="form-group">
-                    <span>Materiais</span>
-                      <textarea name="materiais" id="" cols="30" rows="4" class="form-control" ></textarea>
-                    </div> 
+        <div class="form-group">
+          <span>Conteúdo</span>
+          <textarea name="conteudo" id="" cols="30" rows="4" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+          <span>Objectivos Específicos</span>
+          <textarea name="objectivosespecificos" id="" cols="30" rows="4" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <span>Actividades</span>
+          <textarea name="actividade" id="" cols="30" rows="4" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+          <span>Meios de Ensino</span>
+          <textarea name="meiosdeensino" id="" cols="30" rows="4" class="form-control"></textarea>
+        </div>
 
 
 
-
-
-
-          <br>
-          <input type="submit" name="cadastrar" value="Fazer Ementa Mensal" class="btn btn-primary" style="float: rigth;">
+        <br>
+        <input type="submit" name="cadastrar" value="Cadastrar Plano Mensal" class="btn btn-primary" style="float: rigth;">
 
       </form>
     </div>
@@ -293,75 +415,51 @@ $anolectivo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from anosl
     </div>
     <div class="card-body">
 
-    <span id="mensagemdealerta"></span>
+      <span id="mensagemdealerta"></span>
 
-      <div class="table-responsive"> 
+      <div class="table-responsive">
 
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>  
-                        <th>Ver Plano</th>
-                      <th>Ano</th> 
-                      <th>Mês</th>
-                      <th>Descrição</th> 
-                      <th>Semanas</th>
-                      <th>Temas</th>
-                      <th>Actividades</th>
-                      <th>Objectivo</th>
-                      <th>Participantes</th>
-                      <th>Materiais</th> 
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                        $lista=mysqli_query($conexao, "SELECT * FROM planoanual where idanolectivo='$idanolectivo'"); 
-                         while($exibir = $lista->fetch_array()){
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Ver Plano</th> 
+              <th>Tema</th>
+              <th>Objectivo Geral</th>
+              <th>Domínio</th>
+              <th>Área curricular</th>
+              <th>Subtemas</th>
+              <th>Conteúdos</th>
+              <th>Objectivos Específicos</th>
+              <th>Actividades</th>
+              <th>Meios de Ensino</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $lista = mysqli_query($conexao, "SELECT * FROM planomensal where idanolectivo='$idanolectivo' and idciclo='$idciclo' and ano='$ano' and mes='$mes'");
+            while ($exibir = $lista->fetch_array()) {
 
-                            if ($exibir["mes"]==1) {
-                               $mes="Janeiro";
-                            }else if ($exibir["mes"]==2) {
-                                $mes="Fevereiro";
-                             }else if ($exibir["mes"]==3) {
-                                $mes="Março";
-                             }else if ($exibir["mes"]==4) {
-                                $mes="Abril";
-                             }else if ($exibir["mes"]==5) {
-                                $mes="Maio";
-                             }else if ($exibir["mes"]==6) {
-                                $mes="Junho";
-                             }else if ($exibir["mes"]==7) {
-                                $mes="Julho";
-                             }else if ($exibir["mes"]==8) {
-                                $mes="Agosto";
-                             }else if ($exibir["mes"]==9) {
-                                $mes="Setembro";
-                             }else if ($exibir["mes"]==10) {
-                                $mes="Outubro";
-                             }else if ($exibir["mes"]==11) {
-                                $mes="Novembro";
-                             }else if ($exibir["mes"]==12) {
-                                $mes="Dezembro";
-                             } 
+             
 
-                            ?>
-                    <tr>  
-                        <td align="center" title="Ver ou editar plano desse mês">
-                            <a  href="plano.php?idplano=<?php echo $exibir['id']; ?>" ><i  class="fas fa-eye" ></i> </a>
-                        </td>
-                        <td><?php echo $exibir['ano']; ?></td> 
-                        <td><?php echo $mes; ?></td>  
-                        <td><?php echo $exibir['descricao']; ?></td> 
-                        <td><?php echo $exibir['semanas']; ?></td> 
-                        <td><?php echo $exibir['temas']; ?></td> 
-                        <td><?php echo $exibir['actividades']; ?></td> 
-                        <td><?php echo $exibir['objectivo']; ?></td> 
-                        <td><?php echo $exibir['participantes']; ?></td> 
-                        <td><?php echo $exibir['materiais']; ?></td> 
-                     
-                    </tr> 
-                    <?php } ?> 
-                  </tbody>
-                </table>
+            ?>
+              <tr>
+                <td align="center" title="Ver ou editar plano desse mês">
+                  <a href="planomensal.php?idplano=<?php echo $exibir['id']; ?>"><i class="fas fa-eye"></i> </a>
+                </td> 
+                <td><?php echo $exibir['tema']; ?></td>
+                <td><?php echo $exibir['objectivogeral']; ?></td>
+                <td><?php echo $exibir['dominio']; ?></td>
+                <td><?php echo $exibir['areacurricular']; ?></td>
+                <td><?php echo $exibir['subtema']; ?></td>
+                <td><?php echo $exibir['conteudo']; ?></td>
+                <td><?php echo $exibir['objectivosespecificos']; ?></td>
+                <td><?php echo $exibir['actividade']; ?></td>
+                <td><?php echo $exibir['meiosdeensino']; ?></td>
+
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
 
       </div>
     </div>
@@ -396,7 +494,7 @@ $anolectivo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from anosl
       },
 
       success: function(data) {
-        $("#mensagemdealerta").html(data); 
+        $("#mensagemdealerta").html(data);
       }
 
     })

@@ -42,7 +42,7 @@ if (isset($_POST['cadastrar'])) {
   
   
 
-    $planoanual = mysqli_num_rows(mysqli_query($conexao, "SELECT id FROM planoanual where descricao='$descricao' and mes='$mes' and ano='$ano' and idanolectivo='$idanolectivo'"));
+    $planoanual = mysqli_num_rows(mysqli_query($conexao, "SELECT id FROM planoanual where idanolectivo='$idanolectivo' and descricao='$descricao' and mes='$mes' and ano='$ano' and idanolectivo='$idanolectivo'"));
 
     if ($planoanual == 0) {
  
@@ -242,7 +242,7 @@ $anolectivo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from anosl
 
 
           <br>
-          <input type="submit" name="cadastrar" value="Fazer Ementa Mensal" class="btn btn-primary" style="float: rigth;">
+          <input type="submit" name="cadastrar" value="Cadastrar Plano Anual" class="btn btn-primary" style="float: rigth;">
 
       </form>
     </div>
@@ -346,7 +346,7 @@ $anolectivo= mysqli_fetch_array(mysqli_query($conexao, "select titulo from anosl
                             ?>
                     <tr>  
                         <td align="center" title="Ver ou editar plano desse mês">
-                            <a  href="plano.php?idplano=<?php echo $exibir['id']; ?>" ><i  class="fas fa-eye" ></i> </a>
+                            <a  href="planoanual.php?idplano=<?php echo $exibir['id']; ?>" ><i  class="fas fa-eye" ></i> </a>
                         </td>
                         <td><?php echo $exibir['ano']; ?></td> 
                         <td><?php echo $mes; ?></td>  

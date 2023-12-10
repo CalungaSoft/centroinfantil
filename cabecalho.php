@@ -436,7 +436,7 @@
 
             <a class="collapse-item" href="listadeturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Turmas</a>   
             <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Faltas">Plano Diário</a> 
-            <a class="collapse-item" href="planomensal.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Plano Mensal</a>
+            <a class="collapse-item" href="planomensal.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&mes=<?php echo $mesdehoje_cabecalho; ?>&ano=<?php echo $anodehoje_cabecalho; ?>">Plano Mensal</a>
             <a class="collapse-item" href="planoanual.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Plano Anual</a> 
             <a class="collapse-item" href="turmasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Presença">Mapa de Presença</a> 
              
