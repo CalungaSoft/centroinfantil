@@ -215,7 +215,7 @@ include("cabecalho.php"); ?>
  
                   }
 
-
+ 
                   
                   $imprimir = "$falta[presenca]";
 

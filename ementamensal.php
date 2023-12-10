@@ -28,42 +28,47 @@ if (!($painellogado == "administrador" || $painellogado == "secretaria1" || $pai
 
 if (isset($_POST['cadastrar'])) {
 
-  if (!empty(trim($_POST['produto']))) {
+  if (!empty(trim($_POST['mes']))) {
 
-    $produto = mysqli_escape_string($conexao,  $_POST['produto']);
-    $preco = mysqli_escape_string($conexao,  $_POST['preco']);
-    $precodecompra = mysqli_escape_string($conexao,  $_POST['precodecompra']);
-    $quantidade = mysqli_escape_string($conexao,  $_POST['quantidade']);
-    $stockminimo = mysqli_escape_string($conexao,  $_POST['stockminimo']);
-    $datadeexpiracao = mysqli_escape_string($conexao,  $_POST['datadeexpiracao']);
+    $mes = mysqli_escape_string($conexao,  $_POST['mes']);
+    $ano = mysqli_escape_string($conexao,  $_POST['ano']);
+
+    $mesdevenda = $mes;
+    $anodevenda = $ano;
+
+    $ementamensal = mysqli_num_rows(mysqli_query($conexao, "SELECT id FROM ementamensal where MONTH(dia)='$mes' and YEAR(dia)='$ano'"));
+    if ($ementamensal == 0) {
 
 
+      $diasNoMes = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
 
-    $produtoigual = mysqli_num_rows(mysqli_query($conexao, "SELECT idproduto FROM produtos where nomedoproduto='$produto'"));
-    if ($produtoigual == 0) {
+      for ($i = 1; $i <= $diasNoMes; $i++) {
 
-      $salvar = mysqli_query($conexao, "INSERT INTO `produtos` (`idproduto`, `nomedoproduto`, `preco`,`precodecompra`, `quantidade`, `data`,  `datadeexpiracao`, `stockminimo`) VALUES (NULL, '$produto', '$preco','$precodecompra', '$quantidade', CURRENT_TIMESTAMP, STR_TO_DATE('$datadeexpiracao', '%d/%m/%Y'), '$stockminimo')");
+
+        $dia = "$ano-$mes-$i";
+
+        //pequeno Almoço
+        $salvar = mysqli_query($conexao, "INSERT INTO `ementamensal` (`dia`, `tipoderefeicao`, `descricaodarefeicao`) VALUES ('$dia', 'Pequeno Almoço','')");
+
+        //almoço
+        $salvar = mysqli_query($conexao, "INSERT INTO `ementamensal` (`dia`, `tipoderefeicao`, `descricaodarefeicao`) VALUES ('$dia', 'Almoço','')");
+
+        //lanche
+        $salvar = mysqli_query($conexao, "INSERT INTO `ementamensal` (`dia`, `tipoderefeicao`, `descricaodarefeicao`) VALUES ('$dia', 'Lanche','')");
+      }
+
 
       if ($salvar) {
-        $idprodutonostock = mysqli_fetch_array(mysqli_query($conexao, "SELECT idproduto FROM produtos where nomedoproduto='$produto' limit 1"))[0];
 
-        $guardandonostock = mysqli_query($conexao, "INSERT INTO `stock` (`idstock`, `idproduto`, `precodevenda`, `precodecompra`, `quantidade`, `datadecadastro`) VALUES (NULL, '$idprodutonostock', '$preco', '$precodecompra', '$quantidade', CURRENT_TIMESTAMP)");
-
-        if ($salvar) {
-
-          $acerto[] = " produto $produto, cadastrado com sucesso";
-        } else {
-
-          $erros[] = "Ocorreu um erro Ao cadastrar o  produto, tente novamente";
-        }
+        $acerto[] = "Ementa Criada com sucesso";
       } else {
         $erros[] = "Ocorreu um erro Ao cadastrar o  produto, tente novamente";
       }
     } else {
-      $erros[] = "Já Existe um produto com o mesmo nome! Por Favor acrescente alguma palavra ou sigla para o diferenciar!";
+      $erros[] = "Já Existe a ementa mensal de $mes/$ano";
     }
   } else {
-    $erros[] = "O campo nome do produto não pode estar vazio!";
+    $erros[] = "Um mês deve ser selecionado";
   }
 }
 
@@ -172,7 +177,7 @@ include("cabecalho.php"); ?>
           <div class="form-group">
 
             <span>Ano Lectivo</span>
-            <select name="anodevenda" required class="form-control">
+            <select name="ano" required class="form-control">
               <?php
 
               $ano = date('Y');
@@ -190,7 +195,7 @@ include("cabecalho.php"); ?>
 
 
           <div class="form-group">
-            <select name="mesdevenda" class="form-control">
+            <select name="mes" class="form-control">
               <option <?php $mesactual = date('m');
                       if ($mesactual == 1) { ?> selected="" <?php } ?> value="01">Janeiro</option>
               <option <?php if ($mesactual == 2) { ?> selected="" <?php } ?> value="02">Fevereiro</option>
@@ -257,68 +262,87 @@ include("cabecalho.php"); ?>
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Tabela de preços</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Tabela de refeições no mês</h6>
     </div>
     <div class="card-body">
+
+    <span id="mensagemdealerta"></span>
+
       <div class="table-responsive">
 
         <?php
-        $mesAtual = date('m');
-        $anoAtual = date('Y');
+        $mesAtual = $mesdevenda;
+        $anoAtual = $anodevenda;
         $diasNoMes = cal_days_in_month(CAL_GREGORIAN, $mesAtual, $anoAtual);
         $primeiroDia = date("N", strtotime("{$anoAtual}-{$mesAtual}-01"));
 
-        // Início da tabela com classes
-        echo "<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0' border=1>";
-        echo "<thead><tr><th>Semanas</th><th>Alimentação</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th></tr></thead>";
-        echo "<tbody>";
 
-        // Loop para as semanas
-        for ($semana = 1; $semana <= 5; $semana++) {
-          echo "<tr><td rowspan='3'>{$semana}ª Semana</td><td>Pequeno Almoço</td>";
+        $ementamensal_esse_mes = mysqli_num_rows(mysqli_query($conexao, "SELECT id FROM ementamensal where MONTH(dia)='$mesAtual' and YEAR(dia)='$anoAtual'"));
 
-          // Loop para os dias da semana
-          for ($diaSemana = 1; $diaSemana <= 5; $diaSemana++) {
-            // Calcula o número do dia no mês
-            $diaNoMes = ($semana - 1) * 7 + $diaSemana - $primeiroDia + 1;
 
-            // Verifica se o dia está dentro do mês
-            if ($diaNoMes > 0 && $diaNoMes <= $diasNoMes) {
-              echo "<td>{$diaNoMes}</td>";
-            } else {
-              echo "<td></td>";
+        if ($ementamensal_esse_mes != 0) {
+
+
+         
+
+          // Início da tabela com classes
+          echo "<table class='table table-bordered'  width='100%' cellspacing='0' border=1>";
+          echo "<thead><tr><th>Semanas</th><th>Alimentação</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th></tr></thead>";
+          echo "<tbody>";
+
+          // Loop para as semanas
+          for ($semana = 1; $semana <= 5; $semana++) {
+
+            echo "<tr><td rowspan='3'>{$semana}ª Semana</td><td>Pequeno Almoço</td>";
+
+            // Loop para os dias da semana
+            for ($diaSemana = 1; $diaSemana <= 5; $diaSemana++) {
+              // Calcula o número do dia no mês
+              $diaNoMes = ($semana - 1) * 7 + $diaSemana - $primeiroDia + 1;
+
+              // Verifica se o dia está dentro do mês
+              if ($diaNoMes > 0 && $diaNoMes <= $diasNoMes) {
+                
+                $alimento =mysqli_fetch_array(mysqli_query($conexao, "SELECT descricaodarefeicao FROM ementamensal where DAY(dia)='$diaNoMes' and MONTH(dia)='$mesAtual' and YEAR(dia)='$anoAtual' and tipoderefeicao='Pequeno Almoço' limit 1"))[0];
+                echo "<td contenteditable class='update' data-id='$diaNoMes' data-column='Pequeno Almoço' >$alimento</td>";
+              } else {
+                echo "<td></td>";
+              } 
             }
+
+            echo "</tr><tr><td>Almoço</td>";
+
+            // Reinicia o loop para os dias da semana
+            for ($diaSemana = 1; $diaSemana <= 5; $diaSemana++) {
+              $diaNoMes = ($semana - 1) * 7 + $diaSemana - $primeiroDia + 1;
+              if ($diaNoMes > 0 && $diaNoMes <= $diasNoMes) {
+
+                $alimento =mysqli_fetch_array(mysqli_query($conexao, "SELECT descricaodarefeicao FROM ementamensal where DAY(dia)='$diaNoMes' and MONTH(dia)='$mesAtual' and YEAR(dia)='$anoAtual' and tipoderefeicao='Almoço' limit 1"))[0];
+                echo "<td contenteditable class='update' data-id='$diaNoMes' data-column='Almoço' >$alimento</td>";
+              } else {
+                echo "<td></td>";
+              }
+            }
+
+            echo "</tr><tr><td>Lanche</td>";
+
+            // Reinicia o loop para os dias da semana
+            for ($diaSemana = 1; $diaSemana <= 5; $diaSemana++) {
+              $diaNoMes = ($semana - 1) * 7 + $diaSemana - $primeiroDia + 1;
+              if ($diaNoMes > 0 && $diaNoMes <= $diasNoMes) {
+                $alimento =mysqli_fetch_array(mysqli_query($conexao, "SELECT descricaodarefeicao FROM ementamensal where DAY(dia)='$diaNoMes' and MONTH(dia)='$mesAtual' and YEAR(dia)='$anoAtual' and tipoderefeicao='Lanche' limit 1"))[0];
+                echo "<td contenteditable class='update' data-id='$diaNoMes' data-column='Lanche' >$alimento</td>";
+              } else {
+                echo "<td></td>";
+              }
+            }
+
+            echo "</tr>";
           }
 
-          echo "</tr><tr><td>Almoço</td>";
-
-          // Reinicia o loop para os dias da semana
-          for ($diaSemana = 1; $diaSemana <= 5; $diaSemana++) {
-            $diaNoMes = ($semana - 1) * 7 + $diaSemana - $primeiroDia + 1;
-            if ($diaNoMes > 0 && $diaNoMes <= $diasNoMes) {
-              echo "<td>{$diaNoMes}</td>";
-            } else {
-              echo "<td></td>";
-            }
-          }
-
-          echo "</tr><tr><td>Lanche</td>";
-
-          // Reinicia o loop para os dias da semana
-          for ($diaSemana = 1; $diaSemana <= 5; $diaSemana++) {
-            $diaNoMes = ($semana - 1) * 7 + $diaSemana - $primeiroDia + 1;
-            if ($diaNoMes > 0 && $diaNoMes <= $diasNoMes) {
-              echo "<td>{$diaNoMes}</td>";
-            } else {
-              echo "<td></td>";
-            }
-          }
-
-          echo "</tr>";
+          // Fim da tabela
+          echo "</tbody></table>";
         }
-
-        // Fim da tabela
-        echo "</tbody></table>";
         ?>
 
 
@@ -334,11 +358,41 @@ include("cabecalho.php"); ?>
 <!-- End of Main Content -->
 
 
+<script>
+  $(document).on("blur", ".update", function() {
+    var dia = $(this).data("id");
+    var tipoderefeicao = $(this).data("column");
+    var descricaodarefeicao = $(this).text();
+
+    var ano = <?php echo $anoAtual; ?>;
+    var mes = <?php echo $mesAtual; ?>;
+
+    $.ajax({
+      url: 'cadastro/updateementa.php',
+      method: 'POST',
+
+      data: {
+        dia,
+        tipoderefeicao,
+        descricaodarefeicao,
+        ano,
+        mes
+      },
+
+      success: function(data) {
+        $("#mensagemdealerta").html(data); 
+      }
+
+    })
+
+  })
+</script>
+
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
   <div class="container my-auto">
     <div class="copyright text-center my-auto">
-      <span>Copyright &copy; CalungaSOFT 2021</span>
+      <span>Copyright &copy; CalungaSOFT 2023</span>
     </div>
   </div>
 </footer>
