@@ -436,8 +436,8 @@
 
             <a class="collapse-item" href="listadeturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>" >Turmas</a>   
             <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Faltas">Plano Diário</a> 
-            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Notas">Plano Mensal</a>
-            <a class="collapse-item" href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Faltas">Plano Anual</a> 
+            <a class="collapse-item" href="planomensal.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Plano Mensal</a>
+            <a class="collapse-item" href="planoanual.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Plano Anual</a> 
             <a class="collapse-item" href="turmasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Presença">Mapa de Presença</a> 
              
             <a class="collapse-item" href="avaliacoescontinuas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Avaliações</a>  
