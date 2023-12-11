@@ -172,7 +172,7 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Turma</th> 
-                      <th>Coordenador</th> 
+                      <th>Educador(a)</th> 
                       <th>Período</th> 
                       <th>Sala</th>  
                       <th>Nº de Alunos</th> 
@@ -230,6 +230,9 @@ include("cabecalho.php") ; ?>
                         <?php }
                          if ($funcao == 'Lançar Presença') { ?>
                           <a href="presencaalunopordia.php?idturma=<?php echo $exibir["idturma"]; ?>"> <button class="btn btn-success">Lançar Presença </button> </a>
+    
+                      <?php } if ($funcao == 'Avaliar Aluno') { ?>
+                          <a href="avaliarturma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <button class="btn btn-success">Avaliar</button> </a>
     
                       <?php }
                         

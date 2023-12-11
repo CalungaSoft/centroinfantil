@@ -23,22 +23,12 @@ $idturma=isset($_GET['idturma'])?$_GET['idturma']:"";
 if(isset($_POST['editardadosdaturma'])){
 
       $titulo=mysqli_escape_string($conexao,$_POST['titulo']); 
-      $idperiodo=mysqli_escape_string($conexao,$_POST['idperiodo']); 
-      $idcurso=mysqli_escape_string($conexao,$_POST['idcurso']);
-      $idsala=mysqli_escape_string($conexao,$_POST['idsala']);
-      $idclasse=mysqli_escape_string($conexao,$_POST['idclasse']);
+      $idperiodo=mysqli_escape_string($conexao,$_POST['idperiodo']);  
+      $idsala=mysqli_escape_string($conexao,$_POST['idsala']); 
       $idciclo=mysqli_escape_string($conexao,$_POST['idciclo']);
       $matricula=mysqli_escape_string($conexao,$_POST['matricula']);
       $reconfirmacao=mysqli_escape_string($conexao,$_POST['reconfirmacao']);
-      $propina=mysqli_escape_string($conexao,$_POST['propina']);
-      $eclassedeexame=mysqli_escape_string($conexao,$_POST['eclassedeexame']);
-      $classificacaopositiva=mysqli_escape_string($conexao,$_POST['classificacaopositiva']);
-      $classificacaonegativa=mysqli_escape_string($conexao,$_POST['classificacaonegativa']);
-
-       $minimoparapositiva=mysqli_escape_string($conexao,$_POST['minimoparapositiva']);
-      $valorminimo=mysqli_escape_string($conexao,$_POST['valorminimo']);
-      $valormaximo=mysqli_escape_string($conexao,$_POST['valormaximo']);
-
+      $propina=mysqli_escape_string($conexao,$_POST['propina']); 
       $idcoordenador=mysqli_escape_string($conexao,$_POST['idcoordenador']);
        
 
@@ -47,45 +37,26 @@ if(isset($_POST['editardadosdaturma'])){
   
        
   if(mysqli_num_rows(mysqli_query($conexao," SELECT * FROM turmas where titulo='$titulo' and idturma!='$idturma' and idanolectivo='$idanolectivo'"))==0){ 
-
-    $classificacoes=mysqli_fetch_array(mysqli_query($conexao," SELECT classificacaonegativa, classificacaopositiva FROM turmas where idturma='$idturma'"));
  
-    $salvar= mysqli_query($conexao,"UPDATE `turmas` SET `titulo` = '$titulo', `idperiodo` = '$idperiodo', `idcurso` = '$idcurso', `idsala` = '$idsala', `idclasse` = '$idclasse',`idciclo` = '$idciclo', `propina` = '$propina', `reconfirmacao` = '$reconfirmacao', `matricula` = '$matricula', `eclassedeexame` = '$eclassedeexame', `classificacaopositiva` = '$classificacaopositiva', `classificacaonegativa` = '$classificacaonegativa' , `minimoparapositiva` = '$minimoparapositiva' , `valormaximo` = '$valormaximo' , `valorminimo` = '$valorminimo', `idcoordenador` = '$idcoordenador' WHERE `turmas`.`idturma` = '$idturma'");
+ 
+    $salvar= mysqli_query($conexao,"UPDATE `turmas` SET `titulo` = '$titulo', `idperiodo` = '$idperiodo',  `idsala` = '$idsala', `idciclo` = '$idciclo', `propina` = '$propina', `reconfirmacao` = '$reconfirmacao', `matricula` = '$matricula', `idcoordenador` = '$idcoordenador' WHERE `turmas`.`idturma` = '$idturma'");
 
 
 
 
                             $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                          
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                          
                             
 
 
     
-      $salvar=mysqli_query($conexao,"UPDATE `matriculaseconfirmacoes` SET `turma` = '$titulo',`curso` = '$curso',`sala` = '$sala',`periodo` = '$periodo',`classe` = '$classe'  WHERE idturma = '$idturma'");
+      $salvar=mysqli_query($conexao,"UPDATE `matriculaseconfirmacoes` SET `turma` = '$titulo',`sala` = '$sala',`periodo` = '$periodo'  WHERE idturma = '$idturma'");
 
-
-      $classificacaopositiva_antiga=$classificacoes["classificacaopositiva"];
-      $classificacaonegativa_antiga=$classificacoes["classificacaonegativa"];
-
-      if($classificacaopositiva!=$classificacaopositiva_antiga){
-
-           $salvar=mysqli_query($conexao,"UPDATE `matriculaseconfirmacoes` SET `classificacaofinal` = '$classificacaopositiva' WHERE idturma = '$idturma' and classificacaofinal='$classificacaopositiva_antiga'");
-
-      }
-   
-      if($classificacaonegativa!=$classificacaonegativa_antiga){
-
-                 $salvar=mysqli_query($conexao,"UPDATE `matriculaseconfirmacoes` SET `classificacaofinal` = '$classificacaonegativa'  WHERE idturma = '$idturma' and classificacaofinal='$classificacaonegativa_antiga'");
-      
-      }
-      
-
+ 
 
     
     if($salvar){
@@ -109,10 +80,8 @@ if(isset($_POST['editardadosdaturma'])){
                   $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idturma='$idturma' limit 1")); 
 
                            $turma=$dadosdaturma["titulo"]; 
-                           $idperiodo=$dadosdaturma["idperiodo"];
-                           $idcurso=$dadosdaturma["idcurso"];
-                           $idsala=$dadosdaturma["idsala"];
-                           $idclasse=$dadosdaturma["idclasse"];
+                           $idperiodo=$dadosdaturma["idperiodo"]; 
+                           $idsala=$dadosdaturma["idsala"]; 
                            $idanolectivo=$dadosdaturma["idanolectivo"];
                            $idciclo=$dadosdaturma["idciclo"];
 
@@ -123,12 +92,9 @@ if(isset($_POST['editardadosdaturma'])){
 
 
                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
-
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+ 
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
-
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
+ 
 
                             $ciclo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from ciclos where idciclo='$idciclo'"))[0];
 
@@ -206,30 +172,16 @@ if(isset($_POST['editardadosdaturma'])){
 
 
                                                   Ano Lectivo: <strong> <a href="anolectivo.php?idanolectivo=<?php echo $idanolectivo; ?>"> <?php echo $anolectivo; ?> </a><br></strong>
-                                                  Curso: <strong> <a href="curso.php?idcurso=<?php echo $idcurso; ?>"> <?php echo $curso; ?> </a><br></strong>
-
-                                                 Classe: <strong> <a href="classe.php?idclasse=<?php echo $idclasse; ?>"> <?php echo $classe; ?> </a><br></strong>
-
+                                              
                                                   Período: <strong> <a href="periodo.php?idperiodo=<?php echo $idperiodo; ?>"> <?php echo $periodo; ?> </a><br></strong>
 
                                                     Sala: <strong> <a href="sala.php?idsala=<?php echo $idsala; ?>"> <?php echo $sala; ?> </a><br></strong> 
 
                                                    Ciclo: <strong> <a href="ciclo.php?idciclo=<?php echo $idciclo; ?>"> <?php echo $ciclo; ?> </a><br></strong> 
 
-                                                 É uma classe de exame?: <strong> <?php echo $dadosdaturma["eclassedeexame"]; ?> </strong>   <br> 
-
-
-                                                 Classificação Positiva: <strong> <?php echo $dadosdaturma["classificacaopositiva"]; ?> </strong>   <br> 
-
-
-                                                 Classificação Negativa: <strong> <?php echo $dadosdaturma["classificacaonegativa"]; ?> </strong>   <br> 
-
-                                                  Nota mínima: <strong> <?php echo $dadosdaturma["valorminimo"]; ?> </strong>   <br> 
-                                                   Mínimo para Positiva: <strong> <?php echo $dadosdaturma["minimoparapositiva"]; ?> </strong>   <br> 
-                                                    Nota Máxima: <strong> <?php echo $dadosdaturma["valormaximo"]; ?> </strong>   <br> 
-
-
-                                                       Coordenador de Turma: <strong> <?php echo $nomedocoordenador; ?> </strong>   <br> 
+                                               
+ 
+                                                       Educador(a): <strong> <?php echo $nomedocoordenador; ?> </strong>   <br> 
 
 
 
@@ -274,7 +226,7 @@ if(isset($_POST['editardadosdaturma'])){
 
                       <div class="form-group row">
                      
-                        <div class="col-sm-4"> 
+                        <div class="col-sm-12"> 
                                 <span>Período</span>
                                   <select name="idperiodo"  required  class="form-control"> 
                                     <?php
@@ -284,17 +236,7 @@ if(isset($_POST['editardadosdaturma'])){
                                       <?php } ?> 
                                   </select> 
                         </div> 
-
-                       <div class="col-sm-8">  
-                                  <span>Curso</span>
-                                    <select name="idcurso" required  class="form-control"> 
-                                      <?php
-                                           $lista=mysqli_query($conexao,"SELECT * from cursos order by titulo desc");
-                                          while($exibir = $lista->fetch_array()){ ?>
-                                          <option <?php if($dadosdaturma["idcurso"]==$exibir["idcurso"]){ echo "selected";} ?> value="<?php echo $exibir["idcurso"]; ?>"><?php echo $exibir["titulo"]; ?></option>
-                                        <?php } ?> 
-                                    </select> 
-                        </div>
+ 
 
                     </div>
 
@@ -303,7 +245,7 @@ if(isset($_POST['editardadosdaturma'])){
                      
                      <div class="form-group row">
                        
-                           <div class="col-sm-3"> 
+                           <div class="col-sm-6"> 
                              <span>Sala</span>
                               <select name="idsala" required  class="form-control"> 
                                 <?php
@@ -312,19 +254,9 @@ if(isset($_POST['editardadosdaturma'])){
                                     <option <?php if($dadosdaturma["idsala"]==$exibir["idsala"]){ echo "selected";} ?> value="<?php echo $exibir["idsala"]; ?>"><?php echo $exibir["titulo"]; ?></option>
                                   <?php } ?> 
                               </select> 
-                        </div> 
-                        <div class="col-sm-4"> 
-                               <span>Classe</span>
-                                  <select  name="idclasse" required  class="form-control"> 
-                                    <?php
-                                         $lista=mysqli_query($conexao,"SELECT * from classes order by titulo desc");
-                                        while($exibir = $lista->fetch_array()){ ?>
-                                        <option <?php if($dadosdaturma["idclasse"]==$exibir["idclasse"]){ echo "selected";} ?> value="<?php echo $exibir["idclasse"]; ?>"><?php echo $exibir["titulo"]; ?></option>
-                                      <?php } ?> 
-                                  </select> 
-                        </div> 
+                        </div>  
 
-                         <div class="col-sm-5"> 
+                         <div class="col-sm-6"> 
                             <span>Classe de exame</span>
                               <select name="eclassedeexame" required  class="form-control"> 
                                   <option <?php if($dadosdaturma["eclassedeexame"]=="Não"){ echo "selected";} ?> value="Não">Não</option>
@@ -337,7 +269,7 @@ if(isset($_POST['editardadosdaturma'])){
 
                    
                       <div class="form-group">
-                         <span>Cíclo</span>
+                         <span>Nível</span>
                                   <select name="idciclod" disabled="" required  class="form-control"> 
                                     <?php
                                          $lista=mysqli_query($conexao,"SELECT * from ciclos order by titulo desc");
@@ -393,59 +325,11 @@ if(isset($_POST['editardadosdaturma'])){
                          <option value="<?php echo $exibir['propina']; ?>"> 
                         <?php } ?>
                     </datalist>
-                    </div> 
-
-
-                      <div class="form-group row">
-                        <div class="col-sm-6">  
-                                  <span>Classificação Positiva</span>
-
-                                    <input type="text" name="classificacaopositiva"  list="clap" class="form-control"  placeholder="Classificação Positiva" required="" value="<?php echo $dadosdaturma["classificacaopositiva"]; ?>">
-
-                                      <datalist id="clap"> 
-                                         <option value="Apto"> 
-                                         <option value="Transita"> 
-                                    </datalist>
-                        </div>
-                        <div class="col-sm-6"> 
-                                <span>Classificação Negativa</span>
-                                
-                                    <input type="text" name="classificacaonegativa"  list="clan" class="form-control"  placeholder="Classificação Negativa" required="" value="<?php echo $dadosdaturma["classificacaonegativa"]; ?>" >
-
-                                      <datalist id="clan"> 
-                                         <option value="N/ Apto"> 
-                                         <option value="N/ Transita"> 
-                                    </datalist>
-                        </div>  
-                    </div>
-
-                    <span> «««««««««« Notas dos Alunos »»»»»»»»»»»</span>
-                    <div class="form-group row">
-                     <div class="col-sm-4"> 
-                                <span>Valor mínimo da Nota</span>
-                                
-                                    <input type="number" name="valorminimo" max="20" min="0" list="clan1" class="form-control"  placeholder="Valor mínimo" required="" value="<?php echo $dadosdaturma["valorminimo"]; ?>">
-
-                                       
-                        </div> 
-                         <div class="col-sm-4"> 
-                                <span>Mínimo Para Positiva</span>
-                                
-                                    <input type="number" name="minimoparapositiva" max="20" min="0" list="clan1" class="form-control"  placeholder="Nota mínima para Positiva" required="" value="<?php echo $dadosdaturma["minimoparapositiva"]; ?>">
-
-                                       
-                        </div> 
-                        <div class="col-sm-4">  
-                                  <span>Valor máximo da Nota</span>
-
-                                    <input type="number" name="valormaximo" max="20" min="0" class="form-control"  placeholder="Valor máximo" required="" value="<?php echo $dadosdaturma["valormaximo"]; ?>"> 
-                        </div> 
-                    </div>
-
+                    </div>   
                      
 
                 <div class="form-group">
-                         <span>Coordenador de Turma</span>
+                         <span>Educador(a)</span>
                                   <select name="idcoordenador"    class="form-control"> 
                                     <?php
                                          $lista=mysqli_query($conexao,"SELECT * from funcionarios");
@@ -494,14 +378,8 @@ if(isset($_POST['editardadosdaturma'])){
                                           $numerodematriculas=mysqli_num_rows(mysqli_query($conexao, "select idturma FROM matriculaseconfirmacoes where idturma='$idturma' and tipo='Matrícula'")); 
 
                                           $numerodereconfirmacoes=mysqli_num_rows(mysqli_query($conexao, "select idturma FROM matriculaseconfirmacoes where idturma='$idturma' and tipo='Confirmação'")); 
-
-                                           $numerodedisciplinas=mysqli_num_rows(mysqli_query($conexao, "select idturma FROM disciplinas where idturma='$idturma'"));
-
-
-                                          $numerodeprofessores=mysqli_num_rows(mysqli_query($conexao, "select distinct(idprofessor) FROM disciplinas where idturma='$idturma'")); 
-
-                                          $numerodeprofessoresauxiliar=mysqli_num_rows(mysqli_query($conexao, "select distinct(idprofessorauxiliar) FROM disciplinas where idturma='$idturma'")); 
-
+ 
+ 
                                           $valoragregado=mysqli_fetch_array(mysqli_query($conexao, "select sum(valor) FROM entradas where idturma='$idturma'"))[0]+0;
 
                                           $valoremdivida=mysqli_fetch_array(mysqli_query($conexao, "select sum(divida) FROM entradas where idturma='$idturma'"))[0]+0;
@@ -532,13 +410,7 @@ if(isset($_POST['editardadosdaturma'])){
 
                                         <br>  Número de Estudantes: <strong>  <?php echo $numerodeestudantes; ?> <br> </strong>
                                                Número de Matrículas: <strong>  <?php echo $numerodematriculas; ?>  <br> </strong>
-                                               Número de Confimações: <strong>  <?php echo $numerodereconfirmacoes; ?> <br></strong>
-
-                                             Número de Disciplina: <strong>  <?php echo $numerodedisciplinas; ?> <br>  </strong>
-
-                                              Número de Professores efectivos: <strong>  <?php echo $numerodeprofessores; ?> <br></strong>
-
-                                              Número de Professores Auxiliares: <strong>  <?php echo $numerodeprofessoresauxiliar; ?> <br> </strong>
+                                               Número de Confimações: <strong>  <?php echo $numerodereconfirmacoes; ?> <br></strong> 
 
                                          
                                         </div>
@@ -570,21 +442,7 @@ if(isset($_POST['editardadosdaturma'])){
                
                    
                    
-                    
-                <a href="turma.php?idturma=<?php echo $idturma; ?>" class="d-sm-inline-block btn btn-sm btn-primary" ><i class="fas fa-fw fa-user"></i> Ver Lista de Aluno</a> 
-                  
-                    <a href="" id="verdisciplina" class="d-sm-inline-block btn btn-sm btn-secondary" ><i class="fas fa-fw fa-book"></i> Ver Disciplinas e Professores </a> 
-  
-      <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2"){ ?>
-
-                  <a href="turmafinanca.php?idturma=<?php echo $idturma; ?>" class="d-sm-inline-block btn btn-sm btn-success" ><i class="fas fa-fw fa-money"></i> Ver Finanças</a>  
-         <?php } ?>
-
-           <?php if($painellogado=="administrador" || $painellogado=="areapedagogica" || $painellogado=="professor"){ ?>
-
-                   <a href="turmaminipauta.php?idturma=<?php echo $idturma; ?>" class="d-sm-inline-block btn btn-sm btn-primary" ><i class="fas fa-fw fa-print"></i> Ver Minipauta</a>
-                   <a href="turmapauta.php?idturma=<?php echo $idturma; ?>" class="d-sm-inline-block btn btn-sm btn-info" ><i class="fas fa-fw fa-print"></i> Ver Pauta</a>  <br><br>
-          <?php } ?>
+                
 
 
               <span id="resultado"> 
@@ -704,7 +562,7 @@ if(isset($_POST['editardadosdaturma'])){
        <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; CalungaSOFT 2021</span>
+            <span>Copyright &copy; CalungaSOFT 2023</span>
           </div>
         </div>
       </footer>

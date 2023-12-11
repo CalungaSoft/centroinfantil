@@ -40,7 +40,7 @@ if ($idmatriculaeconfirmacao == 0) {
   $idanolectivo = $dados_da_matriculaeconfirmacao["idanolectivo"];
   $idanolectivo_selecionado = $dados_da_matriculaeconfirmacao["idanolectivo"];
 
-  $dadosdoanolectivo = mysqli_fetch_array(mysqli_query($conexao, "SELECT MONTH(datainicio) as mesinicio, MONTH(datafimexame) as mesfim, YEAR(datainicio) as anoinicio, YEAR(datafimexame) as anofim, anoslectivos.* from anoslectivos where  idanolectivo='$idanolectivo_selecionado'"));
+  $dadosdoanolectivo = mysqli_fetch_array(mysqli_query($conexao, "SELECT MONTH(datainicio) as mesinicio, MONTH(datafim) as mesfim, YEAR(datainicio) as anoinicio, YEAR(datafim) as anofim, anoslectivos.* from anoslectivos where  idanolectivo='$idanolectivo_selecionado'"));
 
   $anolectivo_selecionado = $dadosdoanolectivo["titulo"];
 
@@ -61,7 +61,7 @@ if (!isset($_GET["idmatriculaeconfirmacao"])) {
   $idanolectivo = $dados_da_matriculaeconfirmacao["idanolectivo"];
   $idanolectivo_selecionado = $dados_da_matriculaeconfirmacao["idanolectivo"];
 
-  $dadosdoanolectivo = mysqli_fetch_array(mysqli_query($conexao, "SELECT MONTH(datainicio) as mesinicio, MONTH(datafimexame) as mesfim, YEAR(datainicio) as anoinicio, YEAR(datafimexame) as anofim, anoslectivos.* from anoslectivos where  idanolectivo='$idanolectivo_selecionado'"));
+  $dadosdoanolectivo = mysqli_fetch_array(mysqli_query($conexao, "SELECT MONTH(datainicio) as mesinicio, YEAR(datainicio) as anoinicio, anoslectivos.* from anoslectivos where  idanolectivo='$idanolectivo_selecionado'"));
 
   $anolectivo_selecionado = $dadosdoanolectivo["titulo"];
 
@@ -831,9 +831,15 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
 
                           $turma = $dadosdaturma["titulo"];
                           $idperiodo = $dadosdaturma["idperiodo"];
-                          $idcurso = $dadosdaturma["idcurso"];
+                         
+                        
+                          
+                        
                           $idsala = $dadosdaturma["idsala"];
-                          $idclasse = $dadosdaturma["idclasse"];
+                          $idsala = $dadosdaturma["idsala"];
+                         
+                          $idsala = $dadosdaturma["idsala"]; 
+                         
 
                           $propina = $dadosdaturma["propina"];
 
@@ -847,20 +853,20 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
 
                           $periodo = mysqli_fetch_array(mysqli_query($conexao, "SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                          $curso = mysqli_fetch_array(mysqli_query($conexao, "SELECT titulo from cursos where idcurso='$idcurso'"))[0];
+
+                           
 
                           $sala = mysqli_fetch_array(mysqli_query($conexao, "SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                          $classe = mysqli_fetch_array(mysqli_query($conexao, "SELECT titulo from classes where idclasse='$idclasse'"))[0];
+ 
 
                         ?>
                           <hr>
                           <hr>
                            Turma: <a href="turma.php?idturma=<?php echo $idturma; ?>"> <?php echo $turma; ?> </a><br>
 
-                           Curso: <a href="curso.php?idcurso=<?php echo $idcurso; ?>"> <?php echo $curso; ?> </a><br>
-
-                           Classe: <a href="classe.php?idclasse=<?php echo $idclasse; ?>"> <?php echo $classe; ?> </a><br>
+ 
+  
 
                            Período: <a href="periodo.php?idperiodo=<?php echo $idperiodo; ?>"> <?php echo $periodo; ?> </a><br>
 
@@ -1191,563 +1197,7 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
           </table>
 
 
-          <?php if ($idmatriculaeconfirmacao != 0) { ?>
-
-            <?php if ($painellogado == "administrador" || $painellogado == "secretaria1" || $painellogado == "secretaria2") { ?>
-              <br>
-              <h2>Previsão de Propinas</h2>
-              <table class="table table-bordered" width="100%" cellspacing="0">
-
-                <thead>
-                  <tr>
-                    <th>Designação</th>
-
-                    <?php
-
-                    $meses = [];
-                    $valormes = [];
-                    $saidames = [];
-                    $caixames = [];
-
-                    $datainicio_anolectivo = $dadosdoanolectivo["datainicio"];
-                    $datafim_anolectivo = $dadosdoanolectivo["datafimexame"];
-
-                    $mesinicio_anolectivo = $dadosdoanolectivo["mesinicio"];
-                    $mesfim_anolectivo = $dadosdoanolectivo["mesfim"];
-
-                    $anoinicio_anolectivo = $dadosdoanolectivo["anoinicio"];
-                    $anofim_anolectivo = $dadosdoanolectivo["anofim"];
-
-                    $previsao = [];
-
-                    $arrecadado = [];
-
-                    $emfalta = [];
-
-
-
-                    $numero_de_meses_normal = mysqli_fetch_array(mysqli_query($conexao, "SELECT TIMESTAMPDIFF(MONTH,datainicio,datafim) as numero  from anoslectivos where idanolectivo='$idanolectivo_selecionado'"))[0];
-
-                    $numero_de_meses_exame = mysqli_fetch_array(mysqli_query($conexao, "SELECT TIMESTAMPDIFF(MONTH,datainicio,datafimexame) as numero  from anoslectivos where idanolectivo='$idanolectivo_selecionado'"))[0];
-
-
-
-                    $anoactual = date('Y');
-
-
-                    $contador_normal = 0;
-                    $contador_exame = 0;
-
-                    for ($i = $mesinicio_anolectivo; $i <= 12; $i++) {
-
-
-                      $mes = $i;
-                      $ano = $anoinicio_anolectivo;
-
-
-
-
-
-                      $data_de_cadastro_formada = "$ano-$i-31"; //2021-08-31
-                      $data_de_propina_formada = "$ano-$i-01"; // 2021-08-01
-
-
-
-                      $previsao_normal = 0;
-                      $previsao_exame = 0;
-
-
-                      if ($contador_normal <= $numero_de_meses_normal) {
-
-                        $previsao_normal = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propina-descontoparapropinas)  from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo_selecionado' and   matriculaseconfirmacoes.data<='$data_de_cadastro_formada' and matriculaseconfirmacoes.estatus='activo' and matriculaseconfirmacoes.tipodealuno!='Bolseiro' and matriculaseconfirmacoes.idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and turmas.eclassedeexame='Não'"))[0];
-                      }
-
-
-                      if ($contador_exame <= $numero_de_meses_exame) {
-
-                        $previsao_exame = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propina-descontoparapropinas)  from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo_selecionado' and   matriculaseconfirmacoes.data<='$data_de_cadastro_formada' and matriculaseconfirmacoes.estatus='activo' and matriculaseconfirmacoes.tipodealuno!='Bolseiro' and matriculaseconfirmacoes.idmatriculaeconfirmacao='$idmatriculaeconfirmacao'  and turmas.eclassedeexame='Sim'"))[0];
-                      }
-
-
-
-
-                      $previsao[] = $previsao_normal + $previsao_exame;
-
-
-
-
-
-                      $arrecadado[] = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propinas.valorpago)  from propinas  where idanolectivo='$idanolectivo_selecionado' and propinas.idmatriculaeconfirmacao='$idmatriculaeconfirmacao'  and mespago='$data_de_propina_formada'"))[0];
-
-
-
-
-
-
-
-
-
-                      $emfalta_exame = 0;
-                      $emfalta_normal = 0;
-
-                      if ($contador_normal <= $numero_de_meses_normal) {
-
-                        $emfalta_normal = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propina-descontoparapropinas)  from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo_selecionado' and   matriculaseconfirmacoes.data<='$data_de_cadastro_formada' and matriculaseconfirmacoes.estatus='activo' and matriculaseconfirmacoes.ultimomespago<'$data_de_propina_formada' and matriculaseconfirmacoes.tipodealuno!='Bolseiro' and matriculaseconfirmacoes.idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and turmas.eclassedeexame='Não'"))[0];
-                      }
-
-
-                      if ($contador_exame <= $numero_de_meses_exame) {
-
-                        $emfalta_exame = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propina-descontoparapropinas)  from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo_selecionado' and   matriculaseconfirmacoes.data<='$data_de_cadastro_formada' and matriculaseconfirmacoes.estatus='activo' and matriculaseconfirmacoes.ultimomespago<'$data_de_propina_formada' and matriculaseconfirmacoes.tipodealuno!='Bolseiro' and matriculaseconfirmacoes.idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and turmas.eclassedeexame='Sim'"))[0];
-                      }
-
-
-                      $emfalta[] = $emfalta_normal + $emfalta_exame;
-
-
-                      $contador_normal++;
-                      $contador_exame++;
-
-                      if ($mes == 1) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Janeiro/" . $ano . "";
-                        } else {
-                          $meses[] = "Janeiro";
-                        }
-                      } else  if ($mes == 2) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Fevereiro/" . $ano . "";
-                        } else {
-                          $meses[] = "Fevereiro";
-                        }
-                      } else  if ($mes == 3) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Março/" . $ano . "";
-                        } else {
-                          $meses[] = "Março";
-                        }
-                      } else if ($mes == 4) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Abril/" . $ano . "";
-                        } else {
-                          $meses[] = "Abril";
-                        }
-                      } else if ($mes == 5) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Maio/" . $ano . "";
-                        } else {
-                          $meses[] = "Maio";
-                        }
-                      } else if ($mes == 6) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Junho/" . $ano . "";
-                        } else {
-                          $meses[] = "Junho";
-                        }
-                      } else if ($mes == 7) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Julho/" . $ano . "";
-                        } else {
-                          $meses[] = "Julho";
-                        }
-                      } else if ($mes == 8) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Agosto/" . $ano . "";
-                        } else {
-                          $meses[] = "Agosto";
-                        }
-                      } else if ($mes == 9) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Setembro/" . $ano . "";
-                        } else {
-                          $meses[] = "Setembro";
-                        }
-                      } else if ($mes == 10) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Outubro/" . $ano . "";
-                        } else {
-                          $meses[] = "Outubro";
-                        }
-                      } else if ($mes == 11) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Novembro/" . $ano . "";
-                        } else {
-                          $meses[] = "Novembro";
-                        }
-                      } else if ($mes == 12) {
-
-                        if ($ano != $anoactual) {
-                          $meses[] = "Dezembro/" . $ano . "";
-                        } else {
-                          $meses[] = "Dezembro";
-                        }
-                      }
-                    }
-
-
-
-                    if ($anoinicio_anolectivo != $anofim_anolectivo) {
-
-                      for ($i = 1; $i <= $mesfim_anolectivo; $i++) {
-
-
-                        $mes = $i;
-                        $ano = $anofim_anolectivo;
-
-
-                        $data_de_cadastro_formada = "$ano-$i-31"; //2022-01-31
-                        $data_de_propina_formada = "$ano-$i-01"; // 2021-08-01
-
-
-
-                        $previsao_normal = 0;
-                        $previsao_exame = 0;
-
-
-                        if ($contador_normal <= $numero_de_meses_normal) {
-
-                          $previsao_normal = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propina-descontoparapropinas)  from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo_selecionado' and   matriculaseconfirmacoes.data<='$data_de_cadastro_formada' and matriculaseconfirmacoes.estatus='activo'  and matriculaseconfirmacoes.tipodealuno!='Bolseiro' and matriculaseconfirmacoes.idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and turmas.eclassedeexame='Não'"))[0];
-                        }
-
-
-                        if ($contador_exame <= $numero_de_meses_exame) {
-
-                          $previsao_exame = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propina-descontoparapropinas)  from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo_selecionado' and   matriculaseconfirmacoes.data<='$data_de_cadastro_formada' and matriculaseconfirmacoes.estatus='activo'  and matriculaseconfirmacoes.tipodealuno!='Bolseiro' and matriculaseconfirmacoes.idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and turmas.eclassedeexame='Sim'"))[0];
-                        }
-
-                        $previsao[] = $previsao_normal + $previsao_exame;
-
-
-                        $arrecadado[] = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propinas.valorpago)  from propinas  where idanolectivo='$idanolectivo_selecionado' and propinas.idmatriculaeconfirmacao='$idmatriculaeconfirmacao'  and mespago='$data_de_propina_formada'"))[0];
-
-
-                        $emfalta_exame = 0;
-                        $emfalta_normal = 0;
-
-                        if ($contador_normal <= $numero_de_meses_normal) {
-
-                          $emfalta_normal = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propina-descontoparapropinas)  from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo_selecionado' and   matriculaseconfirmacoes.data<='$data_de_cadastro_formada' and matriculaseconfirmacoes.estatus='activo' and matriculaseconfirmacoes.ultimomespago<'$data_de_propina_formada' and matriculaseconfirmacoes.tipodealuno!='Bolseiro' and matriculaseconfirmacoes.idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and turmas.eclassedeexame='Não'"))[0];
-                        }
-
-
-                        if ($contador_exame <= $numero_de_meses_exame) {
-
-                          $emfalta_exame = mysqli_fetch_array(mysqli_query($conexao, "SELECT sum(propina-descontoparapropinas)  from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo_selecionado' and   matriculaseconfirmacoes.data<='$data_de_cadastro_formada' and matriculaseconfirmacoes.estatus='activo' and matriculaseconfirmacoes.ultimomespago<'$data_de_propina_formada' and matriculaseconfirmacoes.tipodealuno!='Bolseiro' and matriculaseconfirmacoes.idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and turmas.eclassedeexame='Sim'"))[0];
-                        }
-
-
-                        $emfalta[] = $emfalta_normal + $emfalta_exame;
-
-
-
-
-                        $contador_normal++;
-                        $contador_exame++;
-
-
-
-
-
-                        if ($mes == 1) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Janeiro/" . $ano . "";
-                          } else {
-                            $meses[] = "Janeiro";
-                          }
-                        } else  if ($mes == 2) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Fevereiro/" . $ano . "";
-                          } else {
-                            $meses[] = "Fevereiro";
-                          }
-                        } else  if ($mes == 3) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Março/" . $ano . "";
-                          } else {
-                            $meses[] = "Março";
-                          }
-                        } else if ($mes == 4) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Abril/" . $ano . "";
-                          } else {
-                            $meses[] = "Abril";
-                          }
-                        } else if ($mes == 5) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Maio/" . $ano . "";
-                          } else {
-                            $meses[] = "Maio";
-                          }
-                        } else if ($mes == 6) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Junho/" . $ano . "";
-                          } else {
-                            $meses[] = "Junho";
-                          }
-                        } else if ($mes == 7) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Julho/" . $ano . "";
-                          } else {
-                            $meses[] = "Julho";
-                          }
-                        } else if ($mes == 8) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Agosto/" . $ano . "";
-                          } else {
-                            $meses[] = "Agosto";
-                          }
-                        } else if ($mes == 9) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Setembro/" . $ano . "";
-                          } else {
-                            $meses[] = "Setembro";
-                          }
-                        } else if ($mes == 10) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Outubro/" . $ano . "";
-                          } else {
-                            $meses[] = "Outubro";
-                          }
-                        } else if ($mes == 11) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Novembro/" . $ano . "";
-                          } else {
-                            $meses[] = "Novembro";
-                          }
-                        } else if ($mes == 12) {
-
-                          if ($ano != $anoactual) {
-                            $meses[] = "Dezembro/" . $ano . "";
-                          } else {
-                            $meses[] = "Dezembro";
-                          }
-                        }
-                      }
-                    }
-
-
-                    ?>
-
-
-                    <?php
-
-                    foreach ($meses as $key => $value) {
-                      echo "<th>$value</th>";
-                    }
-
-                    ?>
-
-
-
-                  </tr>
-
-
-                </thead>
-
-                <tbody>
-
-                  <tr>
-
-                    <th>Previsão</th>
-                    <?php
-
-
-
-                    foreach ($previsao as $key => $value) {
-                      $n = number_format($value, 2, ",", ".");
-
-                      echo "<td>$n</td>";
-                    }
-
-                    ?>
-
-                  </tr>
-
-                  <tr>
-
-                    <td title="Soma Acumulada">Acumulada</td>
-                    <?php
-
-                    $soma_acumulada = 0;
-
-                    foreach ($previsao as $key => $value) {
-
-                      $soma_acumulada += $value;
-
-                      $n = number_format($soma_acumulada, 2, ",", ".");
-
-
-                      echo "<td>$n</td>";
-                    }
-
-                    ?>
-
-                  </tr>
-
-                </tbody>
-
-
-                <thead>
-                  <tr>
-                    <th style='background-color:blue'></th>
-                    <?php
-
-                    foreach ($previsao as $key => $value) {
-                      echo "<th style='background-color:blue'></th>";
-                    }
-
-                    ?>
-
-
-                  </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                  <tr>
-
-                    <th>Arrecadado</th>
-                    <?php
-
-
-
-                    foreach ($arrecadado as $key => $value) {
-                      $n = number_format($value, 2, ",", ".");
-
-                      echo "<td>$n</td>";
-                    }
-
-                    ?>
-
-                  </tr>
-
-                  <tr>
-
-                    <td title="Soma Acumulada">Acumulada</td>
-                    <?php
-
-                    $soma_acumulada = 0;
-
-                    foreach ($arrecadado as $key => $value) {
-
-                      $soma_acumulada += $value;
-
-                      $n = number_format($soma_acumulada, 2, ",", ".");
-
-
-                      echo "<td>$n</td>";
-                    }
-
-                    ?>
-
-                  </tr>
-
-                </tbody>
-
-                <thead>
-                  <tr>
-                    <th style='background-color:green'></th>
-                    <?php
-
-                    foreach ($previsao as $key => $value) {
-                      echo "<th style='background-color:green'></th>";
-                    }
-
-                    ?>
-
-
-                  </tr>
-
-                </thead>
-
-                <tbody>
-
-                  <tr>
-
-                    <th>Em Falta</th>
-                    <?php
-
-
-
-                    foreach ($emfalta as $key => $value) {
-                      $n = number_format($value, 2, ",", ".");
-
-                      echo "<td>$n</td>";
-                    }
-
-                    ?>
-
-                  </tr>
-
-                  <tr>
-
-                    <td title="Soma Acumulada">Acumulada</td>
-                    <?php
-
-                    $soma_acumulada = 0;
-
-                    foreach ($emfalta as $key => $value) {
-
-                      $soma_acumulada += $value;
-
-                      $n = number_format($soma_acumulada, 2, ",", ".");
-
-
-                      echo "<td>$n</td>";
-                    }
-
-                    ?>
-
-                  </tr>
-
-                </tbody>
-
-                <thead>
-                  <tr>
-                    <th style='background-color:red'></th>
-                    <?php
-
-                    foreach ($previsao as $key => $value) {
-                      echo "<th style='background-color:red'></th>";
-                    }
-
-                    ?>
-
-
-                  </tr>
-
-                </thead>
-
-
-
-              </table>
-
-            <?php } ?>
-          <?php } ?>
+     
         </span>
       </div>
     </div>
@@ -2050,7 +1500,7 @@ $idtrimestre_padrao = mysqli_fetch_array(mysqli_query($conexao, "select idtrimes
 <footer class="sticky-footer bg-white">
   <div class="container my-auto">
     <div class="copyright text-center my-auto">
-      <span>Copyright &copy; CalungaSOFT 2022</span>
+      <span>Copyright &copy; CalungaSOFT 2023</span>
     </div>
   </div>
 </footer>

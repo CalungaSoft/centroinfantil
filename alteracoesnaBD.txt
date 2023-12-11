@@ -40,35 +40,6 @@ COMMIT;
 
 __________________________________
 
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1:3333
--- Tempo de geração: 08/12/2023 às 14:14
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Banco de dados: `centroinfantil`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `propinasactividades`
---
-
 CREATE TABLE `propinasactividades` (
   `idpropina` int(11) NOT NULL,
   `idaluno` int(11) NOT NULL,
@@ -86,39 +57,21 @@ CREATE TABLE `propinasactividades` (
   `datadedeposito` date DEFAULT NULL,
   `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Despejando dados para a tabela `propinasactividades`
---
  
---
--- Índices para tabelas despejadas
---
-
---
--- Índices de tabela `propinasactividades`
---
 ALTER TABLE `propinasactividades`
   ADD PRIMARY KEY (`idpropina`);
 
---
--- AUTO_INCREMENT para tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `propinasactividades`
---
+ 
 ALTER TABLE `propinasactividades`
   MODIFY `idpropina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-COMMIT;
+ 
+ 
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
-CREATE TABLE `centroinfantil`.`ementamensal` (`id` INT(11) NOT NULL AUTO_INCREMENT , `dia` DATE NOT NULL , `tipoderefeicao` VARCHAR(222) NOT NULL , `descricaodarefeicao` VARCHAR(222) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
-CREATE TABLE `centroinfantil`.`planoanual` (`id` INT(11) NOT NULL AUTO_INCREMENT , `ano` INT(5) NOT NULL , `mes` INT(3) NOT NULL , `idanolectivo` INT(11) NOT NULL , `descricao` VARCHAR(222) NULL , `semanas` INT(2) NOT NULL DEFAULT '4' , `temas` TEXT NULL , `actividades` TEXT NULL , `objectivo` TEXT NULL , `participantes` TEXT NULL , `materiais` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
-CREATE TABLE `centroinfantil`.`planomensal` (`id` INT(11) NOT NULL AUTO_INCREMENT , `idciclo` INT(11) NOT NULL , `tema` TEXT NOT NULL , `ano` INT(5) NOT NULL , `mes` INT(3) NOT NULL , `objectivogeral` TEXT NULL , `dominio` TEXT NULL , `areacurricular` TEXT NULL , `subtema` TEXT NULL , `conteudo` TEXT NULL , `objectivosespecificos` TEXT NULL , `actividade` TEXT NULL , `meiosdeensino` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `ementamensal` (`id` INT(11) NOT NULL AUTO_INCREMENT , `dia` DATE NOT NULL , `tipoderefeicao` VARCHAR(222) NOT NULL , `descricaodarefeicao` VARCHAR(222) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `planoanual` (`id` INT(11) NOT NULL AUTO_INCREMENT , `ano` INT(5) NOT NULL , `mes` INT(3) NOT NULL , `idanolectivo` INT(11) NOT NULL , `descricao` VARCHAR(222) NULL , `semanas` INT(2) NOT NULL DEFAULT '4' , `temas` TEXT NULL , `actividades` TEXT NULL , `objectivo` TEXT NULL , `participantes` TEXT NULL , `materiais` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `planomensal` (`id` INT(11) NOT NULL AUTO_INCREMENT , `idciclo` INT(11) NOT NULL , `tema` TEXT NOT NULL , `ano` INT(5) NOT NULL , `mes` INT(3) NOT NULL , `objectivogeral` TEXT NULL , `dominio` TEXT NULL , `areacurricular` TEXT NULL , `subtema` TEXT NULL , `conteudo` TEXT NULL , `objectivosespecificos` TEXT NULL , `actividade` TEXT NULL , `meiosdeensino` TEXT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `planomensal` ADD `idanolectivo` INT(11) NOT NULL AFTER `id`;
+CREATE TABLE `sessoesdeavaliacao` (`id` INT(11) NOT NULL AUTO_INCREMENT , `titulo` VARCHAR(222) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `categoriasdeavaliacao` (`id` INT(11) NOT NULL AUTO_INCREMENT , `titulo` VARCHAR(222) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `tiposdeavalicoes` (`id` INT(11) NOT NULL AUTO_INCREMENT , `titulo` VARCHAR(222) NOT NULL , `idcategoria` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
