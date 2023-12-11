@@ -20,7 +20,10 @@ $painellogado=$_SESSION['painel'];
     header('Location: login.php');
 }
 
-    $idanolectivo=isset($_GET['idanolectivo'])?$_GET['idanolectivo']:"";
+$idPred=mysqli_fetch_array(mysqli_query($conexao, "select idanolectivo from anoslectivos where vigor='sim'"))[0];
+
+
+    $idanolectivo=isset($_GET['idanolectivo'])?$_GET['idanolectivo']:"$idPred";
 $idanolectivo=mysqli_escape_string($conexao, $idanolectivo); 
 
    $anolectivo_escolhido=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];

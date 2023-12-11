@@ -16,8 +16,7 @@
 
                                   $idturma=$dadosda_reconfirmacao["idturma"];
                                   $idanolectivo=$dadosda_reconfirmacao["idanolectivo"];
-                                  $idaluno=$dadosda_reconfirmacao["idaluno"];
-                                  $classe=$dadosda_reconfirmacao["classe"];
+                                  $idaluno=$dadosda_reconfirmacao["idaluno"]; 
 
                       
 
@@ -26,8 +25,7 @@
 
              $dadosdaturma=mysqli_fetch_array(mysqli_query($conexao," SELECT * FROM turmas where idturma='$idturma' "));
 
-    $eclassedeexame=$dadosdaturma['eclassedeexame'];
-
+   
     $precodapropina=number_format($dadosdaturma["propina"],2,",", ".");
     $descontonapropina=number_format($dadosda_reconfirmacao["descontoparapropinas"],2,",", ".");
 
@@ -54,7 +52,7 @@
         use Dompdf\Dompdf;
         require_once 'dompdf/autoload.inc.php';
 
-        $gerador=new DOMPDF();
+       $gerador=new DOMPDF(["chroot" => __DIR__]); 
  
   if($dadosdo_aluno['nascimes']==1) 
   $dadosdo_aluno['nascimes']="Janeiro"; 
@@ -170,7 +168,7 @@ else if($dadosdo_aluno['nascimes']==12)
         <h3>  ";  if($dadosda_reconfirmacao["tipodealuno"]!="Normal")  { $htm.="    Tipo de Estudante: ".$dadosda_reconfirmacao['tipodealuno']." | "; } $htm.=" Plano de Pagamento Mensal: ".$precodapropina." KZ | Desconto: ".$descontonapropina." KZ </h3>
         
         <h3>  
-        <strong>  Turma  ".$dadosda_reconfirmacao['turma']." |  ".$dadosda_reconfirmacao['classe']." Classe    </strong>     <strong> ";  if($dadosda_reconfirmacao["curso"]!="Nenhum")  { $htm.=" / Curso:  ".$dadosda_reconfirmacao['curso']." "; } $htm.="    </strong>  Sala ".$dadosda_reconfirmacao['sala']." | Ano Lecivo:  ".$anolectivo.".   
+        <strong>  Turma  ".$dadosda_reconfirmacao['turma']." |   </strong>     <strong> Sala ".$dadosda_reconfirmacao['sala']." | Ano Lecivo:  ".$anolectivo.".   
         </h3> 
         </center> 
         <hr><br>

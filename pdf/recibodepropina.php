@@ -48,7 +48,7 @@ $tamanho_da_pagina=800;
         use Dompdf\Dompdf;
         require_once 'dompdf/autoload.inc.php'; 
 
-        $gerador=new DOMPDF(); 
+       $gerador=new DOMPDF(["chroot" => __DIR__]);  
         $htm=' 
 
         <style>
@@ -87,9 +87,9 @@ $tamanho_da_pagina=800;
                 NIF do Encarregado: 
                 <strong>'.$dadosdoaluno["nifencarregado"].'</strong><br> 
 
-                Classe: '.$dados_da_matricula["classe"].'   ------------ | Período: '.$dados_da_matricula["periodo"].'  <br>
+                   Período: '.$dados_da_matricula["periodo"].'  <br>
 
-                 Curso: '.$dados_da_matricula["curso"].'  ----------- | Sala: '.$dados_da_matricula["sala"].'   ';
+                  Sala: '.$dados_da_matricula["sala"].'   ';
 
                 
 

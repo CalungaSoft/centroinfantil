@@ -259,22 +259,18 @@ if(isset($_POST['editardadoslectivos'])){
        $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idturma='$turmanova' limit 1")); 
 
                            $turma=$dadoslectivos["titulo"]; 
-                           $idperiodo=$dadoslectivos["idperiodo"];
-                           $idcurso=$dadoslectivos["idcurso"];
-                           $idsala=$dadoslectivos["idsala"];
-                           $idclasse=$dadoslectivos["idclasse"];
+                           $idperiodo=$dadoslectivos["idperiodo"]; 
+                           $idsala=$dadoslectivos["idsala"]; 
                            $idanolectivo=$dadoslectivos["idanolectivo"];
 
                          
 
                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                           
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                            
 
 
                    $existe=mysqli_num_rows(mysqli_query($conexao, "select idaluno from matriculaseconfirmacoes where idaluno='$idaluno' and idturma='$turmanova'"));
@@ -283,7 +279,7 @@ if(isset($_POST['editardadoslectivos'])){
                   if($existe==0){
 
  
-                           $salvar=mysqli_query($conexao,"UPDATE matriculaseconfirmacoes set idturma='$turmanova', tipodealuno='$tipodealuno', data='$datadamatricula', descontoparapropinas='$descontoparapropinas', obs='$obsmatricula', turma='$turma', sala='$sala', periodo='$periodo', classe='$classe', curso='$curso' where idmatriculaeconfirmacao='$idtipo'");
+                           $salvar=mysqli_query($conexao,"UPDATE matriculaseconfirmacoes set idturma='$turmanova', tipodealuno='$tipodealuno', data='$datadamatricula', descontoparapropinas='$descontoparapropinas', obs='$obsmatricula', turma='$turma', sala='$sala', periodo='$periodo'  where idmatriculaeconfirmacao='$idtipo'");
                           
 
                                if($salvar){
@@ -462,10 +458,8 @@ if(isset($_POST['editardadoslectivos'])){
                                            $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idturma='$idturma' limit 1")); 
 
                                                $turma=$dadosdaturma["titulo"]; 
-                                               $idperiodo=$dadosdaturma["idperiodo"];
-                                               $idcurso=$dadosdaturma["idcurso"];
-                                               $idsala=$dadosdaturma["idsala"];
-                                               $idclasse=$dadosdaturma["idclasse"];
+                                               $idperiodo=$dadosdaturma["idperiodo"]; 
+                                               $idsala=$dadosdaturma["idsala"]; 
                                              
                                                $propina=$dadosdaturma["propina"];
 
@@ -481,20 +475,15 @@ if(isset($_POST['editardadoslectivos'])){
 
 
                                                $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
-
-                                                $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
+ 
 
                                                 $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
-
-                                                $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
+ 
 
                                                 ?>
                                                   <hr> <hr>
                                                   Turma: <a href="turma.php?idturma=<?php echo $idturma; ?>"> <?php echo $turma; ?> </a> |
-
-                                                  Curso: <a href="curso.php?idcurso=<?php echo $idcurso; ?>"> <?php echo $curso; ?> </a><br>
-
-                                                 Classe: <a href="classe.php?idclasse=<?php echo $idclasse; ?>"> <?php echo $classe; ?> </a> | 
+ 
 
                                                   Período: <a href="periodo.php?idperiodo=<?php echo $idperiodo; ?>"> <?php echo $periodo; ?> </a>  | 
 
@@ -1002,7 +991,7 @@ if(isset($_POST['editardadoslectivos'])){
        <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; CalungaSOFT 2021</span>
+            <span>Copyright &copy; CalungaSOFT 2023</span>
           </div>
         </div>
       </footer>

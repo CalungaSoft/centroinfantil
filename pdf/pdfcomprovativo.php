@@ -54,7 +54,7 @@ $idcaixa=isset($_SESSION['idcaixa']);
 use Dompdf\Dompdf;
         require_once 'dompdf/autoload.inc.php'; 
 
-        $gerador=new DOMPDF(); 
+       $gerador=new DOMPDF(["chroot" => __DIR__]);  
         $htm='  
         <style> 
         

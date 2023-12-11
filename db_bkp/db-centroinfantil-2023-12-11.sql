@@ -653,7 +653,7 @@ CREATE TABLE `entradas` (
   `expiracaodorupe` date DEFAULT NULL,
   `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`identrada`)
-) ENGINE=InnoDB AUTO_INCREMENT=7276 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7277 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO entradas VALUES("7242","31","Registro de Rematrícula","Rematrícula","818","4000","0","Dinheiro","1304","22","2023-07-24 00:00:00","4","","","2023-08-12 19:51:01");
 INSERT INTO entradas VALUES("7243","31","Registro de Matrícula","Matrícula","819","4000","0","Dinheiro","1313","18","2023-07-25 00:00:00","4","","","2023-08-12 19:51:01");
@@ -688,6 +688,7 @@ INSERT INTO entradas VALUES("7271","31","Registro de Propina das Actividades Ext
 INSERT INTO entradas VALUES("7272","31","Registro de Propina das Actividades Extras Curriculares de 10/2023 (Ref:  )","Propina das Actividades Extras Curriculares","2","14400","0","Dinheiro","1274","0","2023-12-08 13:27:04","4","","","2023-12-08 13:27:04");
 INSERT INTO entradas VALUES("7273","31","Registro de Propina das Actividades Extras Curriculares de 07/2023 (Ref:  )","Propina das Actividades Extras Curriculares","3","5500","0","Dinheiro","1274","0","2023-12-08 13:30:46","4","","","2023-12-08 13:30:46");
 INSERT INTO entradas VALUES("7275","31","pagamento da matriucla","Matrícula Actividade extras curriculares","2","4500","10500","BIC","1274","0","2023-12-08 15:12:20","4","","","2023-12-08 15:12:20");
+INSERT INTO entradas VALUES("7276","31","Registro de Rematrícula","Rematrícula","832","4000","0","Dinheiro","1300","25","2023-12-11 00:00:00","4","","","2023-12-11 13:24:27");
 
 
 
@@ -922,7 +923,7 @@ CREATE TABLE `matriculaseconfirmacoes` (
   `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `reconfirmou` int(2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`idmatriculaeconfirmacao`)
-) ENGINE=InnoDB AUTO_INCREMENT=832 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=833 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO matriculaseconfirmacoes VALUES("818","1304","Normal","4","22","Rematrícula","4000","0","4000","6B","16","Nenhum","Manhã","6ª","2023-04-24","","activo","2023-09-01","Sem Classificação","0","2023-10-09 15:02:43","0");
 INSERT INTO matriculaseconfirmacoes VALUES("819","1313","Normal","4","18","Matrícula","4000","0","4000","9A","13","Nenhum","Tarde","9ª","2023-01-25","","activo","2023-10-01","Sem Classificação","500","2023-10-09 03:34:40","0");
@@ -938,6 +939,7 @@ INSERT INTO matriculaseconfirmacoes VALUES("828","1321","Normal","4","24","Matr�
 INSERT INTO matriculaseconfirmacoes VALUES("829","1321","Normal","4","21","Matrícula","4000","0","4000","6A","14","Nenhum","Manhã","6ª","2023-11-17","","activo","0000-00-00","Sem Classificação","0","2023-11-17 03:43:37","0");
 INSERT INTO matriculaseconfirmacoes VALUES("830","1174","Normal","4","19","Confirmação","2000","0","2000","9B","14","Nenhum","Tarde","9ª","2023-11-17","","activo","0000-00-00","Sem Classificação","0","2023-11-17 03:49:08","0");
 INSERT INTO matriculaseconfirmacoes VALUES("831","1209","Normal","4","11","Confirmação","2000","0","2000","4C","9","Nenhum","Tarde","4ª","2023-11-17","","activo","0000-00-00","Sem Classificação","0","2023-11-17 03:50:01","0");
+INSERT INTO matriculaseconfirmacoes VALUES("832","1300","Normal","4","25","Rematrícula","4000","0","4000","5B","13","","Tarde","","2023-12-11","","activo","0000-00-00","Sem Classificação","0","2023-12-11 13:24:25","0");
 
 
 

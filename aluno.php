@@ -854,7 +854,18 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
                           $periodo = mysqli_fetch_array(mysqli_query($conexao, "SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
 
-                           
+                          $idcoordenador=$dadosdaturma["idcoordenador"];
+
+                          $buscaCordenador=mysqli_query($conexao,"SELECT nomedofuncionario from funcionarios where idfuncionario='$idcoordenador'");
+                         
+                    
+                          
+                          if (mysqli_num_rows($buscaCordenador)!=0) {
+                            $nomedocoordenador=mysqli_fetch_array($buscaCordenador)[0];
+
+                          }else {
+                            $nomedocoordenador='';
+                          }
 
                           $sala = mysqli_fetch_array(mysqli_query($conexao, "SELECT titulo from salas where idsala='$idsala'"))[0];
 
@@ -870,7 +881,8 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
 
                            Período: <a href="periodo.php?idperiodo=<?php echo $idperiodo; ?>"> <?php echo $periodo; ?> </a><br>
 
-                           Sala: <a href="sala.php?idsala=<?php echo $idsala; ?>"> <?php echo $sala; ?> </a>
+                           Sala: <a href="sala.php?idsala=<?php echo $idsala; ?>"> <?php echo $sala; ?> </a><br>
+                           Educador(a): <a href="funcionario.php?idfuncionario=<?php echo $idcoordenador; ?>"> <?php echo $nomedocoordenador; ?> </a>
 
                           <?php if ($painellogado == "administrador" || $painellogado == "secretaria1" || $painellogado == "secretaria2") { ?>
 
@@ -1044,20 +1056,12 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
 
 
         <a href="aluno.php?idaluno=<?php echo "$idaluno"; ?>" class="d-sm-inline-block btn btn-sm btn-secondary"><i class="fas fa-fw fa-user"></i> Finanças </a>
+<!-- 
+        <a href="" id="avaliacao" class="d-sm-inline-block btn btn-sm btn-info"><i class="fas fa-fw fa-check"></i> Avaliações </a> -->
+<!--  
+        <a href="" id="falta" class="d-sm-inline-block btn btn-sm btn-info"><i class="fas fa-fw fa-calendar"></i> Faltas </a> -->
 
-        <a href="" id="avaliacao" class="d-sm-inline-block btn btn-sm btn-info"><i class="fas fa-fw fa-check"></i> Avaliações </a>
-
-        <a href="" id="minipauta" class="d-sm-inline-block btn btn-sm btn-secondary"><i class="fas fa-fw fa-print"></i> Mini-Pauta </a>
-
-        <a href="" id="pauta" class="d-sm-inline-block btn btn-sm btn-success"><i class="fas fa-fw fa-print"></i> Pauta</a>
-
-
-
-        <a href="" id="falta" class="d-sm-inline-block btn btn-sm btn-info"><i class="fas fa-fw fa-calendar"></i> Faltas </a>
-
-
-
-        <a href="" id="cadeira" class="d-sm-inline-block btn btn-sm btn-danger"><i class="fas fa-fw fa-book"></i> Cadeira em atraso </a>
+ 
 
         <a href="" id="propina" class="d-sm-inline-block btn btn-sm btn-success"><i class="fas fa-fw fa-money"></i> Propinas </a> <br><br>
 

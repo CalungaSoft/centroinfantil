@@ -43,10 +43,8 @@ if(isset($_POST['cadastrar'])){
 
                            $turma=$dadoslectivos["titulo"]; 
                            $idperiodo=$dadoslectivos["idperiodo"];
-                           $idcurso=$dadoslectivos["idcurso"];
-                           $idsala=$dadoslectivos["idsala"];
-                           $idclasse=$dadoslectivos["idclasse"];
-                           $idanolectivo=$dadoslectivos["idanolectivo"];
+                            $idsala=$dadoslectivos["idsala"];
+                            $idanolectivo=$dadoslectivos["idanolectivo"];
 
                            
                            $preco=mysqli_escape_string($conexao, trim($_POST['matricula'])); 
@@ -60,12 +58,10 @@ if(isset($_POST['cadastrar'])){
 
                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                            
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                             
                    $existe=mysqli_num_rows(mysqli_query($conexao, "select idaluno from matriculaseconfirmacoes where idaluno='$idaluno' and idturma='$idturma'"));
   
                          if($existe==0){
@@ -76,7 +72,7 @@ if(isset($_POST['cadastrar'])){
                            $alterando_numero_de_processo=mysqli_query($conexao, "UPDATE `alunos` SET `numerodeprocesso` = '$numero_de_processo' WHERE `alunos`.`idaluno` = '$idaluno' and numerodeprocesso=0");
  
 
-                           $salvar=mysqli_query($conexao,"INSERT INTO `matriculaseconfirmacoes` (`idmatriculaeconfirmacao`, `idaluno`, `idanolectivo`, `idturma`, `tipo`, `preco`, `desconto`, `valorpago`, `turma`, `sala`, `curso`, `periodo`, `classe`, data,obs, tipodealuno) VALUES (NULL, '$idaluno', '$idanolectivo', '$idturma', '$tipodematricula', '$preco', '$desconto', '$valorpago', '$turma', '$sala', '$curso', '$periodo', '$classe', STR_TO_DATE('$datadamatricula', '%d/%m/%Y'), '$obsmatricula',  '$tipodealuno')");
+                           $salvar=mysqli_query($conexao,"INSERT INTO `matriculaseconfirmacoes` (`idmatriculaeconfirmacao`, `idaluno`, `idanolectivo`, `idturma`, `tipo`, `preco`, `desconto`, `valorpago`, `turma`, `sala`, `periodo`, data,obs, tipodealuno) VALUES (NULL, '$idaluno', '$idanolectivo', '$idturma', '$tipodematricula', '$preco', '$desconto', '$valorpago', '$turma', '$sala',  '$periodo', STR_TO_DATE('$datadamatricula', '%d/%m/%Y'), '$obsmatricula',  '$tipodealuno')");
                           
 
                           if($salvar){

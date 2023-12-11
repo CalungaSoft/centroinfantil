@@ -71,7 +71,7 @@ $dia=date('d');
         use Dompdf\Dompdf;
         require_once 'dompdf/autoload.inc.php'; 
 
-        $gerador=new DOMPDF(); 
+       $gerador=new DOMPDF(["chroot" => __DIR__]);  
         $minipauta=' 
         <style>#assinatura {text-align:center;}  #centro{text-align: center;} figure {margin-top:-20px; margin-left:-30px; float: left; position:relative} body {font-size: 12px; color:#000; font-family:Arial; font-family:Arial; }</style> 
       

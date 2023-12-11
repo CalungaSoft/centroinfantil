@@ -227,17 +227,15 @@ if(isset($_POST['editardadosdasala'])){
                       <th>Nome Completo</th>
                       <th>Tipo</th>   
                       <th>Ano Lectivo</th>
-                      <th>Turma</th>
-                      <th>Classe</th>
-                      <th>Período</th>
-                      <th>Curso</th>
+                      <th>Turma</th> 
+                      <th>Período</th> 
                       <th>Status</th>
                       <th>Data</th> 
                     </tr>
                   </thead>
                   <tbody>
                   <?php
-                        $lista=mysqli_query($conexao, "SELECT matriculaseconfirmacoes.*, turmas.idperiodo, turmas.idcurso,  turmas.idclasse FROM matriculaseconfirmacoes, turmas where turmas.idsala='$idsala' and matriculaseconfirmacoes.idturma=turmas.idturma"); 
+                        $lista=mysqli_query($conexao, "SELECT matriculaseconfirmacoes.*, turmas.idperiodo FROM matriculaseconfirmacoes, turmas where turmas.idsala='$idsala' and matriculaseconfirmacoes.idturma=turmas.idturma"); 
 
                          while($exibir = $lista->fetch_array()){
 
@@ -258,10 +256,8 @@ if(isset($_POST['editardadosdasala'])){
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $nomedoaluno; ?> </a></td> 
                       <td><?php echo $exibir['tipo']; ?></td>  
                       <td><a href="anolectivo.php?idanolectivo=<?php echo $exibir["idanolectivo"]; ?>"><?php echo $tituloAnoLectivo; ?></a></td> 
-                       <td><a href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"><?php echo $exibir['turma']; ?></a></td> 
-                       <td><a href="classe.php?idclasse=<?php echo $exibir["idclasse"]; ?>"><?php echo $exibir['classe']; ?></a></td>  
-                       <td><a href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $exibir['periodo']; ?></a></td>  
-                        <td><a href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $exibir['curso']; ?></a></td>  
+                       <td><a href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"><?php echo $exibir['turma']; ?></a></td>  
+                       <td><a href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $exibir['periodo']; ?></a></td>   
                       <td><?php echo $exibir['estatus']; ?></td>
                       <td><?php echo $exibir['data']; ?></td> 
                     </tr> 

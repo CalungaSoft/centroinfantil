@@ -76,10 +76,8 @@ if(isset($_POST['cadastrar'])){
                   $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idturma='$idturma' limit 1")); 
 
                            $turma=$dadoslectivos["titulo"]; 
-                           $idperiodo=$dadoslectivos["idperiodo"];
-                           $idcurso=$dadoslectivos["idcurso"];
-                           $idsala=$dadoslectivos["idsala"];
-                           $idclasse=$dadoslectivos["idclasse"];
+                           $idperiodo=$dadoslectivos["idperiodo"]; 
+                           $idsala=$dadoslectivos["idsala"]; 
                            $idanolectivo=$dadoslectivos["idanolectivo"];
 
                            
@@ -94,12 +92,10 @@ if(isset($_POST['cadastrar'])){
 
                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                           
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                           
                    $existe=mysqli_num_rows(mysqli_query($conexao, "select idaluno from matriculaseconfirmacoes where idaluno='$idaluno' and idturma='$idturma'"));
   
                          if($existe==0){
@@ -107,7 +103,7 @@ if(isset($_POST['cadastrar'])){
 
                           
 
-                           $salvar=mysqli_query($conexao,"INSERT INTO `matriculaseconfirmacoes` (`idmatriculaeconfirmacao`, `idaluno`, `idanolectivo`, `idturma`, `tipo`, `preco`, `desconto`, `valorpago`, `turma`, `sala`, `curso`, `periodo`, `classe`, data,obs, tipodealuno, descontoparapropinas) VALUES (NULL, '$idaluno', '$idanolectivo', '$idturma', 'Confirmação', '$preco', '$desconto', '$valorpago', '$turma', '$sala', '$curso', '$periodo', '$classe', STR_TO_DATE('$datadareconfirmacao', '%d/%m/%Y'), '$obsreconfirmacao', '$tipodealuno', '$descontoparapropinas')");
+                           $salvar=mysqli_query($conexao,"INSERT INTO `matriculaseconfirmacoes` (`idmatriculaeconfirmacao`, `idaluno`, `idanolectivo`, `idturma`, `tipo`, `preco`, `desconto`, `valorpago`, `turma`, `sala`,  `periodo`,  data,obs, tipodealuno, descontoparapropinas) VALUES (NULL, '$idaluno', '$idanolectivo', '$idturma', 'Confirmação', '$preco', '$desconto', '$valorpago', '$turma', '$sala',  '$periodo', STR_TO_DATE('$datadareconfirmacao', '%d/%m/%Y'), '$obsreconfirmacao', '$tipodealuno', '$descontoparapropinas')");
                           
                      $datadehoje=Date("Y-m-d");
 
@@ -187,8 +183,7 @@ include("cabecalho.php"); ?>
            
            <h4> Matrícula a reconfirmar</h4> 
            Ano Lectivo: <strong><?php echo "$titulo_do_ano_lectivo" ?></strong> | Turma: <strong><?php echo "$dadoslectivos_confirmacao[turma]" ?></strong> <br>
-           Classe: <strong><?php echo "$dadoslectivos_confirmacao[classe]" ?></strong>
-            | Curso: <strong><?php echo "$dadoslectivos_confirmacao[curso]" ?></strong> <br>
+ 
            Período: <strong><?php echo "$dadoslectivos_confirmacao[periodo]" ?></strong>
             | Sala: <strong><?php echo "$dadoslectivos_confirmacao[sala]" ?></strong>
       <?php } ?>

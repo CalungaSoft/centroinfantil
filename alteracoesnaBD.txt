@@ -75,3 +75,4 @@ CREATE TABLE `sessoesdeavaliacao` (`id` INT(11) NOT NULL AUTO_INCREMENT , `titul
 CREATE TABLE `categoriasdeavaliacao` (`id` INT(11) NOT NULL AUTO_INCREMENT , `titulo` VARCHAR(222) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 CREATE TABLE `tiposdeavalicoes` (`id` INT(11) NOT NULL AUTO_INCREMENT , `titulo` VARCHAR(222) NOT NULL , `idcategoria` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
+______________________________________________________

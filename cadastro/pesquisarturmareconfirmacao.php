@@ -7,22 +7,18 @@ $idturma=$_POST['idturma'];
 
 $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idturma='$idturma' limit 1")); 
 
-                                     $idperiodo=$dadoslectivos["idperiodo"];
-                           $idcurso=$dadoslectivos["idcurso"];
-                           $idsala=$dadoslectivos["idsala"];
-                           $idclasse=$dadoslectivos["idclasse"];
+                                     $idperiodo=$dadoslectivos["idperiodo"]; 
+                           $idsala=$dadoslectivos["idsala"]; 
                            $idanolectivo=$dadoslectivos["idanolectivo"];
                            
                            $reconfirmacao=$dadoslectivos["reconfirmacao"];
 
                          $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                           
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-                             $diadehoje=date("d/m/Y");
+                              $diadehoje=date("d/m/Y");
 
 
  $htm='
@@ -47,27 +43,18 @@ $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas 
             <input type="hidden" name="idturma" value="'.$idturma.'"  >
 
                 <div class="form-group row"> 
-                      <div class="col-sm-2">   
+                      <div class="col-sm-6">   
                         <span>Sala</span> 
                                 <input type="text" disabled="" id="sala" class="form-control " value="'.$sala.'" > 
                         </div>
-                        <div class="col-sm-10"> 
-                        <span>Curso</span>
-                             <input type="text" disabled="" id="curso" class="form-control " value="'.$curso.'" > 
-                        </div> 
-                    </div>
-
-
-                  <div class="form-group row">
                         <div class="col-sm-6"> 
                           <span>Período</span>
                                 <input type="text" disabled="" id="periodo" class="form-control " value="'.$periodo.'" > 
-                        </div>
-                        <div class="col-sm-6"> 
-                        <span>Classe</span>
-                             <input type="text" disabled="" id="classe" class="form-control " value="'.$classe.'"  > 
                         </div> 
                     </div>
+
+
+                  
 
                       <hr> <hr> <hr>  <br><br>
 

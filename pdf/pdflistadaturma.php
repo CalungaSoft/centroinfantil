@@ -27,27 +27,19 @@ $idturma=isset($_GET['idturma'])?$_GET['idturma']:"0";
 
 
 
-                           $idperiodo=$dados_da_turma["idperiodo"];
-                           $idcurso=$dados_da_turma["idcurso"];
-                           $idsala=$dados_da_turma["idsala"];
-                           $idclasse=$dados_da_turma["idclasse"];
+                           $idperiodo=$dados_da_turma["idperiodo"]; 
+                           $idsala=$dados_da_turma["idsala"]; 
                            $idanolectivo=$dados_da_turma["idanolectivo"];
  
                           $turma=$dados_da_turma["titulo"];
 
 
                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
-
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
-                            if($curso=='Nenhum'){
-                              $curso='';
-                            }
-
+ 
+ 
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                       
                            $anolectivo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];
 
 
@@ -85,7 +77,7 @@ $dia=date('d');
         use Dompdf\Dompdf;
         require_once 'dompdf/autoload.inc.php'; 
 
-        $gerador=new DOMPDF(); 
+       $gerador=new DOMPDF(["chroot" => __DIR__]);  
         $htm=' 
         <style>#assinatura {text-align:center;}  #centro{text-align: center;} figure {margin-top:-20px; margin-left:-30px; float: left; position:relative} body {font-size: 12px; color:#000; font-family:Arial; font-family:Arial; }</style> 
       
@@ -102,7 +94,7 @@ $dia=date('d');
                 </p> 
                 <hr><hr>
                
-                    <span style="font-size: 15px; margin-left:30px"> LISTA NOMINAL DOS ALUNOS DA '.$classe.'  | <strong>'.$curso.'</strong> </span>
+                    <span style="font-size: 15px; margin-left:30px"> LISTA NOMINAL DOS ALUNOS DA  Turma '.$turma.'   </span>
             <br> <br>   ';
 
             $htm.="

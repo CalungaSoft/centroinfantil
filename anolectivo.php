@@ -27,8 +27,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
   $posicao=mysqli_escape_string($conexao, $_POST['posicao']); 
   $precodafalta=mysqli_escape_string($conexao, $_POST['precodafalta']); 
   $datainicio=mysqli_escape_string($conexao, $_POST['datainicio']); 
-  $datafim=mysqli_escape_string($conexao, $_POST['datafim']); 
-  $datafimexame=mysqli_escape_string($conexao, $_POST['datafimexame']); 
+  $datafim=mysqli_escape_string($conexao, $_POST['datafim']);  
   $diadamulta=mysqli_escape_string($conexao, $_POST['diadamulta']); 
   $precodamulta=mysqli_escape_string($conexao, $_POST['precodamulta']); 
   
@@ -41,7 +40,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
   
 
 
-    $salvar= mysqli_query($conexao,"UPDATE `anoslectivos` SET titulo='$titulo', vigor='$vigor', posicao='$posicao', precodafalta='$precodafalta', datainicio='$datainicio', datafim='$datafim', datafimexame='$datafimexame', diadamulta='$diadamulta', precodamulta='$precodamulta'  WHERE `anoslectivos`.`idanolectivo` = '$idanolectivo'");
+    $salvar= mysqli_query($conexao,"UPDATE `anoslectivos` SET titulo='$titulo', vigor='$vigor', posicao='$posicao', precodafalta='$precodafalta', datainicio='$datainicio', datafim='$datafim', diadamulta='$diadamulta', precodamulta='$precodamulta'  WHERE `anoslectivos`.`idanolectivo` = '$idanolectivo'");
 
     
     if($salvar){
@@ -125,8 +124,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
                                                    Em Vigor?: <strong><?php echo $dadosdoanolectivo["vigor"]; ?></strong><br>
                                                    Posição: <strong> <?php echo $dadosdoanolectivo["posicao"]; ?> </strong><br>
                                                    Data Início Ano Lectivo: <strong> <?php echo $dadosdoanolectivo["datainicio"]; ?> </strong><br>
-                                                   Data Fim do Ano Lectivo: <strong> <?php echo $dadosdoanolectivo["datafim"]; ?> </strong><br>
-                                                   Data Fim do Ano Lectivo Classes de Exames: <strong> <?php echo $dadosdoanolectivo["datafimexame"]; ?> </strong><br>
+                                                   Data Fim do Ano Lectivo: <strong> <?php echo $dadosdoanolectivo["datafim"]; ?> </strong><br> 
                                              <br>
                                                 </div>
                                                   <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2"){ ?>
@@ -179,10 +177,7 @@ if(isset($_POST['editardadosdoanolectivo'])){
                                                         <input type="text" name="datafim" class="form-control"  value="<?php echo $dadosdoanolectivo["datafim"] ; ?>">
                                                       </div> 
 
-                                                      <div class="form-group">
-                                                          <label>Data Fim (Classes de Exame)</label>
-                                                        <input type="text" name="datafimexame" class="form-control"  value="<?php echo $dadosdoanolectivo["datafimexame"] ; ?>">
-                                                      </div> 
+                                                   
 
                                                       <div class="form-group">
                                                           <label>Quantos dias para combranças de Multa</label>
@@ -294,10 +289,8 @@ if(isset($_POST['editardadosdoanolectivo'])){
                   <thead>
                     <tr>  
                       <th>Turma</th> 
-                      <th>Período</th> 
-                      <th>Curso</th> 
-                      <th>Sala</th> 
-                      <th>Classe</th> 
+                      <th>Período</th>  
+                      <th>Sala</th>  
                       <th>Nº de Alunos</th>  
                     </tr>
                   </thead>
@@ -308,29 +301,23 @@ if(isset($_POST['editardadosdoanolectivo'])){
 
                            $idturma=$exibir["idturma"];
 
-                           $idperiodo=$exibir["idperiodo"];
-                           $idcurso=$exibir["idcurso"];
-                           $idsala=$exibir["idsala"];
-                           $idclasse=$exibir["idclasse"];
+                           $idperiodo=$exibir["idperiodo"]; 
+                           $idsala=$exibir["idsala"]; 
 
                             $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                         
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
- 
+                        
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes where idturma='$idturma' and idanolectivo='$idanolectivo'"));
 
                   ?>
                     <tr>  
                       <td> <a  href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
 
-                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td>
-                      <td><a  href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $curso; ?></a></td>  
-                      <td><a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"><?php echo $sala; ?></a></td> 
-                      <td><a  href="classe.php?idclasse=<?php echo $exibir["idclasse"]; ?>"><?php echo $classe; ?></a></td>  
+                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td> 
+                      <td><a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"><?php echo $sala; ?></a></td>  
                       <td><?php echo $alunos; ?></td>   
                     </tr> 
                     <?php } ?> 

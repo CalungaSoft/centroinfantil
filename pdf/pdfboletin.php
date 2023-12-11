@@ -42,7 +42,7 @@ session_start();
         use Dompdf\Dompdf;
         require_once 'dompdf/autoload.inc.php';
 
-        $gerador=new DOMPDF();
+       $gerador=new DOMPDF(["chroot" => __DIR__]); 
   if($dadospessoais["nascidia"]<10){
     $dadospessoais["nascidia"]="0"."$dadospessoais[nascidia]";
   }
