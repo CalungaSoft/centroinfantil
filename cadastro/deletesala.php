@@ -37,9 +37,9 @@ if(isset($_POST["idsala"])){
    if ($erro==0) {
         
     $antigo="Eliminado a sala: $nomedosala";
-    $novo="Eliminado";
+    $novo="Eliminado"; 
            
-    $incluindonoshistoricos=mysqli_query($conexao,"INSERT INTO `historico` (`idhistorico`, `idsala`, `descricao`, `antigo`, `novo`, `data`) VALUES (NULL, '$idlogado', 'Eliminação', '$antigo', '$novo', CURRENT_TIMESTAMP)");
+    $incluindonoshistoricos=mysqli_query($conexao,"INSERT INTO `historico` (`idhistorico`, `idfuncionario`, `descricao`, `antigo`, `novo`, `data`) VALUES (NULL, '$idlogado', 'Eliminação', '$antigo', '$novo', CURRENT_TIMESTAMP)");
   
  
     $eliminandoidsala=mysqli_query($conexao," DELETE FROM salas where idsala='$idsala'");

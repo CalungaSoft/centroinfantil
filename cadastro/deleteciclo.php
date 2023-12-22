@@ -39,7 +39,7 @@ if(isset($_POST["idciclo"])){
     $antigo="Eliminado o Ciclo: $nomedociclo";
     $novo="Eliminado";
            
-    $incluindonoshistoricos=mysqli_query($conexao,"INSERT INTO `historico` (`idhistorico`, `idciclo`, `descricao`, `antigo`, `novo`, `data`) VALUES (NULL, '$idlogado', 'Eliminação', '$antigo', '$novo', CURRENT_TIMESTAMP)");
+    $incluindonoshistoricos=mysqli_query($conexao,"INSERT INTO `historico` (`idhistorico`, `idfuncionario`, `descricao`, `antigo`, `novo`, `data`) VALUES (NULL, '$idlogado', 'Eliminação', '$antigo', '$novo', CURRENT_TIMESTAMP)");
   
  
     $eliminandoidciclo=mysqli_query($conexao," DELETE FROM ciclos where idciclo='$idciclo'");

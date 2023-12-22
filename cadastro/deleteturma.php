@@ -69,7 +69,7 @@ $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas w
     $antigo="Eliminada a turma: $turma | classe: $classe , Período $periodo , curso: $curso , sala $sala";
     $novo="Eliminado";
            
-    $incluindonoshistoricos=mysqli_query($conexao,"INSERT INTO `historico` (`idhistorico`, `idturma`, `descricao`, `antigo`, `novo`, `data`) VALUES (NULL, '$idlogado', 'Eliminação', '$antigo', '$novo', CURRENT_TIMESTAMP)");
+    $incluindonoshistoricos=mysqli_query($conexao,"INSERT INTO `historico` (`idhistorico`, `idfuncionario`, `descricao`, `antigo`, `novo`, `data`) VALUES (NULL, '$idlogado', 'Eliminação', '$antigo', '$novo', CURRENT_TIMESTAMP)");
   
  
     $eliminandoidturma=mysqli_query($conexao," DELETE FROM turmas where idturma='$idturma'");

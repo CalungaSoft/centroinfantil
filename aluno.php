@@ -297,10 +297,10 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-  <!-- Page Heading -->
-  <h1 class="h3 mb-4 text-gray-800">Dados do aluno <a href="aluno.php?idaluno=<?php echo $dadosdoaluno["idaluno"]; ?>"><?php echo $dadosdoaluno["nomecompleto"]; ?></a> <?php if ($idmatriculaeconfirmacao != 0) {
-                                                                                                                                                                          echo "( $dados_da_matriculaeconfirmacao[classe] | $dados_da_matriculaeconfirmacao[curso] - $anolectivo_selecionado )";
-                                                                                                                                                                        } ?> </h1>
+ <!-- Page Heading -->
+ <h1 class="h3 mb-4 text-gray-800">Dados do aluno <a href="aluno.php?idaluno=<?php echo $dadosdoaluno["idaluno"]; ?>"><?php echo $dadosdoaluno["nomecompleto"]; ?></a> <?php if ($idmatriculaeconfirmacao != 0) {
+                                                                                                                                                                          echo "( $dados_da_matriculaeconfirmacao[turma] | Sala $dados_da_matriculaeconfirmacao[sala] - $anolectivo_selecionado )";
+                                                                                                                                                                        } ?>  </h1>
 
   <?php
   if (!empty($erros)) :
