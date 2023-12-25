@@ -177,7 +177,7 @@ if(isset($_POST['editardadosdaturma'])){
 
                                                     Sala: <strong> <a href="sala.php?idsala=<?php echo $idsala; ?>"> <?php echo $sala; ?> </a><br></strong> 
 
-                                                   Ciclo: <strong> <a href="ciclo.php?idciclo=<?php echo $idciclo; ?>"> <?php echo $ciclo; ?> </a><br></strong> 
+                                                   Nível: <strong> <a href="ciclo.php?idciclo=<?php echo $idciclo; ?>"> <?php echo $ciclo; ?> </a><br></strong> 
 
                                                
  

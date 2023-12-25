@@ -371,68 +371,21 @@ CREATE TABLE `avaliacoesdosalunos` (
   `observacao` text NOT NULL,
   `datadaavaliacao` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO avaliacoesdosalunos VALUES("1","832","1300","3","Talvez","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("2","832","1300","1","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("3","832","1300","3","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("4","832","1300","2","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("5","832","1300","1","Sim","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("6","832","1300","12","Talvez","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("7","832","1300","6","Talvez","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("8","832","1300","9","Talvez","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("9","832","1300","8","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("10","832","1300","10","Sim","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("11","832","1300","5","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("12","827","1319","9","Sim","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("13","827","1319","3","Talvez","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("14","827","1319","1","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("15","827","1319","2","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("16","827","1319","6","Sim","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("17","827","1319","7","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("18","827","1319","5","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("19","827","1319","12","Não","","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("20","827","1319","10","Talvez","oiiioi","2023-12-22");
-INSERT INTO avaliacoesdosalunos VALUES("21","827","1319","1","Sim","","2023-12-20");
-INSERT INTO avaliacoesdosalunos VALUES("22","827","1319","1","Sim","","2023-12-12");
-INSERT INTO avaliacoesdosalunos VALUES("23","827","1319","11","Não","","2023-12-12");
-INSERT INTO avaliacoesdosalunos VALUES("24","828","1321","3","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("25","828","1321","12","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("26","828","1321","10","Sim","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("27","828","1321","2","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("28","828","1321","1","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("29","828","1321","9","Sim","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("30","828","1321","6","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("31","828","1321","8","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("32","828","1321","4","Talvez","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("33","828","1321","7","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("34","828","1321","11","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("35","828","1321","5","Sim","O aluno esta se saindo muito bem","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("36","828","1321","24","Sim","","2023-12-06");
-INSERT INTO avaliacoesdosalunos VALUES("37","828","1321","28","Não","","2023-12-06");
-INSERT INTO avaliacoesdosalunos VALUES("38","828","1321","29","Sim","","2023-12-06");
-INSERT INTO avaliacoesdosalunos VALUES("39","828","1321","32","Não","","2023-12-06");
-INSERT INTO avaliacoesdosalunos VALUES("40","828","1321","33","Sim","","2023-12-06");
-INSERT INTO avaliacoesdosalunos VALUES("41","828","1321","34","Sim","","2023-12-06");
-INSERT INTO avaliacoesdosalunos VALUES("42","828","1321","1","Sim","","2023-11-28");
-INSERT INTO avaliacoesdosalunos VALUES("43","828","1321","10","Sim","","2023-11-28");
-INSERT INTO avaliacoesdosalunos VALUES("44","828","1321","6","Talvez","","2023-11-28");
-INSERT INTO avaliacoesdosalunos VALUES("45","828","1321","8","Não","","2023-11-28");
-INSERT INTO avaliacoesdosalunos VALUES("46","828","1321","5","Não","","2023-11-28");
-INSERT INTO avaliacoesdosalunos VALUES("47","828","1321","3","Sim","","2023-11-29");
-INSERT INTO avaliacoesdosalunos VALUES("48","828","1321","1","Não","","2023-11-29");
-INSERT INTO avaliacoesdosalunos VALUES("49","828","1321","2","Sim","","2023-11-29");
-INSERT INTO avaliacoesdosalunos VALUES("50","828","1321","4","Não","","2023-11-29");
-INSERT INTO avaliacoesdosalunos VALUES("51","828","1321","5","Não","","2023-11-29");
-INSERT INTO avaliacoesdosalunos VALUES("52","828","1321","49","Talvez","","2023-11-29");
-INSERT INTO avaliacoesdosalunos VALUES("53","828","1321","50","Talvez","","2023-11-29");
-INSERT INTO avaliacoesdosalunos VALUES("54","829","1321","3","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("55","829","1321","1","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("56","829","1321","2","Sim","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("57","829","1321","9","Talvez","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("58","829","1321","8","Sim","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("59","829","1321","5","Não","","2023-12-25");
-INSERT INTO avaliacoesdosalunos VALUES("60","829","1321","11","Não","Esta saindo muito bem o menino","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("61","830","1174","3","Sim","muito bom","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("62","830","1174","10","Não","muito bom","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("63","830","1174","9","Sim","muito bom","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("64","830","1174","4","Não","muito bom","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("65","830","1174","12","Talvez","muito bom","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("66","828","1321","3","Sim","oioi","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("67","828","1321","1","Não","oioi","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("68","828","1321","4","Não","oioi","2023-12-25");
+INSERT INTO avaliacoesdosalunos VALUES("69","828","1321","1","Sim","esva indo quase","2023-11-07");
+INSERT INTO avaliacoesdosalunos VALUES("70","828","1321","12","Não","esva indo quase","2023-11-07");
+INSERT INTO avaliacoesdosalunos VALUES("71","828","1321","6","Não","esva indo quase","2023-11-07");
+INSERT INTO avaliacoesdosalunos VALUES("72","828","1321","8","Sim","esva indo quase","2023-11-07");
+INSERT INTO avaliacoesdosalunos VALUES("73","828","1321","4","Não","esva indo quase","2023-11-07");
 
 
 
@@ -511,10 +464,12 @@ CREATE TABLE `compra` (
   PRIMARY KEY (`idcompra`),
   KEY `idproduto` (`idproduto`),
   KEY `idcliente` (`idaluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 INSERT INTO compra VALUES("1","2","1268","0","1","2023-10-16 05:54:04","vendido","6000","1","0","6000","0","2023-10-16 05:54:04");
 INSERT INTO compra VALUES("2","1","1268","0","1","2023-10-16 05:54:05","vendido","7000","1","0","7000","0","2023-10-16 05:54:05");
+INSERT INTO compra VALUES("3","2","1282","0","2","2023-12-25 14:58:51","vendido","6000","1","0","6000","0","2023-12-25 14:58:51");
+INSERT INTO compra VALUES("4","3","1282","0","2","2023-12-25 14:58:51","vendido","6000","1","0","6000","0","2023-12-25 14:58:51");
 
 
 
@@ -529,9 +484,10 @@ CREATE TABLE `compras` (
   `idatendimento` int(11) DEFAULT NULL,
   `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`idcompra`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 INSERT INTO compras VALUES("1","1268","","2023-10-16 05:54:04","31","0","2023-11-06 06:45:26");
+INSERT INTO compras VALUES("2","1282","","2023-12-25 14:58:51","31","0","2023-12-25 14:58:52");
 
 
 
@@ -728,7 +684,7 @@ CREATE TABLE `entradas` (
   `expiracaodorupe` date DEFAULT NULL,
   `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`identrada`)
-) ENGINE=InnoDB AUTO_INCREMENT=7277 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7279 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO entradas VALUES("7242","31","Registro de Rematrícula","Rematrícula","818","4000","0","Dinheiro","1304","22","2023-07-24 00:00:00","4","","","2023-08-12 19:51:01");
 INSERT INTO entradas VALUES("7243","31","Registro de Matrícula","Matrícula","819","4000","0","Dinheiro","1313","18","2023-07-25 00:00:00","4","","","2023-08-12 19:51:01");
@@ -762,6 +718,8 @@ INSERT INTO entradas VALUES("7272","31","Registro de Propina das Actividades Ext
 INSERT INTO entradas VALUES("7273","31","Registro de Propina das Actividades Extras Curriculares de 07/2023 (Ref:  )","Propina das Actividades Extras Curriculares","3","5500","0","Dinheiro","1274","0","2023-12-08 13:30:46","4","","","2023-12-08 13:30:46");
 INSERT INTO entradas VALUES("7275","31","pagamento da matriucla","Matrícula Actividade extras curriculares","2","4500","10500","BIC","1274","0","2023-12-08 15:12:20","4","","","2023-12-08 15:12:20");
 INSERT INTO entradas VALUES("7276","31","Registro de Rematrícula","Rematrícula","832","4000","0","Dinheiro","1300","25","2023-12-11 00:00:00","4","","","2023-12-11 13:24:27");
+INSERT INTO entradas VALUES("7277","31","Registro de Matrículo no ATL","Matrícula ATL","2","4000","0","Dinheiro","1199","0","2023-12-25 00:00:00","4","","","2023-12-25 14:57:35");
+INSERT INTO entradas VALUES("7278","31","Venda de 1  Calção, 1 Saia","Material Escolar","2","12000","0","Dinheiro","1282","0","2023-12-25 14:58:52","0","","","2023-12-25 14:58:52");
 
 
 
@@ -970,9 +928,10 @@ CREATE TABLE `matriculaatl` (
   `descontoparapropinas` double NOT NULL DEFAULT 0,
   `tipodealuno` varchar(222) NOT NULL DEFAULT 'Normal',
   PRIMARY KEY (`idmatriculaatl`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO matriculaatl VALUES("1","1274","4","1","4000","0","4000","Turma da Marta","2023-11-26","","activo","0000-00-00","0","Normal");
+INSERT INTO matriculaatl VALUES("2","1199","4","1","4000","0","4000","Turma da Marta","2023-12-25","","activo","0000-00-00","0","Normal");
 
 
 
@@ -1298,8 +1257,8 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 INSERT INTO produtos VALUES("1","Uniforme Polo","7000","4000","217","2022-10-07 14:47:10","0000-00-00","2023-10-16","operacional","20","2023-10-16 05:54:05");
-INSERT INTO produtos VALUES("2","Calção","6000","3500","15","2022-11-08 10:02:05","0000-00-00","2023-10-16","operacional","10","2023-10-16 05:54:05");
-INSERT INTO produtos VALUES("3","Saia","6000","3500","23","2022-11-08 10:02:33","0000-00-00","2023-01-31","operacional","10","2023-08-12 19:53:11");
+INSERT INTO produtos VALUES("2","Calção","6000","3500","15","2022-11-08 10:02:05","0000-00-00","2023-12-25","operacional","10","2023-12-25 14:58:51");
+INSERT INTO produtos VALUES("3","Saia","6000","3500","23","2022-11-08 10:02:33","0000-00-00","2023-12-25","operacional","10","2023-12-25 14:58:51");
 INSERT INTO produtos VALUES("4","Folha de Prova","75","30","5499","2022-12-05 01:37:04","0000-00-00","2023-05-08","operacional","50","2023-08-12 19:53:11");
 
 

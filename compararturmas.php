@@ -134,17 +134,13 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Turma</th> 
-                      <th>Período</th> 
-                      <th>Curso</th>  
-                      <th>Classe</th> 
+                      <th>Período</th>  
+                      <th>Sala</th>
                       <th>Nº de Alunos</th> 
                       <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2" ){ ?>
                       <th>Valor Agregado</th> 
                       <th>Dívidas</th> 
-                       <?php } ?>
-                      <th>Maior Nota</th> 
-                      <th>Pior Nota</th> 
-                      <th>Média da Notas</th> 
+                       <?php } ?> 
 
                     </tr>
                   </thead>
@@ -155,49 +151,34 @@ include("cabecalho.php") ; ?>
 
                            $idturma=$exibir["idturma"];
 
-                           $idperiodo=$exibir["idperiodo"];
-                           $idcurso=$exibir["idcurso"];
-                           $idsala=$exibir["idsala"];
-                           $idclasse=$exibir["idclasse"];
+                           $idperiodo=$exibir["idperiodo"]; 
+                           $idsala=$exibir["idsala"]; 
 
                             $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
+                          
+                            $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
-                           
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
- 
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes where idturma='$idturma' and idanolectivo='$idanolectivo'"));
 
                             $valoragregado=mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(valor) from entradas where idturma='$idturma'"))[0];
 
                             $divida=mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(divida) from entradas where idturma='$idturma'"))[0];
-
-                            $maiornota=mysqli_fetch_array(mysqli_query($conexao,"SELECT max(valordanota) from notas where idturma='$idturma'"))[0];
-
-                            $piornota=mysqli_fetch_array(mysqli_query($conexao,"SELECT min(valordanota) from notas where idturma='$idturma'"))[0];
-
-                            $mediadasnotas=mysqli_fetch_array(mysqli_query($conexao,"SELECT avg(valordanota) from notas where idturma='$idturma'"))[0];
-
+ 
 
 
                   ?>
                     <tr>  
                       <td> <a  href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
 
-                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td>
-                      <td><a  href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $curso; ?></a></td>  
-                      <td><a  href="classe.php?idclasse=<?php echo $exibir["idclasse"]; ?>"><?php echo $classe; ?></a></td>  
+                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td>  
+                      <td><a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"><?php echo $sala; ?></a></td>
                       <td><?php  echo $alunos; ?></td>
 
                       <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2" ){ ?>
                       <td title="<?php  $n=number_format($valoragregado,2,",", ".");  echo $n; ?>"><?php echo $valoragregado; ?></td>
                       <td title="<?php  $n=number_format($divida,2,",", ".");  echo $n; ?>"><?php echo $divida; ?></td>  
                       <?php } ?>
-
-                      <td><?php  echo $maiornota; ?></td>
-                      <td><?php  echo $piornota; ?></td>
-                      <td><?php $mediadasnotas=round($mediadasnotas,2); echo $mediadasnotas; ?></td>
+ 
                     </tr> 
                     <?php } ?> 
                   </tbody>
