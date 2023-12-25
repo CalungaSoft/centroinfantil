@@ -53,8 +53,7 @@ if(isset($_POST["id"])){
                 $delete=mysqli_query($conexao, "Delete from documentostratados where idmatriculaeconfirmacao='$id'");
 
               $delete=mysqli_query($conexao, "Delete from faltas where idmatriculaeconfirmacao='$id'");
-
-                $delete=mysqli_query($conexao, "Delete from notas where idmatriculaeconfirmacao='$id'");
+ 
  
 
 

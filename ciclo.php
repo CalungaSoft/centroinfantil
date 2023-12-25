@@ -41,7 +41,7 @@ if(isset($_POST['editardadosdociclo'])){
 
    
   }else {
-      $erros[]="Já Existe um Outre Ciclo com esse Nome";
+      $erros[]="Já Existe um Outre nível com esse Nome";
    }
 
 
@@ -61,7 +61,7 @@ if(isset($_POST['editardadosdociclo'])){
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Dados do período</h1>
+          <h1 class="h3 mb-4 text-gray-800">Dados do Níveis</h1>
      
           <?php 
             if(!empty($erros)):
@@ -86,7 +86,7 @@ if(isset($_POST['editardadosdociclo'])){
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Dados do período</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Dados do Níveis</h6>
                   <div class="dropdown no-arrow">
                      
                   </div>
@@ -107,7 +107,7 @@ if(isset($_POST['editardadosdociclo'])){
                                 <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Período</div>
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Níveis</div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
                                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><a style="text-decoraction:none;" href="ciclo.php?idciclo=<?php echo $dadosdaciclo["idciclo"] ; ?>"> <?php echo $dadosdaciclo["titulo"] ; ?></a></div>  
@@ -224,16 +224,14 @@ if(isset($_POST['editardadosdociclo'])){
                       <th>Nome Completo</th>
                       <th>Tipo</th>   
                       <th>Ano Lectivo</th>
-                      <th>Turma</th>
-                      <th>Classe</th>
-                      <th>Curso</th>
+                      <th>Turma</th> 
                       <th>Status</th>
                       <th>Data</th> 
                     </tr>
                   </thead>
                   <tbody>
                   <?php
-                        $lista=mysqli_query($conexao, "SELECT matriculaseconfirmacoes.*, turmas.idclasse, turmas.idcurso FROM matriculaseconfirmacoes, turmas where turmas.idciclo='$idciclo' and matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.estatus='activo'"); 
+                        $lista=mysqli_query($conexao, "SELECT matriculaseconfirmacoes.* FROM matriculaseconfirmacoes, turmas where turmas.idciclo='$idciclo' and matriculaseconfirmacoes.idturma=turmas.idturma and matriculaseconfirmacoes.estatus='activo'"); 
 
                          while($exibir = $lista->fetch_array()){
 
@@ -253,9 +251,7 @@ if(isset($_POST['editardadosdociclo'])){
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $nomedoaluno; ?> </a></td> 
                       <td><?php echo $exibir['tipo']; ?></td>  
                       <td><a href="anolectivo.php?idanolectivo=<?php echo $exibir["idanolectivo"]; ?>"><?php echo $tituloAnoLectivo; ?></a></td> 
-                       <td><a href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"><?php echo $exibir['turma']; ?></a></td>  
-                       <td><a href="classe.php?idclasse=<?php echo $exibir["idclasse"]; ?>"><?php echo $exibir['classe']; ?></a></td>  
-                        <td><a href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $exibir['curso']; ?></a></td>  
+                       <td><a href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"><?php echo $exibir['turma']; ?></a></td>   
                       <td><?php echo $exibir['estatus']; ?></td>
                       <td><?php echo $exibir['data']; ?></td> 
                     </tr> 
@@ -280,18 +276,18 @@ if(isset($_POST['editardadosdociclo'])){
               <div class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
                 <a href="#collapseCardExample2" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCardExample2">
-                  <h6 class="m-0 font-weight-bold text-primary">Opções Avançadas | <span style="color: red"> Eliminar esse ciclo</span></h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Opções Avançadas | <span style="color: red"> Eliminar esse nível</span></h6>
                 </a>
                 <!-- Card Content - Collapse -->
                 <div class="collapse in" id="collapseCardExample2">
                   <div class="card-body" style="color: red">
-                                 Essa Opção serve para ELIMINAR TODOS OS DADOS DESSe ciclo NO SISTEMA <br> e ciclo  será eliminado
+                                 Essa Opção serve para ELIMINAR TODOS OS DADOS DESSe nível NO SISTEMA <br> e nível  será eliminado
                                  
                                  <?php if($painellogado=="administrador" || $painellogado=="areapedagogica"){ ?>
                                  <div class="form-group"><br>
-                                     <a href="" id="primeirapergunta" class="btn btn-danger" title="Ao Clicares aqui, você irá eliminar todos os dados gerais">Eliminar Esse ciclo</a>
+                                     <a href="" id="primeirapergunta" class="btn btn-danger" title="Ao Clicares aqui, você irá eliminar todos os dados gerais">Eliminar Esse nível</a>
                                   </div> 
-                                 <?php } else{ echo "<br>Você não tem permissão de eliminar um ciclo do sistema, contacte o administrador!"; }?>
+                                 <?php } else{ echo "<br>Você não tem permissão de eliminar um nível do sistema, contacte o administrador!"; }?>
                   </div>
                 </div>
               </div>
@@ -302,7 +298,7 @@ if(isset($_POST['editardadosdociclo'])){
                                                                 event.preventDefault(); 
                                                                
                                                                 var idciclo=<?php echo $idciclo; ?>;
-                                                                if(confirm("Tens certeza que queres eliminar esse ciclo?")){
+                                                                if(confirm("Tens certeza que queres eliminar esse nível?")){
                                                               
                                                                     
                                                                     $.ajax({
@@ -376,7 +372,7 @@ if(isset($_POST['editardadosdociclo'])){
        <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; CalungaSOFT 2021</span>
+            <span>Copyright &copy; CalungaSOFT 2023</span>
           </div>
         </div>
       </footer>

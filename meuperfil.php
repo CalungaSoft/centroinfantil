@@ -130,22 +130,8 @@ if($idfuncionario!=$idlogado){
             $ano_escolhido=date('Y');
             $mes_escolhido=date('m');
 
-            $dia1v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 6 DAY)"));
-            $dia2v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 5 DAY)"));
-            $dia3v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 4 DAY)"));
-            $dia4v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 3 DAY)"));
-            $dia5v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 2 DAY)"));
-            $dia6v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 1 DAY)"));
-            $dia7v = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and  Date(diadapresenca)<=DATE_SUB(CURDATE(), INTERVAL 0 DAY)"));
-          
             
-      
-             $salarionessemes = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(presencaprofessores.totaldetempos*presencaprofessores.salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado'"));
-
-             $presencanessemes = mysqli_num_rows(mysqli_query($conexao,"SELECT idpresencaprofessor FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and totaldetempos!='0'"));
-
-             $ausencianessemes = mysqli_num_rows(mysqli_query($conexao,"SELECT idpresencaprofessor FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and totaldetempos='0'"));
-
+       
 
             $saidahoje = mysqli_fetch_array(mysqli_query($conexao,"select sum(valor) from saidas where Date(datadasaida)=DATE_SUB(CURDATE(), INTERVAL 0 DAY)"))[0];
 
@@ -417,41 +403,12 @@ if($idfuncionario!=$idlogado){
       </div>
       <!-- End of Main Content --> 
       
-      <script>
-
-        
-                                                            $(document).on("click", ".delete", function(event){
-                                                                event.preventDefault();
-                                                                var id=$(this).attr("id");
-                                                                console.log(id)
-                                                                if(confirm("Tens certeza que queres eliminar esse registro? Serão eliminados todos os dados financeiros relacionados com esse registro!")){
-                                                                    $(this).closest('tr').remove(); 
-                                                                    $.ajax({
-                                                                    url:'cadastro/deletesalario.php',
-                                                                    method:'POST',
-                                                                    data:{
-                                                                        id:id
-                                                                    },
-                                                                    success: function(data){
-                                                                        $("#mensagemdealerta").html(data);
-                                                          
-                                                                    }
-
-                                                                })
-                                                                }
-                                                               
-                                                            })
-
-      </script>
-  <!-- Page level plugins -->
-       <!-- Footer -->
-
-
+      
                                                           <?php } ?>
        <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; CalungaSOFT 2021</span>
+            <span>Copyright &copy; CalungaSOFT 2023</span>
           </div>
         </div>
       </footer>

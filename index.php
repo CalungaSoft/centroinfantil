@@ -153,7 +153,7 @@ $painellogado=$_SESSION['painel'];
 
               <?php if($painellogado=="administrador" || $painellogado=="secretaria1" || $painellogado=="secretaria2" ){ ?>
             <a href="pdf/pdfrelariodiario.php?" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Imprimir Livro de Caixa diario</a>
-            <a href="presenca.php" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-fw fa-table"></i> Marcar Presença dos Funcionários</a>
+             
             <?php } ?>
           </div>
 <?php 

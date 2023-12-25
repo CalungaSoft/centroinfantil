@@ -22,37 +22,47 @@ $painellogado = $_SESSION['painel'];
 $idmatriculaeconfirmacao = mysqli_escape_string($conexao, $_POST['idmatriculaeconfirmacao']);
 $escolha = mysqli_escape_string($conexao, $_POST['escolha']);
 $idavaliacao = mysqli_escape_string($conexao, $_POST['idavaliacao']);
+$datadaavaliacao = mysqli_escape_string($conexao, $_POST['datadaavaliacao']);
 
 
 
 $dados_da_matriculaeconfirmacao = mysqli_fetch_array(mysqli_query($conexao, "select * from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' limit 1"));
 $idaluno = $dados_da_matriculaeconfirmacao["idaluno"];
-
+ 
+$nomeDaAvaliacao = mysqli_fetch_array(mysqli_query($conexao, "select titulo from tiposdeavalicoes where id='$idavaliacao' limit 1"))[0];
 
 if (trim($escolha) != '') {
 
 
 
+    $jaexiste = mysqli_num_rows(mysqli_query($conexao, "SELECT id FROM avaliacoesdosalunos where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and idavaliacao='$idavaliacao' and datadaavaliacao=STR_TO_DATE('$datadaavaliacao', '%d/%m/%Y') limit 1"));
 
-    $salvar = mysqli_query($conexao, "INSERT INTO `avaliacoesdosalunos` ( `idmatriculaeconfirmacao`, idaluno,idavaliacao,resposta,observacao,datadaavaliacao) VALUES ('$idmatriculaeconfirmacao', '$idaluno','$idavaliacao', '$escolha', STR_TO_DATE('$datadaavaliacao', '%d/%m/%Y'), '$obs')");
+
+    if ($jaexiste == 0) {
 
 
-    $dadosdanota = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM ementamensal where dia='$data' and tipoderefeicao='$tipoderefeicao' limit 1"));
+        $salvar = mysqli_query($conexao, "INSERT INTO `avaliacoesdosalunos` ( `idmatriculaeconfirmacao`, idaluno,idavaliacao,resposta,observacao,datadaavaliacao) VALUES ('$idmatriculaeconfirmacao', '$idaluno','$idavaliacao', '$escolha','', STR_TO_DATE('$datadaavaliacao', '%d/%m/%Y'))");
 
-    $descricaodarefeicao_antiga = $dadosdanota["descricaodarefeicao"];
-    $idementa = $dadosdanota["id"];
+        if ($salvar) {
 
-    if ($descricaodarefeicao != $descricaodarefeicao_antiga) {
+            echo '<div class="alert alert-success">Avaliação ' . $nomeDaAvaliacao . '  Inserida com sucesso! ( ' . $escolha . ' )</div>';
+        }
+    } else {
 
-        $actualizar = mysqli_query($conexao, "UPDATE `ementamensal` SET `descricaodarefeicao` = '$descricaodarefeicao' WHERE id = '$idementa'");
 
-        if ($actualizar) {
+        $dados_da_avaliacao = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM avaliacoesdosalunos where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and idavaliacao='$idavaliacao' limit 1"));
+        -$idavaliacao = $dados_da_avaliacao["id"];
 
-            echo '<div class="alert alert-success">' . $descricaodarefeicao . ' - Ementa Mensal Actualizada com sucesso!</div>';
+        $salvar = mysqli_query($conexao, "UPDATE `avaliacoesdosalunos` SET `resposta` = '$escolha' WHERE `avaliacoesdosalunos`.`id` = '$idavaliacao'");
+
+
+        if ($salvar) {
+
+            echo '<div class="alert alert-success">Avaliação ' . $nomeDaAvaliacao . '  Actualizada com sucesso! para ' . $escolha . '</div>';
         }
     }
 } else {
 
 
-    echo '<div class="alert alert-danger">O campo está vazio</div>';
+    echo '<div class="alert alert-danger">Nenhuma opção selecionada</div>';
 }

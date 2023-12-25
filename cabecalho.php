@@ -189,9 +189,7 @@
               <h6 class="collapse-header">Área Pedagógica</h6>
               <a class="collapse-item" href="listadeanolectivos.php">Ano Lectivo</a>
               <a class="collapse-item" href="listadeperiodos.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Períodos</a>
-              <a class="collapse-item" href="listadeciclos.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Ciclos</a>
-              <a class="collapse-item" href="listadecursos.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Cursos</a>
-              <a class="collapse-item" href="listadeclasses.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Classes</a>
+              <a class="collapse-item" href="listadeciclos.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Níveis</a> 
               <a class="collapse-item" href="listadesalas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Salas</a>
               <a class="collapse-item" href="listadeturmas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Turmas</a>
               <a class="collapse-item" href="categoriadedisciplinas.php">Categoria de Disciplinas</a>
@@ -468,7 +466,7 @@
             <a class="collapse-item" href="categoriasdeavaliacao.php">Categorias de Avaliações</a>
             <a class="collapse-item" href="tipodeavaliacoes.php">Avaliações</a>
             <a class="collapse-item" href="turmasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Avaliar Aluno">Avaliar aluno</a>
-            <a class="collapse-item" href="funcionarios.php">Histórico de Avaliações</a>
+            <a class="collapse-item" href="listadeestudantesavaliados.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">Histórico de Avaliações</a>
           </div>
         </div>
       </li>

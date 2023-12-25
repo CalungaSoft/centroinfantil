@@ -182,10 +182,8 @@ include("cabecalho.php") ; ?>
                     <tr>  
                       <th>Nome Completo</th>
                       <th>Tipo</th>
-                      <th>Turma</th>
-                      <th>Curso</th>
-                      <th>Periodo</th> 
-                      <th>Classe</th> 
+                      <th>Turma</th> 
+                      <th>Periodo</th>  
                       <th>Status</th>
                       <th>Data</th>
                       <th>Descadastrar</th>
@@ -205,10 +203,8 @@ include("cabecalho.php") ; ?>
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $exibir['nomecompleto']; ?> </a></td> 
 
                       <td><?php echo $exibir['tipo']; ?></td>
-                      <td><?php echo $exibir['turma']; ?></td>
-                      <td><?php echo $exibir['curso']; ?></td>
-                      <td><?php echo $exibir['periodo']; ?></td>
-                      <td><?php echo $exibir['classe']; ?></td> 
+                      <td><?php echo $exibir['turma']; ?></td> 
+                      <td><?php echo $exibir['periodo']; ?></td> 
                       <td><?php echo $exibir['estatus']; ?></td>
                       <td><?php echo $exibir['data']; ?></td>
 

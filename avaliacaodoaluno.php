@@ -17,10 +17,11 @@ $nomelogado = $_SESSION['nomedofuncionariologado'];
 $painellogado = $_SESSION['painel'];
 
 
-
-
 $idmatriculaeconfirmacao = isset($_GET['idmatricula']) ? $_GET['idmatricula'] : "0";
 
+
+$datadaavaliacao = isset($_GET['datadaavaliacao']) ? $_GET['datadaavaliacao'] : "0";
+ 
 $dados_da_matriculaeconfirmacao = mysqli_fetch_array(mysqli_query($conexao, "select * from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' limit 1"));
 
 $idaluno = $dados_da_matriculaeconfirmacao["idaluno"];
@@ -38,11 +39,19 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
 
 $dados_da_matriculaeconfirmacao = mysqli_fetch_array(mysqli_query($conexao, "select * from matriculaseconfirmacoes where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' limit 1"));
 
+//verificar se já existe avaliação para essa data caso nao entao deixa em branco
+$jaexiste = mysqli_num_rows(mysqli_query($conexao, "SELECT id FROM avaliacoesdosalunos where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and datadaavaliacao=STR_TO_DATE('$datadaavaliacao', '%d/%m/%Y') limit 1"));
+
+if ($jaexiste == 0) {
+  $dados_da_avaliacao[] = "";
+  $dados_da_avaliacao["observacao"] = "";
+}else{
+  $dados_da_avaliacao = mysqli_fetch_array(mysqli_query($conexao, "select * from avaliacoesdosalunos where idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and datadaavaliacao=STR_TO_DATE('$datadaavaliacao', '%d/%m/%Y') order by observacao desc limit 1"));
+
+}
 
 
- 
-  $dataDaAvaliacao = date('d/m/Y');
-  $obs = "";
+
  
 
 
@@ -54,7 +63,7 @@ include("cabecalho.php"); ?>
   <h1>Avaliando aluno</h1>
   <!-- Page Heading -->
   <h1 class="h3 mb-4 text-gray-800">Dados do aluno <a href="aluno.php?idaluno=<?php echo $dadosdoaluno["idaluno"]; ?>"><?php echo $dadosdoaluno["nomecompleto"]; ?></a> <?php if ($idmatriculaeconfirmacao != 0) {
-                                                                                                                                                                          echo "( $dados_da_matriculaeconfirmacao[turma] | Sala $dados_da_matriculaeconfirmacao[sala] - $anolectivo_selecionado )";
+                                                                                                                                                                          echo "( $dados_da_matriculaeconfirmacao[turma] | Sala $dados_da_matriculaeconfirmacao[sala] - $anolectivo_selecionado ) | $datadaavaliacao";
                                                                                                                                                                         } ?> </h1>
 
   <?php
@@ -89,13 +98,13 @@ include("cabecalho.php"); ?>
 
         <div class="form-group">
           <span>Observação sobre a avaliação do aluno</span>
-          <textarea id="obsavaliacao" rows="3" class="form-control " title="Alguma observação?"><?php echo $obs; ?></textarea>
+          <textarea id="obsavaliacao" rows="3" class="form-control " title="Alguma observação?"><?php echo $dados_da_avaliacao["observacao"]; ?></textarea>
         </div>
 
         <form action="avaliacaodoaluno.php" method="get">
         <div class="form-group">
           <span>Data da realização da avaliação</span>
-          <input type="text" name="datadaavaliacao" id="datadaavaliacao" autocomplete="off" class="form-control js-datepicker" title="Digite data da avaliação" placeholder="Data da Matrícula" value="<?php echo $dataDaAvaliacao; ?>">
+          <input type="text" name="datadaavaliacao" id="datadaavaliacao" autocomplete="off" class="form-control js-datepicker" title="Digite data da avaliação" placeholder="Data da Matrícula" value="<?php echo $datadaavaliacao; ?>">
         </div>
 
         <input type="hidden" name="idmatricula" value="<?php echo $idmatriculaeconfirmacao; ?>">
@@ -118,7 +127,7 @@ include("cabecalho.php"); ?>
           </thead>
           <tbody>
             <?php
-            $lista = mysqli_query($conexao, "select * from tiposdeavalicoes");
+            $lista = mysqli_query($conexao, "select avaliacoesdosalunos.idavaliacao as idavaliacaoescolhida, tiposdeavalicoes.*, avaliacoesdosalunos.* from tiposdeavalicoes,avaliacoesdosalunos where avaliacoesdosalunos.idavaliacao=tiposdeavalicoes.id and avaliacoesdosalunos.idmatriculaeconfirmacao='$idmatriculaeconfirmacao' and avaliacoesdosalunos.datadaavaliacao=STR_TO_DATE('$datadaavaliacao', '%d/%m/%Y') order by tiposdeavalicoes.id desc");
             while ($exibir = $lista->fetch_array()) {
 
               $idcategoria = $exibir["idcategoria"];
@@ -128,7 +137,8 @@ include("cabecalho.php"); ?>
               $idsessao = $categoria["idsessaodeavaliacao"];
               $sessao = mysqli_fetch_array(mysqli_query($conexao, "SELECT titulo from sessoesdeavaliacao where  id='$idsessao'"))[0];
 
-              // <?php if($exibir["resposta"]=='Talvez'){echo "checked"; } 
+               $idavaliacao=$exibir["idavaliacaoescolhida"];
+             
             ?>
 
 
@@ -137,13 +147,13 @@ include("cabecalho.php"); ?>
                 <td> <?php echo $categoria["titulo"]; ?> </td>
                 <td> <?php echo $sessao; ?> </td>
                 <td>
-                  <input type="radio" name="resposta[<?php echo $exibir['id']; ?>]" id="<?php echo $exibir['id']; ?>" value="Sim">
+                  <input type="radio" name="resposta[<?php echo $idavaliacao; ?>]" id="<?php echo $idavaliacao; ?>" value="Sim" <?php if($exibir["resposta"]=='Sim'){echo "checked"; } ?> >
                 </td>
                 <td>
-                  <input type="radio" name="resposta[<?php echo $exibir['id']; ?>]" id="<?php echo $exibir['id']; ?>" value="Não">
+                  <input type="radio" name="resposta[<?php echo $idavaliacao; ?>]" id="<?php echo $idavaliacao; ?>" value="Não" <?php if($exibir["resposta"]=='Não'){echo "checked"; } ?> > 
                 </td>
                 <td>
-                  <input type="radio" name="resposta[<?php echo $exibir['id']; ?>]" id="<?php echo $exibir['id']; ?>" value="Talvez">
+                  <input type="radio" name="resposta[<?php echo $idavaliacao; ?>]" id="<?php echo $idavaliacao; ?>" value="Talvez" <?php if($exibir["resposta"]=='Talvez'){echo "checked"; }  ?> >
                 </td>
               </tr>
             <?php } ?>
