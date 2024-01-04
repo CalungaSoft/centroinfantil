@@ -82,13 +82,7 @@ $painellogado=$_SESSION['painel'];
             $dia_escolhido=date('d');
  
       
-             $salarionessemes = mysqli_fetch_array(mysqli_query($conexao,"SELECT sum(totaldetempos*salarioportempo) FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado'"));
-
-             $presencanessemes = mysqli_num_rows(mysqli_query($conexao,"SELECT idpresencaprofessor FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and totaldetempos!='0'"));
-
-             $ausencianessemes = mysqli_num_rows(mysqli_query($conexao,"SELECT idpresencaprofessor FROM  presencaprofessores, disciplinas where  presencaprofessores.iddisciplina=disciplinas.iddisciplina and disciplinas.idanolectivo='$idanolectivo' and (YEAR(diadapresenca)='$ano_escolhido' and MONTH(diadapresenca)='$mes_escolhido') and presencaprofessores.idprofessor='$idlogado' and totaldetempos='0'"));
-
-
+         
             $saidahoje = mysqli_fetch_array(mysqli_query($conexao,"select sum(valor) from saidas where Date(datadasaida)=DATE_SUB(CURDATE(), INTERVAL 0 DAY)"))[0];
 
             $totaldeaniversariantes=mysqli_num_rows(mysqli_query($conexao, "select idaluno FROM alunos where MONTH(datadenascimento)=MONTH(curdate())"));
@@ -98,25 +92,7 @@ $painellogado=$_SESSION['painel'];
 
              $totaldelembretes=mysqli_num_rows(mysqli_query($conexao, "select * from lembretes where Week(datadolembrete)=Week(curdate())")); 
             
-           
-           for ($i=0; $i <=6 ; $i++) { 
-
-            $dat=date('d-m-Y', strtotime("- $i days"));
- 
-
-              $datas[$i]=date('D', strtotime($dat)); 
-                
-           }
-              $semana=array('Sun' =>'Domingo','Mon' =>'Segunda','Tue' =>'Terça','Wed' =>'Quarta', 'Thu' =>'Quinta','Fri' =>'Sexta','Sat' =>'Sábado');
-
-          
-
-           foreach ($datas as $key => $value) {
-
-              $ultimos_sete_dias[]=$semana["$value"];
-                
-           }
- 
+        
               
         
 
@@ -165,26 +141,7 @@ $painellogado=$_SESSION['painel'];
           <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-3">
-
-          <a href="avaliacoescontinuas.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>">
-
-
-               <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Avaliações Contínuas Hoje</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo "$numero_de_avaliacoes"; ?></div>  
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-check fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div> </a>
-            </div>
-
+         
       
           <!-- Earnings (Monthly) Card Example -->
           <?php 
@@ -237,211 +194,11 @@ $painellogado=$_SESSION['painel'];
               </a>
             </div>
 
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-3">
-            <a href="disciplinasareapedagogica.php?idanolectivo=<?php echo $anolectivo_cabecalho['idanolectivo']; ?>&funcao=Lançar Notas">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Lançar Notas</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"></div> <script>
  
-                      </script> 
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-book fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </a>
-            </div>
  
 
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-9 col-lg-7">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary"> Avaliações Nos Últimos 7 dias </h6>
-                  <div class="dropdown no-arrow">
-                    
-                   
-                  </div>
-                </div>
-                <!-- Card Body --> 
-
-                <div class="card-body">
-
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>    
-                      <th>Disciplina</th> 
-                      <th>Turma</th>  
-                      <th>Data</th>  
-                      <th title="Numero de alunos avaliados">Avaliados</th> 
-                      <th title="POsitiva">Posit.</th>  
-                      <th title="Negativas">Negat.</th>
-                      <th title="Aproveitamento">Aprov.</th>
-                      <th>Ver</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                        $lista=mysqli_query($conexao, "SELECT  * from avaliacoes where   (YEAR(data)='$ano_escolhido' and MONTH(data)='$mes_escolhido')  and  Date(data)>=DATE_SUB(CURDATE(), INTERVAL 6 DAY) order by avaliacoes.data desc"); 
-                         while($exibir = $lista->fetch_array()){
-
-                           $iddisciplina=$exibir["iddisciplina"];
-                           $idavaliacao=$exibir["idavaliacao"];
-
-  
-                           $dadosdadisciplina=mysqli_fetch_array(mysqli_query($conexao,"SELECT * from disciplinas where iddisciplina='$iddisciplina'"));
-
-
-
-                           $nomedadisciplina=$dadosdadisciplina["titulo"];
-                           $idprofessor=$dadosdadisciplina["idprofessor"];
-                           $idprofessorauxiliar=$dadosdadisciplina["idprofessorauxiliar"];
-
-
-                           $idturma=$dadosdadisciplina["idturma"];
-
-                           $dadosdaturma=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo, minimoparapositiva from turmas where idturma='$idturma'"));
-
-                           $nomedaturma=$dadosdaturma["titulo"];
-                           $minimoparapositiva=$dadosdaturma["minimoparapositiva"];
-
+        
  
-                           $numerodealunosquefizeram=mysqli_num_rows(mysqli_query($conexao,"SELECT idnotaavaliacao from notasavaliacao where idavaliacao='$idavaliacao'"));
-
-                           $numerodepositivas=mysqli_num_rows(mysqli_query($conexao,"SELECT idnotaavaliacao from notasavaliacao where idavaliacao='$idavaliacao' and valordanota>='$minimoparapositiva'"));
-
-                           $numerodenegativa=mysqli_num_rows(mysqli_query($conexao,"SELECT idnotaavaliacao from notasavaliacao where idavaliacao='$idavaliacao' and valordanota<'$minimoparapositiva'"));
- 
-      
-                            if($numerodealunosquefizeram==0){$percentagem=0;}else{
-                              $percentagem=round($numerodepositivas*100/$numerodealunosquefizeram);
-                            }
-                            
-  
-                  ?>
-                    <tr>     
-                      <td><a  href="disciplina.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"><?php echo $nomedadisciplina; ?></a></td>
-                      <td><a  href="turma.php?idturma=<?php echo $idturma; ?>"><?php echo $nomedaturma; ?></a></td>
-                       <td><?php echo $exibir["data"]; ?></td>    
-                       <td><?php echo $numerodealunosquefizeram; ?></td>    
-                       <td><?php echo $numerodepositivas; ?></td>    
-                       <td><?php echo $numerodenegativa; ?></td>    
-                       <td><?php echo $percentagem; ?> %</td>    
-
-                      <td>
-
-
-                      <?php 
-
-                        if(($idprofessorauxiliar==$idlogado || $idprofessor==$idlogado ) || $painellogado=="areapedagogica" || $painellogado=="administrador"){ ?>
-
-
-                            <a  href="lancarnotaavaliacao.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"> <button class="btn btn-success"> Ver </button> </a>
-
-                        <?php } ?> 
-
-                      </td> 
-
-
-                    </tr> 
-                    <?php } ?> 
-                  </tbody>
-                </table>
-
- </div>
-                </div>
-              </div>
-            </div>
-
-            <?php
-
-             $idanolectivo=mysqli_fetch_array(mysqli_query($conexao, "select idanolectivo from anoslectivos where vigor='Sim'"))['idanolectivo'];
-
-
-                        $numerodepositivas=mysqli_num_rows(mysqli_query($conexao,"SELECT idnotaavaliacao from notasavaliacao, matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idmatriculaeconfirmacao=notasavaliacao.idmatriculaeconfirmacao and turmas.idturma=matriculaseconfirmacoes.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo'  and valordanota>=turmas.minimoparapositiva"));
-
-                           $numerodenegativa=mysqli_num_rows(mysqli_query($conexao,"SELECT idnotaavaliacao from notasavaliacao, matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idmatriculaeconfirmacao=notasavaliacao.idmatriculaeconfirmacao and turmas.idturma=matriculaseconfirmacoes.idturma and matriculaseconfirmacoes.idanolectivo='$idanolectivo'  and valordanota<turmas.minimoparapositiva"));
-
-             ?>
-           
- 
-<!-- Content Row -->
-            <!-- Pie Chart -->
-            <div class="col-xl-3 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Avaliações Contínuas desse Ano</h6>
-                  <div class="dropdown no-arrow">
-                    
-                  </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Positivas 
-                    </span> 
-                    <span class="mr-2">   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-danger"></i> Negativas
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-<script>
-
-// Pie Chart Example
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["Negativas", "Positivas"],
-    datasets: [{
-      data: [<?php print $numerodenegativa+0?>,   <?php print $numerodepositivas+0?>],
-      backgroundColor: ['red',  'green'],
-      hoverBackgroundColor: ['red', 'green'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
-});
-
-</script>
         
         <!-- /.container-fluid -->
 
@@ -455,7 +212,7 @@ var myPieChart = new Chart(ctx, {
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; CalungaSOFT 2022</span>
+            <span>Copyright &copy; CalungaSOFT 2024</span>
           </div>
         </div>
       </footer>
@@ -496,15 +253,12 @@ var myPieChart = new Chart(ctx, {
 
 <?php
 
-ini_set('display_errors',1); ini_set('display_startup_erros',1); error_reporting(E_ALL);//force php to show any error message
+ini_set('display_errors',0); ini_set('display_startup_erros',0); error_reporting(E_ALL);//force php to show any error message
  
-$boncos=["escola"];
-foreach ($boncos as $key => $value) {
+ 
+    backup_tables($hostname,$user,$password,$database);
 
-    backup_tables('localhost','root','',$value);
-
-}
-
+ 
 function backup_tables($host,$user,$pass,$name)
 {
     $link = mysqli_connect($host,$user,$pass);

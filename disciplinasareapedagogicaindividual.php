@@ -19,18 +19,23 @@ $painellogado=$_SESSION['painel'];
     $idanolectivo=isset($_GET['idanolectivo'])?$_GET['idanolectivo']:"";
 $idanolectivo=mysqli_escape_string($conexao, $idanolectivo); 
 
-$funcao=isset($_GET['funcao'])?$_GET['funcao']:"";
+   $anolectivo_escolhido=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];
+
+   $funcao=isset($_GET['funcao'])?$_GET['funcao']:"";
 $funcao=mysqli_escape_string($conexao, $funcao); 
 
-   $anolectivo_escolhido=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];
+
  
+ 
+ 
+
 include("cabecalho.php") ; ?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Lista de disciplinas no ano lectivo (<?php echo $anolectivo_escolhido; ?>) | <?php echo $funcao; ?></h1>
-          <p class="mb-4">A seguir vai a lista de disciplinas disponíveis na instituição</p>
+          <h1 class="h3 mb-2 text-gray-800">Lista de turmas no ano lectivo (<?php echo $anolectivo_escolhido; ?>) | <?php echo $funcao; ?></h1>
+          <p class="mb-4">A seguir vai a lista de turmas disponíveis na instituição</p>
      
       <?php 
             if(!empty($erros)):
@@ -50,12 +55,18 @@ include("cabecalho.php") ; ?>
 
                     
           <?php  include("estilocarde.php"); ?>
-    <?php  include("estilocarde.php"); ?>
-   
+    <span id="myBtn" >   </span>
 
-  <button id="myBtnreclamacoes" class="btn btn-primary" title="Cadastrar uma saida">Escolher outro Ano Lectivo</button> 
+  <button id="myBtnreclamacoes" class="btn btn-info" title="Cadastrar uma saida">Escolher outro Ano Lectivo</button> 
 
- 
+    <div id="myModal" class="modal"  >
+        <div class="modal-content">
+          <span id="close">&times;</span>
+          
+        </div>
+    </div>
+
+
     
 
 
@@ -74,11 +85,11 @@ include("cabecalho.php") ; ?>
                           <option value="<?php echo $exibir["idanolectivo"]; ?>"><?php echo $exibir["titulo"]; ?></option>
                         <?php } ?> 
                     </select> 
-                    </div> 
+                    </div>
 
+                       <input type="hidden" name="funcao" value="<?php echo "$funcao"; ?>">
+                          
                           <br>
-
-                          <input type="hidden" name="funcao" value="<?php echo "$funcao"; ?>">
                             <input type="submit" value="Ver" name="mudaranolectivo" class="btn btn-success" style="float: rigth;">
             
 
@@ -91,16 +102,27 @@ include("cabecalho.php") ; ?>
 
 
     <script>
-                     var btnreclamacoes=document.getElementById("myBtnreclamacoes");
+                   var btn=document.getElementById("myBtn");
+                    var btnreclamacoes=document.getElementById("myBtnreclamacoes");
                   
 
-                     var modalreclamacoes=document.getElementById("myModalreclamacoes");
-                     var spanreclamacoes=document.getElementById("closereclamacoes");
+                    var modal=document.getElementById("myModal");
+                    var modalreclamacoes=document.getElementById("myModalreclamacoes");
+                    
+
+                    var span=document.getElementById("close");
+                    var spanreclamacoes=document.getElementById("closereclamacoes");
                     
 
                 
 
-                 
+                  
+                    window.onclick =(event)=>{
+                        if(event.target == modal){
+                          modal.style.display="none";
+                        }
+                    }
+ 
 
                     window.onclick =(event)=>{
                         if(event.target == modalreclamacoes){
@@ -108,7 +130,17 @@ include("cabecalho.php") ; ?>
                         }
                     }
 
-                   
+                    btn.addEventListener("click", ()=>{
+                      modal.style.display="block";
+                                                  })
+
+                                                  
+      
+                                                  
+                    span.addEventListener("click", ()=>{
+                      modal.style.display="none";
+                                                  })
+
                     spanreclamacoes.addEventListener("click", ()=>{
                       modalreclamacoes.style.display="none";
                                                   })
@@ -125,6 +157,7 @@ include("cabecalho.php") ; ?>
                     
 
                   </script>
+
                   <br> <br>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -138,91 +171,73 @@ include("cabecalho.php") ; ?>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>  
-                      <th>Disciplina</th>  
-                      <th>Professor</th> 
-                      <th>Auxiliar</th> 
-                      <th>Tipo</th>  
-                      <th>Classe</th> 
-                      <th>Curso</th>  
+                      <th>Turma</th> 
+                      <th>Educador(a)</th> 
+                      <th>Período</th> 
+                      <th>Sala</th>  
+                      <th>Nº de Alunos</th> 
                       <th>Opção</th>
                     </tr>
                   </thead>
                   <tbody>
                   <?php
-                        $lista=mysqli_query($conexao, "select * from disciplinas where idanolectivo='$idanolectivo' and ( idprofessor='$idlogado' or idprofessorauxiliar='$idlogado')"); 
+                        $lista=mysqli_query($conexao, "select * from turmas where idanolectivo='$idanolectivo' and idcoordenador='$idlogado' order by titulo asc"); 
                          while($exibir = $lista->fetch_array()){
-
-                           $iddisciplina=$exibir["iddisciplina"];
-
-                           $idprofessor=$exibir["idprofessor"];
-                           $idprofessorauxiliar=$exibir["idprofessorauxiliar"];
-
-                           $Professor=mysqli_fetch_array(mysqli_query($conexao,"SELECT nomedofuncionario from funcionarios where idfuncionario='$idprofessor'"))[0];
-
-                          $Professorauxiliar=mysqli_fetch_array(mysqli_query($conexao,"SELECT nomedofuncionario from funcionarios where idfuncionario='$idprofessorauxiliar'"))[0];
-
 
                            $idturma=$exibir["idturma"];
 
-                           $dadosdaturma=mysqli_fetch_array(mysqli_query($conexao,"SELECT * from turmas where idturma='$idturma'"));
+                           $idperiodo=$exibir["idperiodo"];
+                         $idsala=$exibir["idsala"];
+                          
+                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $idcurso=$dadosdaturma["idcurso"]; 
-                           $idclasse=$dadosdaturma["idclasse"];
+                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
+                           
+                            $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes where idturma='$idturma' and idanolectivo='$idanolectivo'"));
+
+                            $idcoordenador=$exibir["idcoordenador"];
+
+                            $buscaCordenador=mysqli_query($conexao,"SELECT nomedofuncionario from funcionarios where idfuncionario='$idcoordenador'");
+                           
+                            
+                            if (mysqli_num_rows($buscaCordenador)!=0) {
+                              $nomedocoordenador=mysqli_fetch_array($buscaCordenador)[0];
  
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0]; 
+                            }else {
+                              $nomedocoordenador='';
+                            }
+                          
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0]; 
 
                   ?>
                     <tr>  
-                      <td> <a  href="disciplina.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td>  
-                      <td><a  href="funcionario.php?idfuncionario=<?php echo $exibir["idprofessor"]; ?>"><?php echo $Professor; ?></a></td>
-                      <td><a  href="funcionario.php?idfuncionario=<?php echo $exibir["idprofessorauxiliar"]; ?>"><?php echo $Professorauxiliar; ?></a></td>
-                       <td><?php echo $exibir["tipodedisciplina"]; ?></td>  
-                      <td><a  href="classe.php?idclasse=<?php echo $idclasse; ?>"><?php echo $classe; ?></a></td>  
-                      <td><a  href="curso.php?idcurso=<?php echo $idcurso; ?>"><?php echo $curso; ?></a></td> 
-
-                      <td>
-
-
-                      <?php 
-
-                        if(($idprofessorauxiliar==$idlogado || $idprofessor==$idlogado ) || $painellogado=="areapedagogica" || $painellogado=="administrador"){
-
-
-
-
-                      if($funcao=='Lançar Notas'){?>
-                      <a  href="lancarnota.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"> <button class="btn btn-success"> <?php echo "$funcao"; ?> </button> </a>
+                      <td> <a  href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
+                      <td> <a  href="funcionario.php?idfuncionario=<?php echo $exibir["idcoordenador"]; ?>"> <?php echo $nomedocoordenador ?> </a></td> 
+                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td> 
+                      <td><a  href="sala.php?idsala=<?php echo $exibir["idsala"]; ?>"><?php echo $sala; ?></a></td>   
+                      <td><?php echo $alunos; ?></td>  
+                      <td align="center" >
+                           
+                            <?php if($funcao=='Ver Pauta'){?>
+                               <a  href="turmapauta.php?idturma=<?php echo $exibir["idturma"]; ?>"> <button class="btn btn-success"> <?php echo "$funcao"; ?> </button> </a>
 
                         <?php } ?>
 
+                          <?php if($funcao=='Ver Disciplinas'){?>
+                               <a  href="turmapauta.php?idturma=<?php echo $exibir["idturma"]; ?>"> <button class="btn btn-success"> <?php echo "$funcao"; ?> </button> </a>
 
-                      <?php  if($funcao=='Lançar Faltas' || $funcao=='Ver Faltas'){ ?>
-                      <a  href="lancarfalta.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"> <button class="btn btn-success"> <?php echo "$funcao"; ?> </button> </a>
-
-                        <?php } ?>
-
-                      
-
-
-                      <?php  if($funcao=='Minipauta'){?>
-                      <a  href="disciplina.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"> <button class="btn btn-success">Ver <?php echo "$funcao"; ?> </button> </a>
-
-                        <?php } 
-
-
-
-                        } ?>
-
-
-
-
-
-                      </td> 
-
-
+                        <?php }
+                         if ($funcao == 'Lançar Presença') { ?>
+                          <a href="presencaalunopordia.php?idturma=<?php echo $exibir["idturma"]; ?>"> <button class="btn btn-success">Lançar Presença </button> </a>
+    
+                      <?php } if ($funcao == 'Avaliar Aluno') { ?>
+                          <a href="avaliarturma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <button class="btn btn-success">Avaliar</button> </a>
+    
+                      <?php }
+                        
+                        ?>
+                      </td>
                     </tr> 
                     <?php } ?> 
                   </tbody>
@@ -237,12 +252,64 @@ include("cabecalho.php") ; ?>
       </div>
       <!-- End of Main Content -->
 
-  
+ 
+      <script>
+
+
+                                                        $(document).on("blur", ".update", function(){
+                                                                var id=$(this).data("id");
+                                                                var nomedacoluna=$(this).data("column");
+                                                                var valor=$(this).text();
+                                                                 
+
+                                                                $.ajax({
+                                                                    url:'cadastro/updateagenda.php',
+                                                                    method:'POST',
+                                                                    data:{
+                                                                        id:id, 
+                                                                        nomedacoluna:nomedacoluna,
+                                                                         valor:valor
+                                                                    },
+                                                                    success: function(data){
+                                                                        $("#mensagemdealerta").html(data);
+                                                                    }
+
+                                                                })
+                                                            })
+
+
+                                                            $(document).on("click", ".delete", function(event){
+                                                                event.preventDefault();
+                                                                var id=$(this).attr("id");
+                                                                console.log(id)
+                                                                if(confirm("Tens certeza que queres eliminar esssa actividade?")){
+                                                                    $(this).closest('tr').remove(); 
+                                                                    $.ajax({
+                                                                    url:'cadastro/deleteagenda.php',
+                                                                    method:'POST',
+                                                                    data:{
+                                                                        id:id
+                                                                    },
+                                                                    success: function(data){
+                                                                        $("#mensagemdealerta").html(data);
+                                                          
+                                                                    }
+
+                                                                })
+                                                                }
+                                                               
+                                                            })
+
+
+
+      </script>
+      
+   
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; CalungaSOFT 2021</span>
+            <span>Copyright &copy; CalungaSOFT 2024</span>
           </div>
         </div>
       </footer>

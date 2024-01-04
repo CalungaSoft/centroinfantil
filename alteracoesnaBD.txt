@@ -78,3 +78,4 @@ CREATE TABLE `tiposdeavalicoes` (`id` INT(11) NOT NULL AUTO_INCREMENT , `titulo`
 ______________________________________________________
 
 CREATE TABLE `centroinfantil`.`avaliacoesdosalunos` (`id` INT(11) NOT NULL AUTO_INCREMENT , `idmatriculaeconfirmacao` INT(11) NOT NULL , `idaluno` INT(11) NOT NULL , `idavaliacao` INT(11) NOT NULL , `resposta` VARCHAR(22) NOT NULL DEFAULT 'Sim' , `observacao` TEXT NOT NULL , `datadaavaliacao` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ 

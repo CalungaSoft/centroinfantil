@@ -30,7 +30,7 @@ $anodevenda=mysqli_escape_string($conexao, $anodevenda);
 
    $anolectivo_escolhido=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];
 
-    $idturma_padrao=mysqli_fetch_array(mysqli_query($conexao, "select turmas.idturma from turmas, disciplinas where turmas.idanolectivo='$idanolectivo' and disciplinas.idturma=turmas.idturma and ( idprofessor='$idlogado' or idprofessorauxiliar='$idlogado') "))[0];
+    $idturma_padrao=mysqli_fetch_array(mysqli_query($conexao, "select turmas.idturma from turmas where turmas.idanolectivo='$idanolectivo' and idcoordenador='$idlogado' limit 1"))[0];
  
  
    $idturma=isset($_GET['idturma'])?$_GET['idturma']:"$idturma_padrao";
@@ -244,9 +244,7 @@ include("cabecalho.php") ; ?>
                     <tr>  
                      <th>Nº</th>
                       <th>Nome Completo</th> 
-                      <th>Turma</th> 
-                      <th>Classe</th>
-                      <th>Disciplina</th> 
+                      <th>Turma</th>  
                       <th>Relatório</th>  
                       <th>Data</th>
                       <th>Opção</th>
@@ -254,7 +252,7 @@ include("cabecalho.php") ; ?>
                   </thead>
                   <tbody>
                   <?php
-                        $lista=mysqli_query($conexao, "SELECT  matriculaseconfirmacoes.turma,  matriculaseconfirmacoes.classe,matriculaseconfirmacoes.estatus, relatoriodiario.* from relatoriodiario, matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and relatoriodiario.idmatriculaeconfirmacao=matriculaseconfirmacoes.idmatriculaeconfirmacao  and YEAR(relatoriodiario.data)='$anodevenda' and MONTH(relatoriodiario.data)='$mesdevenda' order by relatoriodiario.data desc"); 
+                        $lista=mysqli_query($conexao, "SELECT  matriculaseconfirmacoes.turma,matriculaseconfirmacoes.estatus, relatoriodiario.* from relatoriodiario, matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma and relatoriodiario.idmatriculaeconfirmacao=matriculaseconfirmacoes.idmatriculaeconfirmacao  and YEAR(relatoriodiario.data)='$anodevenda' and MONTH(relatoriodiario.data)='$mesdevenda' order by relatoriodiario.data desc"); 
                         $n=0;
                          while($exibir = $lista->fetch_array()){
 
@@ -264,10 +262,8 @@ include("cabecalho.php") ; ?>
 
                            $nomedoaluno=mysqli_fetch_array(mysqli_query($conexao, "select nomecompleto from alunos where idaluno='$idaluno' limit 1"))[0];
 
-                           $iddisciplina=$exibir["iddisciplina"];
-
-                           $nomedadisciplina=mysqli_fetch_array(mysqli_query($conexao, "select titulo from disciplinas where iddisciplina='$iddisciplina' limit 1"))[0];
-        
+                         
+ 
  
                     if($exibir["estatus"]!="activo"){
                       $estatus="($exibir[estatus])";
@@ -281,9 +277,7 @@ include("cabecalho.php") ; ?>
                      <td><?php echo $n; ?></td>
                         <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $nomedoaluno; ?>  </a> <?php echo $estatus; ?></td> 
                         <td><?php echo $exibir['turma']; ?></td>
-                      <td><?php echo $exibir['classe']; ?></td>
-                       <td> <a  href="diciplina.php?iddiciplina=<?php echo $exibir["iddiciplina"]; ?>"> <?php echo $nomedadisciplina; ?>  </a> </td>  
-                        <td class="update" data-id="<?php echo $exibir["idrelatoriodiario"]; ?>" data-column="descricao" <?php if($exibir["idprofessor"]==$idlogado){?>  contenteditable <?php } ?>><?php echo $exibir['descricao']; ?></td>
+                      <td class="update" data-id="<?php echo $exibir["idrelatoriodiario"]; ?>" data-column="descricao" <?php if($exibir["idprofessor"]==$idlogado){?>  contenteditable <?php } ?>><?php echo $exibir['descricao']; ?></td>
                          <td class="update" data-id="<?php echo $exibir["idrelatoriodiario"]; ?>" data-column="data" <?php if($exibir["idprofessor"]==$idlogado){?>  contenteditable <?php } ?>><?php echo $exibir['data']; ?></td>
 
                       <td align="center" title="Eliminar Relatório"> 

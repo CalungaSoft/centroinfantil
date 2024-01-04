@@ -127,7 +127,7 @@
 
       ?>
 
-      <?php if ($painellogado == "administrador" || $painellogado == "secretaria1" || $painellogado == "areapedagogica"  || $painellogado == "secretaria2") { ?>
+      <?php if ($painellogado == "administrador" || $painellogado == "secretaria1"  || $painellogado == "secretaria2") { ?>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">

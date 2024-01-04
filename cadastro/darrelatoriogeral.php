@@ -37,20 +37,10 @@ $idmatriculaeconfirmacao=mysqli_escape_string($conexao, $idmatriculaeconfirmacao
 $dados_do_anolectivo=mysqli_fetch_array(mysqli_query($conexao, "select * from anoslectivos where idanolectivo='$idanolectivo' limit 1"));
         
    $titulo_do_ano_lectivo=$dados_do_anolectivo["titulo"];
-   $precodamulta=$dados_do_anolectivo["precodamulta"]; 
-   $diadamulta=$dados_do_anolectivo["diadamulta"];
  
    $anoactual=date('Y');
    $mesactual=date('m');
    $diaactual=date('d');
-
-
-
- $datadecontagem=date('Y-m-d'); 
- $diassemmultas=date('Y-m-d', strtotime('+'.$diadamulta.' DAYS', strtotime($datadecontagem)));
-
- 
- $prazodepagamento=date('Y-m-d', strtotime('-'.$diadamulta.' DAYS', strtotime($datadecontagem)));
  
 $html="";
           
@@ -69,9 +59,7 @@ $html="";
 
        <div class="alert alert-info">
   
-             Ano Lectivo: <strong>'.$titulo_do_ano_lectivo.'</strong> | Turma: <strong>'.$dadoslectivos_confirmacao["turma"].'  </strong> <br>
-             Classe: <strong>'.$dadoslectivos_confirmacao["classe"].'</strong>
-              | Curso: <strong>'.$dadoslectivos_confirmacao["curso"].'</strong> <br>
+             Ano Lectivo: <strong>'.$titulo_do_ano_lectivo.'</strong> | Turma: <strong>'.$dadoslectivos_confirmacao["turma"].'  </strong> <br> 
              Período: <strong>'.$dadoslectivos_confirmacao["periodo"].'</strong>
               | Sala: <strong>'.$dadoslectivos_confirmacao["sala"].'</strong>
 
@@ -86,20 +74,7 @@ $html="";
                         <textarea name="descricao" rows="2" class="form-control " title="Alguma observação?" ></textarea>
                     </div>
 
-                      <div class="form-group"> 
-                      <span>Disciplina</span>
-                                  <select name="iddisciplina" required  class="form-control" title="Disciplina"  > 
-                                  <option disabled="">Escolha a Disciplina</option>
-                                 ';
-                                      $disciplinas=mysqli_query($conexao, "select * from disciplinas where idturma='$idturma'"); 
-                                      while($exibir = $disciplinas->fetch_array()){ 
-                                        $html.='
-                                      <option  value="'.$exibir["iddisciplina"].'">'.$exibir["titulo"].'</option>
-                                    ';}
-
-                                    $html.='
-                                </select> 
-                    </div>
+                     
 
 
                      <div class="form-group">

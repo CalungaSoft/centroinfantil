@@ -21,9 +21,16 @@ $painellogado=$_SESSION['painel'];
     $idanolectivo=isset($_GET['idanolectivo'])?$_GET['idanolectivo']:"";
 $idanolectivo=mysqli_escape_string($conexao, $idanolectivo); 
 
+  $mesdevenda=isset($_GET['mesdevenda'])?$_GET['mesdevenda']:"";
+$mesdevenda=mysqli_escape_string($conexao, $mesdevenda); 
+    $anodevenda=isset($_GET['anodevenda'])?$_GET['anodevenda']:"";
+$anodevenda=mysqli_escape_string($conexao, $anodevenda);
+    
+
+
    $anolectivo_escolhido=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];
 
-    $idturma_padrao=mysqli_fetch_array(mysqli_query($conexao, "select turmas.idturma from turmas, disciplinas where turmas.idanolectivo='$idanolectivo' and disciplinas.idturma=turmas.idturma and ( idprofessor='$idlogado' or idprofessorauxiliar='$idlogado') "))[0];
+   $idturma_padrao=mysqli_fetch_array(mysqli_query($conexao, "select turmas.idturma from turmas where turmas.idanolectivo='$idanolectivo' and idcoordenador='$idlogado' limit 1"))[0];
  
  
    $idturma=isset($_GET['idturma'])?$_GET['idturma']:"$idturma_padrao";
@@ -37,12 +44,11 @@ if(isset($_POST['cadastrar'])){
    
       $idmatriculaeconfirmacao=mysqli_escape_string($conexao,$_POST['idmatriculaeconfirmacao']); 
       $idaluno=mysqli_escape_string($conexao,$_POST['idaluno']); 
-      $descricao=mysqli_escape_string($conexao,$_POST['descricao']); 
-      $iddisciplina=mysqli_escape_string($conexao,$_POST['iddisciplina']); 
+      $descricao=mysqli_escape_string($conexao,$_POST['descricao']);  
       $data=mysqli_escape_string($conexao,$_POST['data']); 
       
       
-                $salvar= mysqli_query($conexao,"INSERT INTO `relatoriodiario` (`idrelatoriodiario`, `idaluno`, `idmatriculaeconfirmacao`, `iddisciplina`, `descricao`, `data`, idprofessor) VALUES (NULL, '$idaluno', '$idmatriculaeconfirmacao', '$iddisciplina', '$descricao',STR_TO_DATE('$data', '%d/%m/%Y'), '$idlogado')");
+                $salvar= mysqli_query($conexao,"INSERT INTO `relatoriodiario` (`idrelatoriodiario`, `idaluno`, `idmatriculaeconfirmacao`, `descricao`, `data`, idprofessor) VALUES (NULL, '$idaluno', '$idmatriculaeconfirmacao', '$descricao',STR_TO_DATE('$data', '%d/%m/%Y'), '$idlogado')");
 
                  
                if($salvar){
@@ -99,7 +105,7 @@ include("cabecalho.php") ; ?>
 
  <?php
 
-  echo '<a href="relatoriodiariolista.php?idanolectivo='.$idanolectivo.'&idturma='.$idturma.'" class="d-sm-inline-block btn btn-sm btn-primary" ><i class="fas fa-fw fa-eye"></i> Ver Relatórios </a> ';
+  echo '<a href="relatoriodiariogeral.php?idanolectivo='.$idanolectivo.'&anodevenda='.$anodevenda.'&mesdevenda='.$mesdevenda.'" class="d-sm-inline-block btn btn-sm btn-primary" ><i class="fas fa-fw fa-eye"></i> Ver Relatórios </a> ';
 
 
   ?>
@@ -114,16 +120,20 @@ include("cabecalho.php") ; ?>
                  <span>Escolha a Turma</span>
                     <select name="idturma" required  class="form-control"> 
                       <?php
-                           $lista=mysqli_query($conexao,"SELECT turmas.idturma, turmas.titulo from turmas, disciplinas where turmas.idanolectivo='$idanolectivo' and disciplinas.idturma=turmas.idturma and ( idprofessor='$idlogado' or idprofessorauxiliar='$idlogado') order by titulo desc");
+                           $lista=mysqli_query($conexao,"SELECT turmas.idturma, turmas.titulo from turmas where turmas.idanolectivo='$idanolectivo' and idcoordenador='$idlogado' order by titulo desc");
                           while($exibir = $lista->fetch_array()){ ?>
                           <option value="<?php echo $exibir["idturma"]; ?>"><?php echo $exibir["titulo"]; ?></option>
                         <?php } ?> 
                     </select> 
                     </div> 
- 
-                    
+
+                       <input type="hidden" name="anodevenda" value="<?php echo $anodevenda; ?>" >
+                    <input type="hidden" name="mesdevenda" value="<?php echo $mesdevenda; ?>" >
+
                     
                      <input type="hidden" name="idanolectivo" value="<?php echo "$idanolectivo"; ?>">
+
+
                     <br>
                        <input type="submit" name="ver" value="Ver Mapa de Aproveitamento" class="btn btn-success" style="float: rigth;">
                     
@@ -151,6 +161,9 @@ include("cabecalho.php") ; ?>
                         <?php } ?> 
                     </select> 
                     </div> 
+
+                    <input type="hidden" name="anodevenda" value="<?php echo $anodevenda; ?>" >
+                    <input type="hidden" name="mesdevenda" value="<?php echo $mesdevenda; ?>" >
 
                           <br>
                             <input type="submit" value="Ver" name="mudaranolectivo" class="btn btn-success" style="float: rigth;">
@@ -235,16 +248,14 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Nome Completo</th> 
-                      <th>Turma</th>
-                      <th>Curso</th>
-                      <th>Periodo</th> 
-                      <th>Classe</th>  
+                      <th>Turma</th> 
+                      <th>Periodo</th>   
                       <th>Relatório</th>
                     </tr>
                   </thead>
                   <tbody>
                   <?php
-                        $lista=mysqli_query($conexao, "SELECT  matriculaseconfirmacoes.* from matriculaseconfirmacoes, turmas, disciplinas where matriculaseconfirmacoes.idturma=turmas.idturma and disciplinas.idturma=turmas.idturma and turmas.idturma='$idturma' and ( idprofessor='$idlogado' or idprofessorauxiliar='$idlogado')"); 
+                        $lista=mysqli_query($conexao, "SELECT  matriculaseconfirmacoes.* from matriculaseconfirmacoes, turmas where matriculaseconfirmacoes.idturma=turmas.idturma  and turmas.idturma='$idturma' "); 
 
                          while($exibir = $lista->fetch_array()){
 
@@ -264,10 +275,8 @@ include("cabecalho.php") ; ?>
                     <tr>  
                         <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $nomedoaluno; ?>  </a> <?php echo $estatus; ?></td> 
  
-                      <td><?php echo $exibir['turma']; ?></td>
-                      <td><?php echo $exibir['curso']; ?></td>
-                      <td><?php echo $exibir['periodo']; ?></td>
-                      <td><?php echo $exibir['classe']; ?></td>   
+                      <td><?php echo $exibir['turma']; ?></td> 
+                      <td><?php echo $exibir['periodo']; ?></td> 
 
                       <td align="center" title="Registrar algum acontecimento do aluno">
                          <a class="pagarpropina" data-id="<?php echo $exibir['idmatriculaeconfirmacao']; ?>"  href="reconfirmacao.php?idmatriculaeconfirmacao=<?php echo $exibir["idmatriculaeconfirmacao"]; ?>"> <button class="btn btn-success"> <i  class="fas fa-edit" ></i> Registrar</button> </a>
@@ -309,7 +318,7 @@ include("cabecalho.php") ; ?>
                               
                                
                                             $.ajax({
-                              url:'cadastro/darrelatorio.php',
+                              url:'cadastro/darrelatoriogeral.php',
                               method:'POST',
                               data: {
                                 id: id  
@@ -336,7 +345,7 @@ include("cabecalho.php") ; ?>
         <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; CalungaSOFT 2022</span>
+            <span>Copyright &copy; CalungaSOFT 2024</span>
           </div>
         </div>
       </footer>
