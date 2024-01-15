@@ -70,9 +70,7 @@ include("cabecalho.php") ; ?>
                       <th>Disciplina</th>  
                       <th>Professor</th> 
                       <th>Auxiliar</th> 
-                      <th>Tipo</th>  
-                      <th>Classe</th> 
-                      <th>Curso</th>  
+                      <th>Tipo</th>     
                     </tr>
                   </thead>
                   <tbody>
@@ -93,23 +91,15 @@ include("cabecalho.php") ; ?>
                            $idturma=$exibir["idturma"];
 
                            $dadosdaturma=mysqli_fetch_array(mysqli_query($conexao,"SELECT * from turmas where idturma='$idturma'"));
-
-                            $idcurso=$dadosdaturma["idcurso"]; 
-                           $idclasse=$dadosdaturma["idclasse"];
-
  
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0]; 
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0]; 
-
+  
                   ?>
                     <tr>  
                       <td> <a  href="disciplina.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td>  
                       <td><a  href="funcionario.php?idfuncionario=<?php echo $exibir["idprofessor"]; ?>"><?php echo $Professor; ?></a></td>
                       <td><a  href="funcionario.php?idfuncionario=<?php echo $exibir["idprofessorauxiliar"]; ?>"><?php echo $Professorauxiliar; ?></a></td>
-                       <td><?php echo $exibir["tipodedisciplina"]; ?></td>  
-                      <td><a  href="classe.php?idclasse=<?php echo $idclasse; ?>"><?php echo $classe; ?></a></td>  
-                      <td><a  href="curso.php?idcurso=<?php echo $idcurso; ?>"><?php echo $curso; ?></a></td> 
+                       <td><?php echo $exibir["tipodedisciplina"]; ?></td>   
                     </tr> 
                     <?php } ?> 
                   </tbody>

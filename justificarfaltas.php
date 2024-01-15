@@ -137,8 +137,7 @@ include("cabecalho.php") ; ?>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>  
-                      <th>Nome Completo</th> 
-                      <th>Curso</th>
+                      <th>Nome Completo</th>  
                       <th>Periodo</th>  
                       <th>Status</th> 
                       <th>Qtd. de Falta</th> 
@@ -161,8 +160,7 @@ include("cabecalho.php") ; ?>
                   ?>
                     <tr>  
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $exibir['nomecompleto']; ?> </a></td> 
-  
-                      <td><?php echo $exibir['curso']; ?></td>
+   
                       <td><?php echo $exibir['periodo']; ?></td>  
                       <td><?php echo $exibir['estatus']; ?></td> 
                       <td><?php echo $quantidadedefalta; ?></td> 

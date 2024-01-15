@@ -246,10 +246,8 @@ if(isset($_POST['cadastrar'])){
 
                                                $turma=$dadosdaturma["titulo"]; 
                                                $idperiodo=$dadosdaturma["idperiodo"];
-                                               $idcurso=$dadosdaturma["idcurso"];
                                                $idsala=$dadosdaturma["idsala"];
-                                               $idclasse=$dadosdaturma["idclasse"];
-                                             
+                                               
                                                $propina=$dadosdaturma["propina"];
 
                                              $tipo=$exibir["tipo"];                                              
@@ -262,20 +260,14 @@ if(isset($_POST['cadastrar'])){
 
                                                $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                                                $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                                              
                                                 $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                                                $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                                              
                                                 ?>
                                                   <hr> <hr>
                                                   Turma: <a href="turma.php?idturma=<?php echo $idturma; ?>"> <?php echo $turma; ?> </a><br>
-
-                                                  Curso: <a href="curso.php?idcurso=<?php echo $idcurso; ?>"> <?php echo $curso; ?> </a><br>
-
-                                                 Classe: <a href="classe.php?idclasse=<?php echo $idclasse; ?>"> <?php echo $classe; ?> </a><br>
-
+ 
                                                   Período: <a href="periodo.php?idperiodo=<?php echo $idperiodo; ?>"> <?php echo $periodo; ?> </a><br>
 
                                                     Sala: <a href="sala.php?idsala=<?php echo $idsala; ?>"> <?php echo $sala; ?> </a>
@@ -445,7 +437,7 @@ if(isset($_POST['cadastrar'])){
                       <td title="<?php  $divida=number_format($divida_n,2,",", "."); echo $divida; ?>"><?php echo $divida_n; ?></td>
                       <td><?php echo $exibir['codigodepropina']; ?></td>
                       <td><?php echo $exibir['datadopagamento']; ?></td>
-                      <td align="center" title="Veja mais opções sobre esse curso">
+                      <td align="center" title="Veja mais opções">
                          <a  href="propina.php?idpropina=<?php echo $exibir["idpropina"]; ?>"><i  class="fas fa-eye" ></i> </a>
                       </td>
  

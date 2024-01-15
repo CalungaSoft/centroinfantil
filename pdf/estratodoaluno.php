@@ -16,8 +16,7 @@
 
                                   $idturma=$dadosda_reconfirmacao["idturma"];
                                   $idanolectivo=$dadosda_reconfirmacao["idanolectivo"];
-                                  $idaluno=$dadosda_reconfirmacao["idaluno"];
-                                  $classe=$dadosda_reconfirmacao["classe"];
+                                  $idaluno=$dadosda_reconfirmacao["idaluno"]; 
 
  
 
@@ -146,7 +145,7 @@ else if($dadosdo_aluno['nascimes']==12)
          </p>  
         <p id=centro1> 
 
-         <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ".$dadosda_reconfirmacao['classe']." Classe    </strong>  / Curso:    <strong> ";  if($dadosda_reconfirmacao["curso"]!="Nenhum")  { $htm.=" ".$dadosda_reconfirmacao['curso']." "; } $htm.="    </strong> / Ano Lecivo:  ".$anolectivo.".   
+         <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Turma  ".$dadosda_reconfirmacao['turma']."       </strong> Ano Lecivo:  ".$anolectivo.".   
 
 
 

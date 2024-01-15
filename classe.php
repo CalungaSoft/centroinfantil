@@ -250,8 +250,7 @@ if(isset($_POST['editardadosdaclasse'])){
                       <th>Tipo</th>   
                       <th>Ano Lectivo</th>
                       <th>Turma</th>
-                      <th>Período</th>
-                      <th>Curso</th>
+                      <th>Período</th> 
                       <th>Status</th>
                       <th>Data</th> 
                     </tr>
@@ -279,8 +278,7 @@ if(isset($_POST['editardadosdaclasse'])){
                       <td><?php echo $exibir['tipo']; ?></td>  
                       <td><a href="anolectivo.php?idanolectivo=<?php echo $exibir["idanolectivo"]; ?>"><?php echo $tituloAnoLectivo; ?></a></td> 
                        <td><a href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"><?php echo $exibir['turma']; ?></a></td>  
-                       <td><a href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $exibir['periodo']; ?></a></td>  
-                        <td><a href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $exibir['curso']; ?></a></td>  
+                       <td><a href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $exibir['periodo']; ?></a></td>   
                       <td><?php echo $exibir['estatus']; ?></td>
                       <td><?php echo $exibir['data']; ?></td> 
                     </tr> 

@@ -21,39 +21,7 @@ $idanolectivo=mysqli_escape_string($conexao, $idanolectivo);
 
    $anolectivo_escolhido=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];
 
-if(isset($_POST['cadastrar'])){
-  
-  if(!empty(trim($_POST['titulo']))){ 
-   
-      $titulo=mysqli_escape_string($conexao,$_POST['titulo']); 
-
-        $existe=mysqli_num_rows(mysqli_query($conexao, "select idcurso from cursos where titulo='$titulo'"));
-      
-          if($existe==0){
-
-                $salvar= mysqli_query($conexao,"INSERT INTO `cursos` (titulo) VALUES ('$titulo')");
-                 
-               if($salvar){
-
-                $acerto[]="$titulo foi Cadastrado com sucesso";
-
-            }else{
-
-              $erros[]="Ocorreu um erro Ao Cadastrar o curso";
-
-            } 
-          }else{
-
-        $erros[]="Já existe um curso com esse título";
-      }
-
-    }  else{
-    $erros[]=" O campo título não pode ir vazio";
-  }
-   
-
-}
-
+ 
 
  
  

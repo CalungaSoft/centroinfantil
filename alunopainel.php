@@ -138,7 +138,7 @@ $idmatriculaeconfirmacao=isset($_GET['idmatriculaeconfirmacao'])?$_GET['idmatric
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Dados do aluno <a   href="aluno.php?idaluno=<?php echo $dadosdoaluno["idaluno"] ; ?>"><?php echo $dadosdoaluno["nomecompleto"] ; ?></a>   <?php if($idmatriculaeconfirmacao!=0){ echo "( $dados_da_matriculaeconfirmacao[classe] | $dados_da_matriculaeconfirmacao[curso] - $anolectivo_selecionado )"; }?>  </h1>
+          <h1 class="h3 mb-4 text-gray-800">Dados do aluno <a   href="aluno.php?idaluno=<?php echo $dadosdoaluno["idaluno"] ; ?>"><?php echo $dadosdoaluno["nomecompleto"] ; ?></a>   <?php if($idmatriculaeconfirmacao!=0){ echo "( $anolectivo_selecionado )"; }?>  </h1>
      
           <?php 
             if(!empty($erros)):
@@ -310,10 +310,8 @@ $idmatriculaeconfirmacao=isset($_GET['idmatriculaeconfirmacao'])?$_GET['idmatric
 
                                                $turma=$dadosdaturma["titulo"]; 
                                                $idperiodo=$dadosdaturma["idperiodo"];
-                                               $idcurso=$dadosdaturma["idcurso"];
                                                $idsala=$dadosdaturma["idsala"];
-                                               $idclasse=$dadosdaturma["idclasse"];
-                                             
+                                                
                                                $propina=$dadosdaturma["propina"];
 
                                              $tipo=$exibir["tipo"];                                              
@@ -325,20 +323,13 @@ $idmatriculaeconfirmacao=isset($_GET['idmatriculaeconfirmacao'])?$_GET['idmatric
 
 
                                                $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
-
-                                                $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+ 
                                                 $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                                                $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                                                
                                                 ?>
                                                   <hr> <hr>
-                                                  Turma:  <?php echo $turma; ?> <br>
-
-                                                  Curso: <?php echo $curso; ?> <br>
-
-                                                 Classe:  <?php echo $classe; ?> <br>
+                                                  Turma:  <?php echo $turma; ?> <br> 
 
                                                   Período:  <?php echo $periodo; ?> <br>
 

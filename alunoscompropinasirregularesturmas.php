@@ -232,9 +232,7 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Turma</th> 
-                      <th>Período</th> 
-                      <th>Curso</th>  
-                      <th>Classe</th> 
+                      <th>Período</th>  
                       <th>Alunos</th> 
                       <th>Com Dívida</th> 
                       <th>Ver Lista</th>
@@ -248,17 +246,12 @@ include("cabecalho.php") ; ?>
 
                            $idturma=$exibir["idturma"];
 
-                           $idperiodo=$exibir["idperiodo"];
-                           $idcurso=$exibir["idcurso"];
-                           $idsala=$exibir["idsala"];
-                           $idclasse=$exibir["idclasse"];
+                           $idperiodo=$exibir["idperiodo"]; 
+                           $idsala=$exibir["idsala"]; 
 
                             $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
- 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
- 
+                          
                             $alunos=mysqli_num_rows(mysqli_query($conexao,"SELECT distinct(idaluno) from matriculaseconfirmacoes where idturma='$idturma' and idanolectivo='$idanolectivo'"));
 
                             $naopagaram=mysqli_num_rows(mysqli_query($conexao, "select idaluno FROM matriculaseconfirmacoes where  (ultimomespago<'$mes_em_questao' and tipodealuno!='Bolseiro') and idanolectivo='$idanolectivo' and idturma='$idturma'")); 
@@ -273,9 +266,7 @@ include("cabecalho.php") ; ?>
                     <tr>  
                       <td> <a  href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"> <?php echo $exibir['titulo']; ?> </a></td> 
 
-                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td>
-                      <td><a  href="curso.php?idcurso=<?php echo $exibir["idcurso"]; ?>"><?php echo $curso; ?></a></td>   
-                      <td><a  href="classe.php?idclasse=<?php echo $exibir["idclasse"]; ?>"><?php echo $classe; ?></a></td>  
+                      <td><a  href="periodo.php?idperiodo=<?php echo $exibir["idperiodo"]; ?>"><?php echo $periodo; ?></a></td> 
                       <td><?php echo $alunos; ?></td>  
                       <td title="<?php echo $percentagem; ?> % dos alunos na turma <?php echo $exibir['titulo']; ?> ainda não pagaram as propinas desse mês"><?php echo $naopagaram; ?></td>  
                       <td align="center" title="Veja a listas dos alunos desta turma com esse mês em atraso">

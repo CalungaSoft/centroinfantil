@@ -387,7 +387,7 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
             <?php
             $lista = mysqli_query($conexao, "SELECT matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where matriculaseconfirmacoes.idanolectivo=anoslectivos.idanolectivo   and idaluno='$idaluno' order by titulo desc");
             while ($exibir = $lista->fetch_array()) { ?>
-              <option value="<?php echo $exibir["idmatriculaeconfirmacao"]; ?>"><?php echo $exibir["curso"]; ?> | <?php echo $exibir["classe"]; ?> | Turma: <?php echo $exibir["turma"]; ?></option>
+              <option value="<?php echo $exibir["idmatriculaeconfirmacao"]; ?>">Turma: <?php echo $exibir["turma"]; ?></option>
             <?php } ?>
           </select>
         </div>
@@ -1054,17 +1054,7 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
     <div class="card-body">
       <div class="table-responsive">
 
-
-        <a href="aluno.php?idaluno=<?php echo "$idaluno"; ?>" class="d-sm-inline-block btn btn-sm btn-secondary"><i class="fas fa-fw fa-user"></i> Finanças </a>
-<!-- 
-        <a href="" id="avaliacao" class="d-sm-inline-block btn btn-sm btn-info"><i class="fas fa-fw fa-check"></i> Avaliações </a> -->
-<!--  
-        <a href="" id="falta" class="d-sm-inline-block btn btn-sm btn-info"><i class="fas fa-fw fa-calendar"></i> Faltas </a> -->
-
- 
-
-        <a href="" id="propina" class="d-sm-inline-block btn btn-sm btn-success"><i class="fas fa-fw fa-money"></i> Propinas </a> <br><br>
-
+  
 
         <span id="botaoavaliacao"></span>
 
@@ -1129,55 +1119,63 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, "select * from alunos 
                                                                                                       echo $divida; ?>"><?php echo $exibir["divida"]; ?></td>
                     <td><?php echo $exibir["datadaentrada"]; ?></td>
                     <td>
-                      <?php  
-                        if (($exibir["tipo"]=="Propina")) { ?>
-                          <a href="entradapropina.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php  }
-                        if ($exibir["tipo"]=="Matrícula" || $exibir["tipo"]=="Confirmação" || $exibir["tipo"]=="Rematrícula") { ?>
-                          <a href="entradamatricula.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
+                  <?php
+                  if (($exibir["tipo"] == "Propina")) { ?>
+                    <a href="entradapropina.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php  }
+                  if ($exibir["tipo"] == "Matrícula" || $exibir["tipo"] == "Confirmação" || $exibir["tipo"] == "Rematrícula") { ?>
+                    <a href="entradamatricula.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
 
-                        if ($exibir["tipo"]=="Material Escolar") { ?>
-                          <a href="detalhesdacompra.php?idtipo=<?php echo $exibir["idtipo"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
-                       if ($exibir["tipo"]=="Justificação de Faltas") { ?>
-                          <a href="detalhesdafalta.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
+                  if ($exibir["tipo"] == "Material Escolar") { ?>
+                    <a href="detalhesdacompra.php?idtipo=<?php echo $exibir["idtipo"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+                  if ($exibir["tipo"] == "Justificação de Faltas") { ?>
+                    <a href="detalhesdafalta.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
 
-                       if ($exibir["tipo"]=="Inserção no Sistema") { ?>
-                          <a href="insercao.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
+                  if ($exibir["tipo"] == "Inserção no Sistema") { ?>
+                    <a href="insercao.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
 
-                        if ($exibir["tipo"]=="Tratar Documento") { ?>
-                          <a href="detalhestratardocumentos.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
-
-
-                        if ($exibir["tipo"]=="Propina do ATL") { ?>
-                          <a href="entradapropinadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
-
-                        if ($exibir["tipo"]=="Matrícula ATL") { ?>
-                          <a href="entradadamatriculadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
-
-                          if ($exibir["tipo"]=="Mensalidade do transporte") { ?>
-                          <a href="entradapropinadotransporte.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
-
-                        if ($exibir["tipo"]=="Matrícula transporte") { ?>
-                          <a href="entradadamatriculadotransporte.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
+                  if ($exibir["tipo"] == "Tratar Documento") { ?>
+                    <a href="detalhestratardocumentos.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
 
 
-                       if ($exibir["tipo"]=="Outras") { ?>
-                          <a href="entradasoutras.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
-                       <?php } 
-                        ?>
-                           
-                     
-                      
-                     </td>
+                  if ($exibir["tipo"] == "Propina do ATL") { ?>
+                    <a href="entradapropinadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+
+                  if ($exibir["tipo"] == "Propina das Actividades Extras Curriculares") { ?>
+                    <a href="entradapropinadoactividade.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+
+                  if ($exibir["tipo"] == "Matrícula ATL") { ?>
+                    <a href="entradadamatriculadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+
+                  if ($exibir["tipo"] == "Mensalidade do transporte") { ?>
+                    <a href="entradapropinadotransporte.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+
+                  if ($exibir["tipo"] == "Matrícula transporte") { ?>
+                    <a href="entradadamatriculadotransporte.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+
+
+                  if ($exibir["tipo"] == "Matrícula Actividade extras curriculares") { ?>
+                    <a href="entradadamatriculaactividade.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+
+                  if ($exibir["tipo"] == "Outras") { ?>
+                    <a href="entradasoutras.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+                  ?>
+
+
+
+                </td>
                   </tr>
               <?php }
               }

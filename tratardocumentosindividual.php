@@ -667,9 +667,7 @@ include("cabecalho.php"); ?>
 
              <h4> Dados Lectivos</h4> 
              Ano Lectivo: <strong><?php echo "$titulo_do_ano_lectivo" ?></strong> | Turma: <strong><?php echo "$dadoslectivos_confirmacao[turma]" ?></strong> <br>
-             Classe: <strong><?php echo "$dadoslectivos_confirmacao[classe]" ?></strong>
-              | Curso: <strong><?php echo "$dadoslectivos_confirmacao[curso]" ?></strong> <br>
-             Período: <strong><?php echo "$dadoslectivos_confirmacao[periodo]" ?></strong>
+           Período: <strong><?php echo "$dadoslectivos_confirmacao[periodo]" ?></strong>
               | Sala: <strong><?php echo "$dadoslectivos_confirmacao[sala]" ?></strong>
 
 

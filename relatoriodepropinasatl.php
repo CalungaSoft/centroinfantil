@@ -358,7 +358,7 @@ include("cabecalho.php") ; ?>
                       <td><?php echo $mespago; ?></td>
                       <td><?php echo $exibir['codigodepropina']; ?></td>
                       <td><?php echo $exibir['datadopagamento']; ?></td>
-                      <td align="center" title="Veja mais opções sobre esse curso">
+                      <td align="center" title="Veja mais ">
                          <a  href="entradapropinadoatl.php?idpropinadoatl=<?php echo $exibir["idpropinadoatl"]; ?>"><i  class="fas fa-eye" ></i> </a>
                       </td>
  

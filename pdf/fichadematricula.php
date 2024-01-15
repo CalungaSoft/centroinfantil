@@ -215,6 +215,7 @@ $htm.='<table style="border:0px solid; border-spacing:0px; margin-top:-20px;  pa
                             <td width='auto' style='border: 1px solid; border-spacing:0px'>".$professorauxiliar."</td>
                         </tr>  
                          ";   $n+=1;
+                         
                         }  
                         
                         $htm.="

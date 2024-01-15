@@ -384,29 +384,23 @@ $divida_total=mysqli_fetch_array(mysqli_query($conexao," SELECT sum(divida) as d
                                            $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idturma='$idturma' limit 1")); 
 
                                                $turma=$dadosdaturma["titulo"]; 
-                                               $idperiodo=$dadosdaturma["idperiodo"];
-                                               $idcurso=$dadosdaturma["idcurso"];
-                                               $idsala=$dadosdaturma["idsala"];
-                                               $idclasse=$dadosdaturma["idclasse"];
+                                               $idperiodo=$dadosdaturma["idperiodo"]; 
+                                               $idsala=$dadosdaturma["idsala"]; 
                                              
                                              
 
                                                $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                                                $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                                              
                                                 $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                                                $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                                               
                                                 ?>
                                                   <hr> <hr>
                                                   Turma: <a href="turma.php?idturma=<?php echo $idturma; ?>"> <?php echo $turma; ?> </a> |
 
-                                                  Curso: <a href="curso.php?idcurso=<?php echo $idcurso; ?>"> <?php echo $curso; ?> </a><br>
-
-                                                 Classe: <a href="classe.php?idclasse=<?php echo $idclasse; ?>"> <?php echo $classe; ?> </a> | 
-
+                                                 
+                                              
                                                   Período: <a href="periodo.php?idperiodo=<?php echo $idperiodo; ?>"> <?php echo $periodo; ?> </a>  | 
 
                                                     Sala: <a href="sala.php?idsala=<?php echo $idsala; ?>"> <?php echo $sala; ?> </a>

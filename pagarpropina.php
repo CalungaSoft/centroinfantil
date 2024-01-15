@@ -259,10 +259,8 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Nome Completo</th> 
-                      <th>Turma</th>
-                      <th>Curso</th>
-                      <th>Periodo</th> 
-                      <th>Classe</th> 
+                      <th>Turma</th> 
+                      <th>Periodo</th>   
                       <th>Último Mês</th> 
                       <th>Pagar</th>
                     </tr>
@@ -348,10 +346,8 @@ include("cabecalho.php") ; ?>
                     <tr>  
                         <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $exibir['nomecompleto']; ?>  </a> <?php echo $estatus; ?></td> 
  
-                      <td><?php echo $exibir['turma']; ?></td>
-                      <td><?php echo $exibir['curso']; ?></td>
-                      <td><?php echo $exibir['periodo']; ?></td>
-                      <td><?php echo $exibir['classe']; ?></td> 
+                      <td><?php echo $exibir['turma']; ?></td> 
+                      <td><?php echo $exibir['periodo']; ?></td>  
                       <td><?php echo $ultimopagamento; ?></td> 
 
                       <td align="center" title="Pagar propina desse aluno">

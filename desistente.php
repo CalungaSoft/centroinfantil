@@ -419,9 +419,7 @@ var myPieChart = new Chart(ctx, {
                       <th>Nome Completo</th>   
                       <th>Motivo</th> 
                       <th>Descrição</th> 
-                      <th>Data</th> 
-                      <th>Classe</th> 
-                      <th>Curso</th>    
+                      <th>Data</th>    
                       <th>Opção</th>
                     </tr>
                   </thead>
@@ -432,11 +430,11 @@ var myPieChart = new Chart(ctx, {
  
                         if(isset($_GET['anodevenda'])){ 
         
-                          $listadosalunos=mysqli_query($conexao,"SELECT  alunos.nomecompleto,  descadastrados.*, matriculaseconfirmacoes.idmatriculaeconfirmacao, matriculaseconfirmacoes.classe, matriculaseconfirmacoes.curso FROM alunos, descadastrados, matriculaseconfirmacoes where alunos.idaluno=descadastrados.idaluno and matriculaseconfirmacoes.idmatriculaeconfirmacao=descadastrados.idmatriculaeconfirmacao and  YEAR(descadastrados.data)='$anodevenda' order by alunos.nomecompleto"); 
+                          $listadosalunos=mysqli_query($conexao,"SELECT  alunos.nomecompleto,  descadastrados.*, matriculaseconfirmacoes.idmatriculaeconfirmacao FROM alunos, descadastrados, matriculaseconfirmacoes where alunos.idaluno=descadastrados.idaluno and matriculaseconfirmacoes.idmatriculaeconfirmacao=descadastrados.idmatriculaeconfirmacao and  YEAR(descadastrados.data)='$anodevenda' order by alunos.nomecompleto"); 
 
                         } else{
 
-                          $listadosalunos=mysqli_query($conexao,"SELECT   alunos.nomecompleto,  descadastrados.*, matriculaseconfirmacoes.idmatriculaeconfirmacao, matriculaseconfirmacoes.classe, matriculaseconfirmacoes.curso FROM alunos, descadastrados, matriculaseconfirmacoes where alunos.idaluno=descadastrados.idaluno and matriculaseconfirmacoes.idmatriculaeconfirmacao=descadastrados.idmatriculaeconfirmacao  order by alunos.nomecompleto"); 
+                          $listadosalunos=mysqli_query($conexao,"SELECT   alunos.nomecompleto,  descadastrados.*, matriculaseconfirmacoes.idmatriculaeconfirmacao FROM alunos, descadastrados, matriculaseconfirmacoes where alunos.idaluno=descadastrados.idaluno and matriculaseconfirmacoes.idmatriculaeconfirmacao=descadastrados.idmatriculaeconfirmacao  order by alunos.nomecompleto"); 
 
                         }
 
@@ -449,9 +447,7 @@ var myPieChart = new Chart(ctx, {
                       <td><a href="aluno.php?idaluno=<?php echo $exibir['idaluno']; ?>"><?php echo $exibir['nomecompleto']; ?></a></td>  
                       <td><?php echo $exibir["tipo"]; ?></td>
                       <td><?php echo $exibir["descricao"]; ?></td>  
-                      <td><?php echo $exibir["data"]; ?></td>  
-                      <td><?php echo $exibir["classe"]; ?></td>  
-                      <td><?php echo $exibir["curso"]; ?></td>  
+                      <td><?php echo $exibir["data"]; ?></td>   
                      
                       <td align="center" title="Voltar o aluno activo novamente">
                          <a  href="desistente.php?iddesistencia=<?php echo $exibir['iddescadastrado']; ?>&idmatriculaeconfirmacao=<?php echo $exibir['idmatriculaeconfirmacao']; ?>"> <button class="btn btn-success"> <i  class="fas fa-sync" ></i> Voltar Activo</button> </a>

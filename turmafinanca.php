@@ -27,9 +27,7 @@ if(isset($_POST['editardadosdaturma'])){
 
       $titulo=mysqli_escape_string($conexao,$_POST['titulo']); 
       $idperiodo=mysqli_escape_string($conexao,$_POST['idperiodo']); 
-      $idcurso=mysqli_escape_string($conexao,$_POST['idcurso']);
-      $idsala=mysqli_escape_string($conexao,$_POST['idsala']);
-      $idclasse=mysqli_escape_string($conexao,$_POST['idclasse']);
+      $idsala=mysqli_escape_string($conexao,$_POST['idsala']); 
       $matricula=mysqli_escape_string($conexao,$_POST['matricula']);
       $reconfirmacao=mysqli_escape_string($conexao,$_POST['reconfirmacao']);
       $propina=mysqli_escape_string($conexao,$_POST['propina']);
@@ -41,21 +39,19 @@ if(isset($_POST['editardadosdaturma'])){
 
     $classificacoes=mysqli_fetch_array(mysqli_query($conexao," SELECT classificacaonegativa, classificacaopositiva FROM turmas where idturma='$idturma'"));
  
-    $salvar= mysqli_query($conexao,"UPDATE `turmas` SET `titulo` = '$titulo', `idperiodo` = '$idperiodo', `idcurso` = '$idcurso', `idsala` = '$idsala', `idclasse` = '$idclasse', `propina` = '$propina', `reconfirmacao` = '$reconfirmacao', `matricula` = '$matricula', `eclassedeexame` = '$eclassedeexame', `classificacaopositiva` = '$classificacaopositiva', `classificacaonegativa` = '$classificacaonegativa' WHERE `turmas`.`idturma` = '$idturma'");
+    $salvar= mysqli_query($conexao,"UPDATE `turmas` SET `titulo` = '$titulo', `idperiodo` = '$idperiodo', `idsala` = '$idsala', `propina` = '$propina', `reconfirmacao` = '$reconfirmacao', `matricula` = '$matricula', `eclassedeexame` = '$eclassedeexame', `classificacaopositiva` = '$classificacaopositiva', `classificacaonegativa` = '$classificacaonegativa' WHERE `turmas`.`idturma` = '$idturma'");
 
 
 
 
                             $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
-
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
+ 
 
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                          
     
-      $salvar=mysqli_query($conexao,"UPDATE `matriculaseconfirmacoes` SET `turma` = '$titulo',`curso` = '$curso',`sala` = '$sala',`periodo` = '$periodo',`classe` = '$classe'  WHERE idturma = '$idturma'");
+      $salvar=mysqli_query($conexao,"UPDATE `matriculaseconfirmacoes` SET `turma` = '$titulo', `sala` = '$sala',`periodo` = '$periodo'   WHERE idturma = '$idturma'");
 
 
       $classificacaopositiva_antiga=$classificacoes["classificacaopositiva"];
@@ -97,10 +93,8 @@ if(isset($_POST['editardadosdaturma'])){
                   $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idturma='$idturma' limit 1")); 
 
                            $turma=$dadosdaturma["titulo"]; 
-                           $idperiodo=$dadosdaturma["idperiodo"];
-                           $idcurso=$dadosdaturma["idcurso"];
-                           $idsala=$dadosdaturma["idsala"];
-                           $idclasse=$dadosdaturma["idclasse"];
+                           $idperiodo=$dadosdaturma["idperiodo"]; 
+                           $idsala=$dadosdaturma["idsala"]; 
                            $idanolectivo=$dadosdaturma["idanolectivo"];
 
                            $propina=$dadosdaturma["propina"];
@@ -111,12 +105,10 @@ if(isset($_POST['editardadosdaturma'])){
 
                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                         
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                         
                                     
                               ?>
         <!-- Begin Page Content -->
@@ -187,10 +179,7 @@ if(isset($_POST['editardadosdaturma'])){
 
                                                   Ano Lectivo: <strong> <a href="anolectivo.php?idanolectivo=<?php echo $idanolectivo; ?>"> <?php echo $anolectivo; ?> </a><br></strong>
                                                  
-                                                  Curso: <strong> <a href="curso.php?idcurso=<?php echo $idcurso; ?>"> <?php echo $curso; ?> </a><br></strong>
-
-                                                 Classe: <strong> <a href="classe.php?idclasse=<?php echo $idclasse; ?>"> <?php echo $classe; ?> </a><br></strong>
-
+                                           
                                                   Período: <strong> <a href="periodo.php?idperiodo=<?php echo $idperiodo; ?>"> <?php echo $periodo; ?> </a><br></strong>
 
                                                     Sala: <strong> <a href="sala.php?idsala=<?php echo $idsala; ?>"> <?php echo $sala; ?> </a><br></strong>  

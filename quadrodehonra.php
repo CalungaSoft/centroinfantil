@@ -158,10 +158,8 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Nome Completo</th> 
-                      <th>Turma</th>
-                      <th>Curso</th>
-                      <th>Periodo</th> 
-                      <th>Classe</th> 
+                      <th>Turma</th> 
+                      <th>Periodo</th>  
                       <th>Pior Nota</th> 
                       <th>Melhor Nota</th> 
                       <th>Média</th>  
@@ -191,10 +189,8 @@ include("cabecalho.php") ; ?>
                     <tr>  
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $exibir['nomecompleto']; ?> </a></td> 
  
-                      <td><?php echo $exibir['turma']; ?></td>
-                      <td><?php echo $exibir['curso']; ?></td>
-                      <td><?php echo $exibir['periodo']; ?></td>
-                      <td><?php echo $exibir['classe']; ?></td> 
+                      <td><?php echo $exibir['turma']; ?></td> 
+                      <td><?php echo $exibir['periodo']; ?></td> 
                       <td><?php echo $piornota; ?></td> 
                       <td><?php echo $maiornota; ?></td> 
                       <td><?php $mediadasnotas=round($mediadasnotas,2); echo $mediadasnotas; ?></td> 

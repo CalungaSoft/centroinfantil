@@ -246,7 +246,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno' and matriculaseconfirmacoes.classe='13ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='13ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='13ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -261,7 +261,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='12ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='12ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='12ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -278,7 +278,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='11ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='11ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='11ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -294,7 +294,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='10ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='10ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='10ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -325,7 +325,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='12ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='12ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='12ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -342,7 +342,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='11ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='11ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='11ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -358,7 +358,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='10ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='10ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='10ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -398,7 +398,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='9ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='9ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='9ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -415,7 +415,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='8ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='8ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='8ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -431,7 +431,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='7ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='7ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='7ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -463,7 +463,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='6ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='6ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='6ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -480,7 +480,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='4ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='4ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='4ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='
@@ -496,7 +496,7 @@ $htm='
                     $matriculas=mysqli_query($conexao, "select anoslectivos.titulo, matriculaseconfirmacoes.* from matriculaseconfirmacoes, anoslectivos where idaluno='$idaluno'  and matriculaseconfirmacoes.classe='2ª' and anoslectivos.idanolectivo=matriculaseconfirmacoes.idanolectivo"); 
                     while($exibir = $matriculas->fetch_array()){ 
                       $htm.='
-                    <option  '; if($exibir["classe"]=='2ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].' -- '.$exibir["classe"].' | '.$exibir["curso"].' | '.$exibir["data"].'</option>
+                    <option  '; if($exibir["classe"]=='2ª'){ $htm.='selected'; } $htm.='  value="'.$exibir["idturma"].'">Ano Lectivo: '.$exibir["titulo"].'  | '.$exibir["data"].'</option>
                   ';}
 
                   $htm.='

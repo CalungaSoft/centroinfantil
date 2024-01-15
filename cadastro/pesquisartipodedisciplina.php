@@ -16,7 +16,7 @@ $agrupamento = $dados_da_disciplina["agrupamento"];
 $dadoslectivos = mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idanolectivo='$idanolectivo' order by idturma desc limit 1"));
 
 $idperiodo = $dadoslectivos["idperiodo"];
-$idcurso = $dadoslectivos["idcurso"];
+ 
 $idclasse = $dadoslectivos["idclasse"];
 
 

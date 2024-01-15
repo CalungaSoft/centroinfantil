@@ -45,10 +45,8 @@ $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas w
 
                            $turma=$dadosdaturma["titulo"]; 
                            $idperiodo=$dadosdaturma["idperiodo"];
-                           $idcurso=$dadosdaturma["idcurso"];
-                           $idsala=$dadosdaturma["idsala"];
-                           $idclasse=$dadosdaturma["idclasse"];
-                           $idanolectivo=$dadosdaturma["idanolectivo"];
+                            $idsala=$dadosdaturma["idsala"];
+                            $idanolectivo=$dadosdaturma["idanolectivo"];
 
                            $propina=$dadosdaturma["propina"];
                            $matricula=$dadosdaturma["matricula"];
@@ -57,16 +55,12 @@ $dadosdaturma= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas w
 
 
                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
-
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+ 
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
-
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+ 
                                     
 
-    $antigo="Eliminada a turma: $turma | classe: $classe , Período $periodo , curso: $curso , sala $sala";
+    $antigo="Eliminada a turma: $turma |  Período $periodo   , sala $sala";
     $novo="Eliminado";
            
     $incluindonoshistoricos=mysqli_query($conexao,"INSERT INTO `historico` (`idhistorico`, `idfuncionario`, `descricao`, `antigo`, `novo`, `data`) VALUES (NULL, '$idlogado', 'Eliminação', '$antigo', '$novo', CURRENT_TIMESTAMP)");

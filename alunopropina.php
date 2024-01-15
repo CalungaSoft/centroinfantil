@@ -183,7 +183,7 @@ $idanolectivo_selecionado=isset($_GET['idanolectivo'])?$_GET['idanolectivo']:"4"
                       <td title="<?php  $divida=number_format($divida_n,2,",", "."); echo $divida; ?>"><?php echo $divida_n; ?></td>
                       <td><?php echo $exibir['codigodepropina']; ?></td>
                       <td><?php echo $exibir['datadopagamento']; ?></td>
-                      <td align="center" title="Veja mais opções sobre esse curso">
+                      <td align="center" title="Veja mais  ">
                          <a  href="propina.php?idpropina=<?php echo $exibir["idpropina"]; ?>"><i  class="fas fa-eye" ></i> </a>
                       </td>
  

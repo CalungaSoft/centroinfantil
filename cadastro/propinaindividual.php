@@ -145,7 +145,7 @@ $htm='
                       <td title="'.$divida.'">'.$divida_n.'</td>
                       <td>'.$exibir["codigodepropina"].'</td>
                       <td>'.$exibir["datadopagamento"].'</td>
-                      <td align="center" title="Veja mais opções sobre esse curso">
+                      <td align="center" title="Veja mais">
                          <a  href="propina.php?idpropina='.$exibir["idpropina"].'"><i  class="fas fa-eye" ></i> </a>
                       </td>
  

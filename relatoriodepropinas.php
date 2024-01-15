@@ -245,9 +245,7 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                       <th>Nome Completo</th> 
-                      <th>Turma</th>
-                      <th>Curso</th>  
-                      <th>Classe</th> 
+                      <th>Turma</th>  
                       <th>Preço</th>
                       <th>Multa</th> 
                       <th title="Desconto">Desc.</th> 
@@ -353,9 +351,7 @@ include("cabecalho.php") ; ?>
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $exibir['nomecompleto']; ?> </a></td> 
 
                      
-                      <td><?php echo $exibir['turma']; ?></td>
-                      <td><?php echo $exibir['curso']; ?></td> 
-                      <td><?php echo $exibir['classe']; ?></td>  
+                      <td><?php echo $exibir['turma']; ?></td>   
                       <td  title="<?php  $preco=number_format($exibir["preco"],2,",", "."); echo $preco; ?>"><?php echo $exibir['preco']; ?></td>
                       <td title="<?php  $multa=number_format($exibir["multa"],2,",", "."); echo $multa; ?>"><?php echo $exibir['multa']; ?></td>
                       <td title="<?php  $desconto=number_format($exibir["desconto"],2,",", "."); echo $desconto; ?>"><?php echo $exibir['desconto']; ?></td>
@@ -364,7 +360,7 @@ include("cabecalho.php") ; ?>
                       <td><?php echo $mespago; ?></td>
                       <td><?php echo $exibir['codigodepropina']; ?></td>
                       <td><?php echo $exibir['datadopagamento']; ?></td>
-                      <td align="center" title="Veja mais opções sobre esse curso">
+                      <td align="center" title="Veja mais ">
                          <a  href="entradapropina.php?idpropina=<?php echo $exibir["idpropina"]; ?>"><i  class="fas fa-eye" ></i> </a>
                       </td>
  

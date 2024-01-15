@@ -20,10 +20,7 @@ $erros=[];
 $idaluno=isset($_GET['idaluno'])?$_GET['idaluno']:"";
 $idaluno=mysqli_escape_string($conexao, $idaluno); 
 
- if(!($painellogado=="administrador" || $painellogado=="areapedagogica")|| $painellogado=="secretaria1" || $painellogado=="secretaria2")){ 
-
-    header('Location: login.php');
-}
+ 
  
 
   $Dados_do_aluno=mysqli_fetch_array(mysqli_query($conexao, "select * from alunos where idaluno='$idaluno' order by idaluno desc limit 1"));
@@ -48,21 +45,17 @@ if(isset($_POST['cadastrar'])){
                   $dadoslectivos= mysqli_fetch_array(mysqli_query($conexao, "select * from turmas where idturma='$idturma' limit 1")); 
 
                            $turma=$dadoslectivos["titulo"]; 
-                           $idperiodo=$dadoslectivos["idperiodo"];
-                           $idcurso=$dadoslectivos["idcurso"];
-                           $idsala=$dadoslectivos["idsala"];
-                           $idclasse=$dadoslectivos["idclasse"];
+                           $idperiodo=$dadoslectivos["idperiodo"]; 
+                           $idsala=$dadoslectivos["idsala"]; 
                            $idanolectivo=$dadoslectivos["idanolectivo"];
  
 
                            $periodo=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from periodos where idperiodo='$idperiodo'"))[0];
 
-                            $curso=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from cursos where idcurso='$idcurso'"))[0];
-
+                          
                             $sala=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from salas where idsala='$idsala'"))[0];
 
-                            $classe=mysqli_fetch_array(mysqli_query($conexao,"SELECT titulo from classes where idclasse='$idclasse'"))[0];
-
+                          
                    $existe=mysqli_num_rows(mysqli_query($conexao, "select idaluno from matriculaseconfirmacoes where idaluno='$idaluno' and idturma='$idturma'"));
   
                          if($existe==0){
@@ -72,7 +65,7 @@ if(isset($_POST['cadastrar'])){
           
           $alterando_numero_de_processo=mysqli_query($conexao, "UPDATE `alunos` SET `numerodeprocesso` = '$numero_de_processo' WHERE `alunos`.`idaluno` = '$idaluno' and numerodeprocesso=0");
 
-                           $salvar=mysqli_query($conexao,"INSERT INTO `matriculaseconfirmacoes` (`idmatriculaeconfirmacao`, `idaluno`, `idanolectivo`, `idturma`, `tipo`, `preco`, `desconto`, `valorpago`, `turma`, `sala`, `curso`, `periodo`, `classe`, data,obs, tipodealuno, descontoparapropinas) VALUES (NULL, '$idaluno', '$idanolectivo', '$idturma', '$tipodecadastro',0, 0, 0, '$turma', '$sala', '$curso', '$periodo', '$classe', STR_TO_DATE('$datadamatricula', '%d/%m/%Y'), '$obsmatricula',  '$tipodealuno', '$descontoparapropinas')");
+                           $salvar=mysqli_query($conexao,"INSERT INTO `matriculaseconfirmacoes` (`idmatriculaeconfirmacao`, `idaluno`, `idanolectivo`, `idturma`, `tipo`, `preco`, `desconto`, `valorpago`, `turma`, `sala`, `periodo`,  data,obs, tipodealuno, descontoparapropinas) VALUES (NULL, '$idaluno', '$idanolectivo', '$idturma', '$tipodecadastro',0, 0, 0, '$turma', '$sala',  '$periodo',   STR_TO_DATE('$datadamatricula', '%d/%m/%Y'), '$obsmatricula',  '$tipodealuno', '$descontoparapropinas')");
                            
                            if($salvar){  
 

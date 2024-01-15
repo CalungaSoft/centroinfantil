@@ -315,10 +315,10 @@ $dadosdoaluno = mysqli_fetch_array(mysqli_query($conexao, " SELECT * FROM alunos
                   <span>Essa compra é para qual Matrícula?</span>
                   <select id="idmatriculaeconfirmacao" class="form-control" title="Escolha aqui a Matrícula relacionada a essa venda" required="">
                     <?php
-                    $matricula = mysqli_query($conexao, "select classe, curso, idmatriculaeconfirmacao   from matriculaseconfirmacoes where idaluno='$idaluno' order by idmatriculaeconfirmacao desc");
+                    $matricula = mysqli_query($conexao, "select   idmatriculaeconfirmacao, turma   from matriculaseconfirmacoes where idaluno='$idaluno' order by idmatriculaeconfirmacao desc");
 
                     while ($exibir = $matricula->fetch_array()) { ?>
-                      <option value="<?php echo $exibir['idmatriculaeconfirmacao']; ?>"><?php echo $exibir['classe']; ?> | <?php echo $exibir['curso']; ?></option>
+                      <option value="<?php echo $exibir['idmatriculaeconfirmacao']; ?>"><?php echo $exibir['turma']; ?> </option>
                     <?php } ?>
                   </select>
 

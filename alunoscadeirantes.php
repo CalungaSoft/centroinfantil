@@ -136,9 +136,7 @@ include("cabecalho.php") ; ?>
                   <thead>
                     <tr>  
                        <th>Nome Completo</th> 
-                      <th>Turma</th>
-                      <th>Classe</th>
-                      <th>Curso</th> 
+                      <th>Turma</th> 
                       <th>Disciplina</th>
                       <th>Nota</th>
                       <th>Data</th> 
@@ -168,9 +166,7 @@ include("cabecalho.php") ; ?>
                      <tr>  
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $nomedoaluno; ?> </a></td>  
                        <td><a href="turma.php?idturma=<?php echo $exibir["idturma"]; ?>"><?php echo $exibir['turma']; ?></a></td>  
-                       <td> <?php echo $exibir['classe']; ?> </td>  
-                        <td> <?php echo $exibir['curso']; ?> </td>   
-                       <td><a href="disciplina.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"><?php echo $disciplina; ?></a></td> 
+                          <td><a href="disciplina.php?iddisciplina=<?php echo $exibir["iddisciplina"]; ?>"><?php echo $disciplina; ?></a></td> 
                       <td><?php echo $exibir['valordanota']; ?></td>
                       <td><?php echo $exibir['datadacadeira']; ?></td> 
                       <td align="center" title="Mudar nota dessa cadeira para poder elimina-la">

@@ -21,40 +21,7 @@ $idanolectivo=mysqli_escape_string($conexao, $idanolectivo);
 
    $anolectivo_escolhido=mysqli_fetch_array(mysqli_query($conexao, "select titulo from anoslectivos where idanolectivo='$idanolectivo'"))[0];
 
-if(isset($_POST['cadastrar'])){
-  
-  if(!empty(trim($_POST['titulo']))){ 
-   
-      $titulo=mysqli_escape_string($conexao,$_POST['titulo']); 
-
-        $existe=mysqli_num_rows(mysqli_query($conexao, "select idcurso from cursos where titulo='$titulo'"));
-      
-          if($existe==0){
-
-                $salvar= mysqli_query($conexao,"INSERT INTO `cursos` (titulo) VALUES ('$titulo')");
-                 
-               if($salvar){
-
-                $acerto[]="$titulo foi Cadastrado com sucesso";
-
-            }else{
-
-              $erros[]="Ocorreu um erro Ao Cadastrar o curso";
-
-            } 
-          }else{
-
-        $erros[]="Já existe um curso com esse título";
-      }
-
-    }  else{
-    $erros[]=" O campo título não pode ir vazio";
-  }
-   
-
-}
-
-
+ 
  
  
 
@@ -169,10 +136,8 @@ include("cabecalho.php") ; ?>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>  
-                      <th>Nome Completo</th> 
-                      <th>Curso</th>
-                      <th>Periodo</th> 
-                      <th>Classe</th> 
+                      <th>Nome Completo</th>  
+                      <th>Periodo</th>  
                       <th>Status</th> 
                       <th title="Tratar documento">Tratar</th>
                     </tr>
@@ -187,10 +152,8 @@ include("cabecalho.php") ; ?>
                   ?>
                     <tr>  
                       <td> <a  href="aluno.php?idaluno=<?php echo $exibir["idaluno"]; ?>"> <?php echo $exibir['nomecompleto']; ?> </a></td> 
-  
-                      <td><?php echo $exibir['curso']; ?></td>
-                      <td><?php echo $exibir['periodo']; ?></td>
-                      <td><?php echo $exibir['classe']; ?></td> 
+   
+                      <td><?php echo $exibir['periodo']; ?></td> 
                       <td><?php echo $exibir['estatus']; ?></td> 
 
                       <td align="center" title="Tratar Documento desse aluno">
