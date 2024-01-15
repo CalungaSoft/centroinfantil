@@ -35,7 +35,7 @@ CREATE TABLE `administradores` (
 INSERT INTO administradores VALUES("13","44","secretaria1","joana","$2y$10$bE.DbgFr0r6Ul30H8l.A1uML6cNJnZoH0rmFzSgDV49A9fMdhg8Vq","desbloqueado","2023-05-08 15:10:42","2023-02-27 13:33:23","2023-08-12 19:50:43");
 INSERT INTO administradores VALUES("14","45","areapedagogica","floide","$2y$10$3AgFKcaE6TeV2AuxpsL/Aee4gIkQCZ6DHKuwzz0YUxDemtqWSifrO","desbloqueado","2008-01-01 00:03:23","2023-01-11 11:37:19","2023-08-12 19:50:43");
 INSERT INTO administradores VALUES("15","43","administrador","tamara","$2y$10$dY6JdQU4uzO9YC27wy045OrgmAOitvQyknClJow8pY81BNNDoKLPS","desbloqueado","2007-12-31 23:02:53","2007-12-31 23:24:28","2023-08-12 19:50:43");
-INSERT INTO administradores VALUES("16","31","administrador","esmael00","$2y$10$EWQps2A4ziwed3hftU/YUehGlANnJ9Pxm/fouCvf9pSmTIfk7Ekja","desbloqueado","2024-01-04 12:39:14","2024-01-04 06:39:39","2024-01-04 12:39:14");
+INSERT INTO administradores VALUES("16","31","administrador","esmael00","$2y$10$EWQps2A4ziwed3hftU/YUehGlANnJ9Pxm/fouCvf9pSmTIfk7Ekja","desbloqueado","2024-01-10 11:59:07","2024-01-04 06:39:39","2024-01-10 11:59:07");
 INSERT INTO administradores VALUES("17","47","professor","123","$2y$10$6PLakV.bfhkzkbE/JSwFQufXvrmidHWaUtsiGhNojEBuhbn9tD4uu","desbloqueado","2023-12-18 09:25:43","2023-12-18 09:25:57","2023-12-18 09:25:57");
 INSERT INTO administradores VALUES("19","54","RH","edna","$2y$10$0UyZnFNfyYRkPzB6pe2g9ufE13AsWjJ1nX7ysjn00UztGPeENdUpC","desbloqueado","2023-11-16 05:58:38","2023-11-16 10:04:05","2023-11-16 10:04:05");
 INSERT INTO administradores VALUES("20","43","areapedagogica","pd","$2y$10$jO8fObytLOnBkocConoPiOYlijApOsgArPAVxqS91HnYDQP92MyQW","desbloqueado","2024-01-04 06:03:12","2024-01-04 06:14:42","2024-01-04 06:14:42");
@@ -513,7 +513,7 @@ CREATE TABLE `dadosdaempresa` (
   PRIMARY KEY (`iddadosdaempresa`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO dadosdaempresa VALUES("1","Complexo Escolar Arena do Saber","Ensino Primário, Iº e IIº Ciclo e Ensino Secundário","","BIC: 0051.0000.0591.9169.1014.2","","Viana - Luanda, Angola","923848537","","Bairro Jacinto Tchipa, Ciquentinha, Por detrás das roloutes","Augusto Tuta Nguvo","65220fae74ac0.png","2023-10-08 03:10:54");
+INSERT INTO dadosdaempresa VALUES("1","Complexo Escolar Arena do Saber","Ensino Primário, Iº e IIº Ciclo e Ensino Secundário","","BIC: 0051.0000.0591.9169.1014.2","","Viana - Luanda, Angola","923848537","","Bairro Jacinto Tchipa, Ciquentinha, Por detrás das roloutes","Augusto Tuta Nguvo","6596a71141b6a.jpeg","2024-01-04 12:39:45");
 
 
 

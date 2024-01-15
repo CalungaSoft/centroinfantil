@@ -69,8 +69,8 @@ include("cabecalho.php"); ?>
   <h1 class="h3 mb-2 text-gray-800">Entradas Financeira na Escola <?php if (isset($_GET['diadevenda'])) {
                                                                     echo "|  $diadevenda/$mesdevenda/$anodevenda";
                                                                   } ?> <?php if (isset($_GET['tipomarcado'])) {
-                                                                                                                                                              echo "($tipomarcado)";
-                                                                                                                                                            } ?> </h1>
+                                                                          echo "($tipomarcado)";
+                                                                        } ?> </h1>
   <h1 style="font-size: 70px; text-align: center"><?php echo $valornocaixa; ?>KZ</h1>
 
 
@@ -406,6 +406,10 @@ include("cabecalho.php"); ?>
 
                   if ($exibir["tipo"] == "Propina do ATL") { ?>
                     <a href="entradapropinadoatl.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
+                  <?php }
+
+                  if ($exibir["tipo"] == "Propina das Actividades Extras Curriculares") { ?>
+                    <a href="entradapropinadoactividade.php?identrada=<?php echo $exibir["identrada"]; ?>"><i title="Visualizar essa Entrada" class="fas fa-eye"></i></a>
                   <?php }
 
                   if ($exibir["tipo"] == "Matrícula ATL") { ?>

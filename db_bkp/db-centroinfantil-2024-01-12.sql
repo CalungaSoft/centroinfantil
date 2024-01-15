@@ -35,7 +35,7 @@ CREATE TABLE `administradores` (
 INSERT INTO administradores VALUES("13","44","secretaria1","joana","$2y$10$bE.DbgFr0r6Ul30H8l.A1uML6cNJnZoH0rmFzSgDV49A9fMdhg8Vq","desbloqueado","2023-05-08 15:10:42","2023-02-27 13:33:23","2023-08-12 19:50:43");
 INSERT INTO administradores VALUES("14","45","areapedagogica","floide","$2y$10$3AgFKcaE6TeV2AuxpsL/Aee4gIkQCZ6DHKuwzz0YUxDemtqWSifrO","desbloqueado","2008-01-01 00:03:23","2023-01-11 11:37:19","2023-08-12 19:50:43");
 INSERT INTO administradores VALUES("15","43","administrador","tamara","$2y$10$dY6JdQU4uzO9YC27wy045OrgmAOitvQyknClJow8pY81BNNDoKLPS","desbloqueado","2007-12-31 23:02:53","2007-12-31 23:24:28","2023-08-12 19:50:43");
-INSERT INTO administradores VALUES("16","31","administrador","esmael00","$2y$10$EWQps2A4ziwed3hftU/YUehGlANnJ9Pxm/fouCvf9pSmTIfk7Ekja","desbloqueado","2024-01-04 12:39:14","2024-01-04 06:39:39","2024-01-04 12:39:14");
+INSERT INTO administradores VALUES("16","31","administrador","esmael00","$2y$10$EWQps2A4ziwed3hftU/YUehGlANnJ9Pxm/fouCvf9pSmTIfk7Ekja","desbloqueado","2024-01-12 17:00:14","2024-01-04 06:39:39","2024-01-12 17:00:14");
 INSERT INTO administradores VALUES("17","47","professor","123","$2y$10$6PLakV.bfhkzkbE/JSwFQufXvrmidHWaUtsiGhNojEBuhbn9tD4uu","desbloqueado","2023-12-18 09:25:43","2023-12-18 09:25:57","2023-12-18 09:25:57");
 INSERT INTO administradores VALUES("19","54","RH","edna","$2y$10$0UyZnFNfyYRkPzB6pe2g9ufE13AsWjJ1nX7ysjn00UztGPeENdUpC","desbloqueado","2023-11-16 05:58:38","2023-11-16 10:04:05","2023-11-16 10:04:05");
 INSERT INTO administradores VALUES("20","43","areapedagogica","pd","$2y$10$jO8fObytLOnBkocConoPiOYlijApOsgArPAVxqS91HnYDQP92MyQW","desbloqueado","2024-01-04 06:03:12","2024-01-04 06:14:42","2024-01-04 06:14:42");
@@ -513,7 +513,7 @@ CREATE TABLE `dadosdaempresa` (
   PRIMARY KEY (`iddadosdaempresa`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO dadosdaempresa VALUES("1","Complexo Escolar Arena do Saber","Ensino Primário, Iº e IIº Ciclo e Ensino Secundário","","BIC: 0051.0000.0591.9169.1014.2","","Viana - Luanda, Angola","923848537","","Bairro Jacinto Tchipa, Ciquentinha, Por detrás das roloutes","Augusto Tuta Nguvo","65220fae74ac0.png","2023-10-08 03:10:54");
+INSERT INTO dadosdaempresa VALUES("1","Complexo Escolar Arena do Saber","Ensino Primário, Iº e IIº Ciclo e Ensino Secundário","","BIC: 0051.0000.0591.9169.1014.2","","Viana - Luanda, Angola","923848537","","Bairro Jacinto Tchipa, Ciquentinha, Por detrás das roloutes","Augusto Tuta Nguvo","6596a71141b6a.jpeg","2024-01-04 12:39:45");
 
 
 
@@ -687,7 +687,7 @@ CREATE TABLE `entradas` (
   `expiracaodorupe` date DEFAULT NULL,
   `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`identrada`)
-) ENGINE=InnoDB AUTO_INCREMENT=7280 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7293 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO entradas VALUES("7242","31","Registro de Rematrícula","Rematrícula","818","4000","0","Dinheiro","1304","22","2023-07-24 00:00:00","4","","","2023-08-12 19:51:01");
 INSERT INTO entradas VALUES("7243","31","Registro de Matrícula","Matrícula","819","4000","0","Dinheiro","1313","18","2023-07-25 00:00:00","4","","","2023-08-12 19:51:01");
@@ -724,6 +724,7 @@ INSERT INTO entradas VALUES("7276","31","Registro de Rematrícula","Rematrícula
 INSERT INTO entradas VALUES("7277","31","Registro de Matrículo no ATL","Matrícula ATL","2","4000","0","Dinheiro","1199","0","2023-12-25 00:00:00","4","","","2023-12-25 14:57:35");
 INSERT INTO entradas VALUES("7278","31","Venda de 1  Calção, 1 Saia","Material Escolar","2","12000","0","Dinheiro","1282","0","2023-12-25 14:58:52","0","","","2023-12-25 14:58:52");
 INSERT INTO entradas VALUES("7279","31","Registro de Propina das Actividades Extras Curriculares de 11/2023 (Ref:  )","Propina das Actividades Extras Curriculares","4","14400","0","Dinheiro","1274","0","2023-12-25 15:02:42","4","","","2023-12-25 15:02:42");
+INSERT INTO entradas VALUES("7280","31","Registro de Matrículo nas actividades Extras Curriculares","Matrícula Actividade extras curriculares","3","0","5000","Dinheiro","1282","0","2024-01-12 00:00:00","4","","","2024-01-12 17:08:12");
 
 
 
@@ -820,7 +821,7 @@ CREATE TABLE `historico` (
   `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`idhistorico`),
   KEY `idfuncionario` (`idfuncionario`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO historico VALUES("1","31","Edição","(Registro de Matrículo nas actividades Extras Curriculares) | Pago: 5000 | F. Pag: Dinheiro | 2023-12-08 00:00:00","(Registro de Matrículo nas actividades Extras Curriculares) | Pago: 500  | F. Pag: Dinheiro | 2023-12-08 00:00:00 <a href=entradamatriculadoactividade.php?identrada=7270>Clique para ver</a>","2023-12-08 14:49:18","2023-12-08 14:49:18");
 INSERT INTO historico VALUES("2","31","Eliminação","pg | Valor: 580,00 KZ <a href=entradadamatriculaactividade.php?identrada=7270>Clique para ver</a>","Eliminado","2023-12-08 15:02:53","2023-12-08 15:02:53");
@@ -832,6 +833,20 @@ INSERT INTO historico VALUES("7","31","Eliminação","Eliminado o Ciclo: Bercár
 INSERT INTO historico VALUES("8","31","Eliminação","Eliminado o Ciclo: Jardim de Infáncia","Eliminado","2023-12-25 12:52:32","2023-12-25 12:52:32");
 INSERT INTO historico VALUES("9","31","Eliminação","Eliminado Matrícula do aluno <a href=aluno.php?idaluno=1316>Doriana Sambumba</a> | Na Turma: <a href=turma.php?idturma=18>9A</a> | Valor pago: 4000 ","Eliminado","2023-12-25 12:54:51","2023-12-25 12:54:51");
 INSERT INTO historico VALUES("10","31","Eliminação","Eliminado Confirmação do aluno <a href=aluno.php?idaluno=1209>Ana Maria António</a> | Na Turma: <a href=turma.php?idturma=11>4C</a> | Valor pago: 2000 ","Eliminado","2023-12-25 12:55:56","2023-12-25 12:55:56");
+INSERT INTO historico VALUES("11","31","Edição","(Registro de Matrículo nas actividades Extras Curriculares) | Pago: 5000 | F. Pag: Dinheiro | 2024-01-12 00:00:00","(Registro de Matrículo nas actividades Extras Curriculares) | Pago: 500  | F. Pag: Dinheiro | 2024-01-12 00:00:00 <a href=entradadamatriculaactividade.php?identrada=7280>Clique para ver</a>","2024-01-12 17:07:05","2024-01-12 17:07:05");
+INSERT INTO historico VALUES("12","31","Eliminação","appa | Valor: 530,00 KZ <a href=entradadamatriculaactividade.php?identrada=7280>Clique para ver</a>","Eliminado","2024-01-12 17:07:53","2024-01-12 17:07:53");
+INSERT INTO historico VALUES("13","31","Eliminação","Todos os dados de(Registro de Matrículo nas actividades Extras Curriculares) | Valor: 1.000,00 KZ | Por Consolidar 4000 KZ | <a href=entradadamatriculaactividade.php?identrada=7280>Clique para ver</a>","Eliminado","2024-01-12 17:08:12","2024-01-12 17:08:12");
+INSERT INTO historico VALUES("14","31","Edição","(pasjs) | Pago: 250 | F. Pag: Dinheiro | 2024-01-12 17:15:00","(pasjs) | Pago: 350  | F. Pag: Dinheiro | 2024-01-12 17:15:00 <a href=entradapropinadoatl.php?identrada=7284>Clique para ver</a>","2024-01-12 17:17:25","2024-01-12 17:17:25");
+INSERT INTO historico VALUES("15","31","Eliminação","Registro de Propina das Actividades Extras Curriculares de 08/2023 (Ref:  ) | Valor: 6.600,00 KZ <a href=entradapropinadoactividade.php?identrada=7284>Clique para ver</a>","Eliminado","2024-01-12 17:21:03","2024-01-12 17:21:03");
+INSERT INTO historico VALUES("16","31","Eliminação","pasjs | Valor: 350,00 KZ <a href=entradapropinadoactividade.php?identrada=>Clique para ver</a>","Eliminado","2024-01-12 17:21:53","2024-01-12 17:21:53");
+INSERT INTO historico VALUES("17","31","Edição","(Registro de Propina das Actividades Extras Curriculares de 12/2023 (Ref:  )) | Pago: 14400 | F. Pag: Dinheiro | 2024-01-12 17:25:52","(Registro de Propina das Actividades Extras Curriculares de 12/2023 (Ref:  )) | Pago: 144  | F. Pag: Dinheiro | 2024-01-12 17:25:52 <a href=entradapropinadoatl.php?identrada=7285>Clique para ver</a>","2024-01-12 17:26:14","2024-01-12 17:26:14");
+INSERT INTO historico VALUES("18","31","Eliminação","tesp pori | Valor: 500,00 KZ <a href=entradapropinadoatl.php?identrada=7285>Clique para ver</a>","Eliminado","2024-01-12 17:29:18","2024-01-12 17:29:18");
+INSERT INTO historico VALUES("19","31","Eliminação","tesp pori | Valor: 500,00 KZ <a href=entradapropinadoactividade.php?identrada=7285>Clique para ver</a>","Eliminado","2024-01-12 17:33:00","2024-01-12 17:33:00");
+INSERT INTO historico VALUES("20","31","Eliminação","apaga | Valor: 1.000,00 KZ <a href=entradapropinadoactividade.php?identrada=7285>Clique para ver</a>","Eliminado","2024-01-12 17:33:45","2024-01-12 17:33:45");
+INSERT INTO historico VALUES("21","31","Eliminação","Todos  os dados de(Registro de Propina das Actividades Extras Curriculares de 12/2023 (Ref:  )) | Valor: 5.294,00 KZ | Por Consolidar 9106 KZ | <a href=entradapropinadoactividade.php?identrada=7285>Clique para ver</a>","Eliminado","2024-01-12 17:33:59","2024-01-12 17:33:59");
+INSERT INTO historico VALUES("22","31","Eliminação","Eliminado o pagamento de propina do aluno  <a href=aluno.php?idaluno=1274>Adão Zage Cazuma Pedro </a> do mês de 012/2023","Eliminado","2024-01-12 17:33:59","2024-01-12 17:33:59");
+INSERT INTO historico VALUES("23","31","Eliminação","Todos  os dados de(Registro de Propina das Actividades Extras Curriculares de 12/2023 (Ref:  )) | Valor: 14.400,00 KZ | Por Consolidar 0 KZ | <a href=entradapropinadoactividade.php?identrada=7292>Clique para ver</a>","Eliminado","2024-01-12 17:34:39","2024-01-12 17:34:39");
+INSERT INTO historico VALUES("24","31","Eliminação","Eliminado o pagamento de propina do aluno  <a href=aluno.php?idaluno=1274>Adão Zage Cazuma Pedro </a> do mês de 012/2023","Eliminado","2024-01-12 17:34:39","2024-01-12 17:34:39");
 
 
 
@@ -907,10 +922,11 @@ CREATE TABLE `matriculaactividades` (
   `descontoparapropinas` double NOT NULL DEFAULT 0,
   `tipodealuno` varchar(222) NOT NULL DEFAULT 'Normal',
   PRIMARY KEY (`idmatriculaactividade`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO matriculaactividades VALUES("1","1274","4","2","4900","0","4900","Aulas de Dança","2023-12-08","","activo","2023-11-01","0","Normal");
-INSERT INTO matriculaactividades VALUES("2","1274","4","1","15000","0","4500","Aulas de Capoeira","2023-12-07","","activo","2023-07-01","0","Normal");
+INSERT INTO matriculaactividades VALUES("2","1274","4","1","15000","0","4500","Aulas de Capoeira","2023-12-07","","activo","2023-08-01","0","Normal");
+INSERT INTO matriculaactividades VALUES("3","1282","4","1","5000","0","0","Aulas de Capoeira","2024-01-12","","activo","0000-00-00","0","Normal");
 
 
 
@@ -1327,6 +1343,7 @@ INSERT INTO propinasactividades VALUES("1","1274","1","4","12000","5000","17000"
 INSERT INTO propinasactividades VALUES("2","1274","1","4","12000","2400","14400","0","2023-10-01","2023-12-08 13:27:03","","CDP12742/90359","","","2023-12-08 13:27:03");
 INSERT INTO propinasactividades VALUES("3","1274","2","4","5500","0","5500","0","2023-07-01","2023-12-08 13:30:46","","CDP12743/48912","","","2023-12-08 13:30:46");
 INSERT INTO propinasactividades VALUES("4","1274","1","4","12000","2400","14400","0","2023-11-01","2023-12-25 15:02:41","","CDP12744/70454","","","2023-12-25 15:02:41");
+INSERT INTO propinasactividades VALUES("5","1274","2","4","6500","1100","0","0","2023-08-01","2024-01-12 17:08:48","","CDP12745/42585","","","2024-01-12 17:21:53");
 
 
 
